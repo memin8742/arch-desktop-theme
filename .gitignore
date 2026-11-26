@@ -1,0 +1,31 @@
+# Yalnız güncel proje dosyaları yayımlanır. Yerel taslak/arşiv/video dosyaları korunur.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/AGENTS.md
+!/KURULUM.md
+!/CHANGELOG.md
+!/VERSION
+!/manifest.json
+!/CODEXE-VERILECEK-ISTEK.txt
+!/paket/
+!/paket/**
+!/tools/
+!/tools/**
+
+# Kaynak klasörlerine yanlışlıkla eklenebilecek özel/üretilmiş dosyalar.
+**/__pycache__/
+**/*.pyc
+**/.env
+**/.env.*
+**/*credentials*
+**/*.pem
+**/*.key
+**/*.mp4
+**/*.mkv
+**/*.webm
+**/*.mov
+**/*.avi
+**/*.zip
+**/*.7z

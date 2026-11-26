@@ -1,0 +1,7 @@
+https://github.com/memin8742/arch-desktop-theme reposunu bu Arch Linux bilgisayarıma çekerek onayladığımız masaüstü, terminal, Thunar, üst panel, açılış/kilit ve bütün özelliklerin kurulumunu uygula.
+
+Repo zaten mevcutsa önce yerel değişiklikleri koruyarak güncelle. README.md, AGENTS.md ve KURULUM.md dosyalarını; ardından paket/00-CODEXE-VERILECEK-ISTEK.txt ile paket/04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Paket görsellerini belirtilen kapsamlarında açıp incele ve python3 tools/package.py check ile bütünlüğü doğrula. Kesin font, renk, kısayol ve davranışlarda JSON esas olsun.
+
+Önce gerçek masaüstü, terminal, donanım ve ölçeklendirmeyi incele, değişecek ayarları yedekle. Sonra gerekli bileşenleri kurup görünümü ve tüm işlevleri gerçek oturumda uygula ve test et. Terminal/Thunar zeminleri %80 opak; yazı ve simgeler net/tam opak, çerçeve ışığı eşit ve hafif, bölücüler ince ve üçgensiz olsun. Mevcut lacivert renkleri ve duvar kâğıdındaki logonun boyut/konumunu koru.
+
+Görsellerdeki örnek komutları otomatik çalıştırma; gerçek kullanıcı/dosya/donanım bilgilerini kullan. Yalnız plan sunmakla kalma; kurulumu ve kontrolleri tamamla. Sonunda yapılanları, test sonuçlarını, varsa desteklenmeyen veya uygulanamayan ayrıntıları ve yedeğe dönüş yolunu Türkçe bildir.

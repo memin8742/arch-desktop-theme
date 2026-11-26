@@ -1,0 +1,55 @@
+{
+  "release_version": "1.0",
+  "source_definition_version": 29,
+  "bundle_directory": "paket",
+  "files": {
+    "00-CODEXE-VERILECEK-ISTEK.txt": {
+      "bytes": 12097,
+      "sha256": "00f6b2712cc8927a8956c45176257693c2c034978bfb8f86762e29168c033149"
+    },
+    "01-duvar-kagidi.png": {
+      "bytes": 1665410,
+      "sha256": "299b94d4cb4c4a535b3627f847033cfe055d879cf803ec6549d460485f8853ff"
+    },
+    "02-onayli-masaustu.png": {
+      "bytes": 1586428,
+      "sha256": "3a0ce8a3a8063745ef52f40fe9138b166e742b5e0a589844d726770d187c4143"
+    },
+    "03-terminal-detayi.png": {
+      "bytes": 1531536,
+      "sha256": "19315510baa29f1d4af2b991319bb07de3f3b2e1958b0c08cc5c6c0c27d848d1"
+    },
+    "04-ayarlar-ve-ozellikler.json": {
+      "bytes": 55657,
+      "sha256": "5ea3e32ee348456e3d28ca757c414bb0c02ec4c83e82d5e665e83c781d470ecf"
+    },
+    "05-acilis-ekrani.png": {
+      "bytes": 1440716,
+      "sha256": "14fe8c68f1d8e7616f3ff8127c7f4c8f9d42e39139f7b86c4f47177f5e6f0287"
+    },
+    "06-giris-kilit-ekrani.png": {
+      "bytes": 1476164,
+      "sha256": "b9f12da983c85d19bb53fb2ccc5c9584df1e702084f5b08323230b6a88e85091"
+    },
+    "07-bolme-cizgileri-referansi.png": {
+      "bytes": 1516573,
+      "sha256": "43f36aa1508c09edcf46c72efba161341ae065e484c3a3d90ac7f9d4006e32e6"
+    },
+    "08-bolmeli-terminal-ornek.png": {
+      "bytes": 1489550,
+      "sha256": "971b5ea0c7464517862aaff161ac65f2c4b31cd85dff363fe6f6c6cd9ce324bd"
+    },
+    "09-dosya-log-renk-ornekleri.png": {
+      "bytes": 1604965,
+      "sha256": "8e03ad504a6ba648f989f75e8a33a9c00bde330162a1d4336003d6c4d2736921"
+    },
+    "10-batarya-modu.png": {
+      "bytes": 1649090,
+      "sha256": "758e4d1e6e376f12b40d475bd15da9e1210a45e052a1d1b901640a15b03bc31e"
+    },
+    "11-thunar-dosya-yoneticisi.png": {
+      "bytes": 1509714,
+      "sha256": "b8ee362554223ed33cc6e065b5b5984e7a45edd5dce6b539b7b297e98d33f62c"
+    }
+  }
+}

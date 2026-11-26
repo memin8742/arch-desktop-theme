@@ -1,0 +1,770 @@
+﻿{
+  "paket_surumu": 29,
+  "durum": "Sade görsel referans ve kurulum tarifi; gerçek Arch kurulumu yapılmadı.",
+  "guncel_gorseller": {
+    "duvar_kagidi": "01-duvar-kagidi.png",
+    "masaustu_ve_ust_panel": "02-onayli-masaustu.png",
+    "acilis": "05-acilis-ekrani.png",
+    "giris_ve_kilit": "06-giris-kilit-ekrani.png",
+    "bolme_cizgileri_kesin_referans": "07-bolme-cizgileri-referansi.png",
+    "bolme_kullanim_ornegi": "08-bolmeli-terminal-ornek.png",
+    "dosya_log_ve_istem_stilleri": "09-dosya-log-renk-ornekleri.png",
+    "batarya_acilir_kutusu": "10-batarya-modu.png",
+    "terminal_dis_gorunum_kesin_referans": "03-terminal-detayi.png",
+    "thunar_dosya_yoneticisi": "11-thunar-dosya-yoneticisi.png"
+  },
+  "terminal": {
+    "dis_gorunum": "03teki yuvarlak dört köşe, ince kesintisiz mavi kontur ve hafif kısılmış/eşit çevresel ışık hedeflenir. Sade lacivert başlık, sol terminal simgesi/başlık, normal küçült/büyüt/kapat düğmeleri ve ince başlık ayırıcı. Eski pahlı köşe, süs şeridi, çentik ve üçgen bölücü uçları yok. Ortak çerçeve ışığı/zemin kuralları ortak_pencere_stili içindedir.",
+    "varsayilan_konum": "02/03 gibi solda üst panelin altında; logo boyut/konumu korunur. 02de Thunar da açıktır; bu örnek yerleşim her açılışta zorunlu çift pencere veya bölünmüş terminal değildir. Gerçek DPI/ekrana uyarla.",
+    "menu_ve_sekmeler": "Tek başlık; sabit menü satırı yok. Gerekirse açılır menü. Tek sekmede gizlenebilen, çok sekmede erişilebilir aynı temalı sekme çubuğu.",
+    "font": {
+      "family_source_value": "FiraCode",
+      "display_family": "Fira Code",
+      "size_pt": 10,
+      "normal": "Regular",
+      "bold": "Bold",
+      "fallback_allowed_for_exact_match": false
+    },
+    "metin_renk_semasi": "Kali-Dark",
+    "on_plan": "#FFFFFF",
+    "yogun_on_plan": "#FFFFFF",
+    "ansi_0_15": [
+      "#1F2229",
+      "#D41919",
+      "#5EBDAB",
+      "#FEA44C",
+      "#367BF0",
+      "#9755B3",
+      "#49AEE6",
+      "#E6E6E6",
+      "#198388",
+      "#EC0101",
+      "#47D4B9",
+      "#FF8A18",
+      "#277FFF",
+      "#962AC3",
+      "#05A1F7",
+      "#FFFFFF"
+    ],
+    "zemin": "Mevcut koyu lacivert renk korunur; ortak_pencere_stili.zemin: #041321 temel kaplama ve 0.80 zemin opaklığı (0.20 saydamlık). Arka plandaki gerçek duvar kâğıdı hafif görünür. Fira Code/ANSI/istem/çıktı ve imleç tam opak/parlamasız; tüm pencereye opacity uygulanmaz. Sabit iç diyagonal desen veya kopya logo ekleme.",
+    "metin_efekti": "Neon/parlama yok.",
+    "kabuk": "Zsh",
+    "eklentiler": [
+      "zsh-syntax-highlighting",
+      "zsh-autosuggestions"
+    ],
+    "highlighters": [
+      "main",
+      "brackets",
+      "pattern"
+    ],
+    "kali_stilleri": {
+      "default": "none",
+      "unknown-token": "underline",
+      "reserved-word": "fg=cyan,bold",
+      "suffix-alias": "fg=green,underline",
+      "global-alias": "fg=green,bold",
+      "precommand": "fg=green,underline",
+      "commandseparator": "fg=blue,bold",
+      "autodirectory": "fg=green,underline",
+      "path": "bold",
+      "path_pathseparator": "",
+      "path_prefix_pathseparator": "",
+      "globbing": "fg=blue,bold",
+      "history-expansion": "fg=blue,bold",
+      "command-substitution": "none",
+      "command-substitution-delimiter": "fg=magenta,bold",
+      "process-substitution": "none",
+      "process-substitution-delimiter": "fg=magenta,bold",
+      "single-hyphen-option": "fg=green",
+      "double-hyphen-option": "fg=green",
+      "back-quoted-argument": "none",
+      "back-quoted-argument-delimiter": "fg=blue,bold",
+      "single-quoted-argument": "fg=yellow",
+      "double-quoted-argument": "fg=yellow",
+      "dollar-quoted-argument": "fg=yellow",
+      "rc-quote": "fg=magenta",
+      "dollar-double-quoted-argument": "fg=magenta,bold",
+      "back-double-quoted-argument": "fg=magenta,bold",
+      "back-dollar-quoted-argument": "fg=magenta,bold",
+      "assign": "none",
+      "redirection": "fg=blue,bold",
+      "comment": "fg=black,bold",
+      "named-fd": "none",
+      "numeric-fd": "none",
+      "arg0": "fg=cyan",
+      "bracket-error": "fg=red,bold",
+      "bracket-level-1": "fg=blue,bold",
+      "bracket-level-2": "fg=green,bold",
+      "bracket-level-3": "fg=magenta,bold",
+      "bracket-level-4": "fg=yellow,bold",
+      "bracket-level-5": "fg=cyan,bold",
+      "cursor-matchingbracket": "standout"
+    },
+    "gecmis_onerisi_stili": "fg=244",
+    "bilinmeyen_komut": "Normal beyaz ön plan + altı çizili; yalnız tanınmadığı için kırmızı olmaz.",
+    "istem": {
+      "ornek": "┌──(user@archlinux)-[~/Projeler/merhaba]\n└─$ ",
+      "kurallar": "Gerçek kullanıcı@makine; boşluksuz -[güncel dizin]. Ana dizin ~, dışı tam yol. İki satır ve @ korunur; dinamik dizin. Git dalı/depo durumu yok.",
+      "renk_ve_kalinlik": "user@makine metninin tamamı @ dahil, ┌──/└─ bağlantıları, (, ), -, [, ] ve $ çerçevenin ortak mavi ana tonunda #49AEE6. Kimlik kalın; köşeli parantezin içindeki güncel dizin #FFFFFF/kalın. Bu metinler tam opak ve parlamasızdır; bölme çizgisinin %40 opaklığı metinlere uygulanmaz. Root # ayırt ediciliği korunur.",
+      "git_bilgisi": false,
+      "kesin_renkler": {
+        "kullanici_makine_ve_at": "#49AEE6",
+        "parantez_baglanti_cizgileri_ve_dolar": "#49AEE6",
+        "guncel_dizin_metni": "#FFFFFF",
+        "kullanici_makine_kalin": true,
+        "tum_kimlik_tek_renk": true,
+        "metin_parlama": false
+      }
+    },
+    "sistem_ozeti": {
+      "duzen": "03/08 gibi Arch ASCII, gerçek sistem bilgileri ve renk şeridi, CPU/MEM/NET kartları ve komut alanı korunur. 02/09 günlük komut kullanımını gösterir; her görselde sistem kartları görünmemesi özelliği kaldırmaz. Yerleşim gerçek kullanılabilir alana uyarlanır.",
+      "veri": "Gerçek ölçüm; resimdeki donanım/sürüm/sayılar sabitlenmez. Grafik/kartlar işlevsel olmalı; destek/ölçüm zamanı doğru raporlanır.",
+      "normal_kullanim": "Özet komut alanını kapatan sabit resim değildir. Normal çalışma, kaydırma, sekmeler ve arama sürer; her istemde pahalı ölçüm başlatma."
+    },
+    "basarisiz_komut": {
+      "etkin": false,
+      "gosterge": null,
+      "not": "Yanlış/başarısız komuttan sonra isteme çarpı, sayı veya ek durum rozeti koyma. Programın normal hata çıktısı ve gerçek çıkış kodu korunur; bilinmeyen komut yazılırken beyaz/altı çizili kalır."
+    },
+    "bolmeler": {
+      "etkin": true,
+      "varsayilan_acilis": "Tek bölüm. Bölünmüş görünüm kullanıcının bölme eylemiyle açılır; her yeni terminali zorla dörde bölme.",
+      "eylemler": [
+        "Sağa/yan yana böl",
+        "Alta/üst üste böl",
+        "Bölüme odaklan",
+        "Ayırıcıyı sürükleyerek boyutlandır",
+        "Yalnız bu bölümü kapat"
+      ],
+      "kisayollar": {
+        "Ctrl+Shift+R": "Yan yana iki bölüm",
+        "Ctrl+Shift+D": "Üst üste iki bölüm"
+      },
+      "kaynak": "Bu iki terminal içi kısayol resmi Kali qterminal.ini içindeki split atamalarıyla uyumludur; mevcut kullanıcı tuşlarıyla çakışma kontrolü yapılır.",
+      "kesin_gorsel": "07-bolme-cizgileri-referansi.png",
+      "geometri": {
+        "duzen_ornegi": "2x2; tek pencerede ince kesintisiz dikey ve yatay çizgi, merkezde sade artı kesişimi.",
+        "uc_kapaklari": "Yok. Üst/alt/sol/sağ uçlar düz biçimde pencerenin iç kenarına ulaşır; üçgen, ok, çentik veya kalın başlık yok.",
+        "kaynak_boyutu_px": [
+          1199,
+          1312
+        ],
+        "ornek_dikey_x": 608,
+        "ornek_yatay_y": 657,
+        "ornek_dikey_y_araligi": [
+          157,
+          1217
+        ],
+        "ornek_yatay_x_araligi": [
+          39,
+          1162
+        ],
+        "cizgi_cekirdegi_yaklasik_px": [
+          2,
+          2
+        ],
+        "not": "07 son onaylı ince ve üçgensiz çizgi geometrisidir. Referans çözünürlükte yaklaşık 2 px; DPIye göre orantıla. Çizgi sade artı kesişimi ve parlamasız yarı saydam mavi. Dar görünür çizgiye ek olarak görünmez geniş sürükleme hedefi kullanılabilir; ayırıcıyı kullanmak zorlaşmasın.",
+        "dis_kabuktan_ayrim": "07 yalnız bölme çizgilerinin kalınlık/renk/opaklık/düz uçları içindir. Terminalin %80 saydam lacivert zemini ve genel görünümü 03/08/09 ile ortak_pencere_stili tanımlar; yazı RGB/fontları JSONdan uygulanır."
+      },
+      "oturumlar": "Her bölüm bağımsız PTY/kabuk, işlem, kaydırma geçmişi ve odak taşır. Yeni bölüm etkin bölümün güncel dizininde aynı Zsh/profille açılır; diğer oturumları yeniden başlatmaz.",
+      "islev": "Bölüm kapatma yalnız o bölümü etkiler. Son bölüm için uygulamanın pencere/sekme davranışı doğru korunur. Arama/kopyala/yapıştır/kesme/seçim odaktaki bölümde çalışır.",
+      "uygulama_yontemi": "Gerçek terminalin bölme/dekorasyon yeteneklerini incele. İşlevsel ince düz çizgiyle sürüklenebilir bağımsız PTY bölümleri kullan. Üçgen uç oluşturma; statik çizgi resmi bindirerek tamamlandı deme. Teknik sınırı bildir.",
+      "renk_ve_malzeme": {
+        "onaylandi": true,
+        "tarih": "2026-11-26",
+        "renk": "Terminal dış çerçevesinin ortak mavi ana tonu #49AEE6",
+        "opaklik": 0.4,
+        "parlama": false,
+        "uc_ucgenleri": false,
+        "uygulama": "Bölücü çizginin %40 opaklığı yalnız çizgi katmanına aittir; zemininki ayrı %80dir. Metin/grafikler tam opak, dış çerçeve hafif ve eşit ışıklıdır. Hover/odakla kalın veya beyaz neon yapma. Üçgen/ok uçları çizme.",
+        "referans": "07-bolme-cizgileri-referansi.png"
+      }
+    },
+    "cikti_renklendirme": {
+      "katmanlar": "Terminal ANSI paleti, Zsh istem/yazma stilleri ve programların kendi renkli çıktıları ayrı katmanlardır. Renkli fotoğraf, her programın bunu varsayılan verdiğinin kanıtı değildir.",
+      "renkler": {
+        "normal": "#FFFFFF",
+        "baslik_bilgi_sembolik_bag": "#49AEE6",
+        "dizin": "#367BF0",
+        "calistirilabilir_ve_basarili": "#5EBDAB",
+        "uyari": "#FEA44C",
+        "anlamli_hata_etiketi": "#C97B84",
+        "ikincil_sayisal_veri": "#80CAEA"
+      },
+      "dosya_turleri": {
+        "yontem": "ls --color=auto + LS_COLORS/dircolors; tree TTY/yerel renk desteğiyle aynı dosya türü stilini izler. Zsh Tab tamamlama listesi de LS_COLORS ile uyumlu.",
+        "kurallar": "Dizin mavi/kalın, gerçekten çalıştırma izni olan dosya mint/kalın, sembolik bağ camgöbeği; normal dosya beyaz. Kırık bağ/erişim hatası gerçek hata stilini korur. .py uzantısını tek başına çalıştırılabilir sayma.",
+        "LS_COLORS_ornegi": "di=01;38;2;54;123;240:ln=01;38;2;73;174;230:ex=01;38;2;94;189;171:fi=0:or=01;38;2;201;123;132:mi=01;38;2;201;123;132",
+        "zsh_tamamlama": "Mevcut compinit/tamamlama düzenini koruyarak list-colors stilini LS_COLORS ile eşleştir. tree ve 24-bit stil desteğini gerçek sürümde doğrula."
+      },
+      "yerel_cikti": {
+        "ip": "ip -color=auto / ip --color=auto: önce yerel renk desteği; 08 içindeki ek IP/durum vurgularını otomatik varsayma, gerekiyorsa açık ve seçili düz metin renklendiricisiyle eşleştir.",
+        "grep": "grep --color=auto ve GREP_COLORS ile eşleşme, dosya adı ve satır numarası. Normal argüman ile gerçek eşleşmeyi karıştırma.",
+        "GREP_COLORS_ornegi": "mt=01;38;2;201;123;132:fn=38;2;73;174;230:ln=38;2;73;174;230:se=38;2;73;174;230",
+        "pacman": "pacman.conf [options] içinde Color ve gerçek TTY davranışı; sırf görsel için güncelleme/kurulum başlatma. Kali apt/dpkg örneğini Arch paket yöneticisine taşıma.",
+        "sistem_ozeti": "Arch logosu ve modül başlıkları camgöbeği, değerler beyaz; gerçek fastfetch veya uygun aracın modül/tema ayarları.",
+        "git": "Gerekirse git status/diff yerel renk ayarları kullanılabilir; isteme Git dalı/depo modülü eklenmez."
+      },
+      "log_ve_diger_duz_metin": {
+        "yontem": "09 örneği için grc gibi açıkça kullanılan renklendiricide uygulama.log/tail profili tanımla: INFO cyan, OK/başarı mint, WARN amber, ERROR muted red; zamanlar soluk, mesaj beyaz. IP/adres vurgusu seçili çıktılar için opsiyonel.",
+        "kapsam": "hostnamectl/ss/ping/curl/nmap gibi her komutun bu renkleri yerel verdiğini varsayma. Kullanılan araç/sürüm ve yerel yetenek ayrı kontrol edilir.",
+        "korunacaklar": "Bütün komutları zorla tek filtreden geçirme. Makineye giden JSON/pipeline çıktısı, stdout/stderr ayrımı, exit status, TTY/etkileşim ve performans bozulmaz. Renkli TUIlara çift filtre uygulanmaz. Varsayılan color=auto; dosya/pipelinea istenmeden ANSI ekleme.",
+        "bilinmeyen_komut": "Yazılırken tamamlanmamış/bilinmeyen araç beyaz ve altı çizili. Gerçek log ERROR etiketinin rengi bundan ayrıdır. İstemde başarısız komut için ek çarpı/kod rozeti gösterilmez."
+      }
+    },
+    "renk_kurallari_onayi": {
+      "onaylandi": true,
+      "tarih": "2026-11-26",
+      "kapsam": [
+        "Çerçeve mavisi kullanıcı@makine",
+        "Aynı çerçeve mavisi parantez/bağlantı/$",
+        "Beyaz dizin metni",
+        "Dosya türleri ve Tab listesi",
+        "INFO/OK/WARN/ERROR",
+        "Ağ/grep/paket çıktılarının program düzeyinde renkleri",
+        "Bilinmeyen komutun beyaz kalması"
+      ],
+      "uygulama": "Bu özel istem ve çıktı renkleri kesin kullanıcı tercihidir. Kali-Dark temel ANSI paleti korunur; onaylı özelleştirmeler ilgili istem/program katmanında uygulanır.",
+      "son_kimlik_isaret_onayi": {
+        "onaylandi": true,
+        "tarih": "2026-11-26",
+        "gorsel": "09-dosya-log-renk-ornekleri.png",
+        "kural": "user@makine, parantezler, bağlı çizgiler ve $ aynı çerçeve mavisi #49AEE6; dizin beyaz.",
+        "ek_duzeltme": "Kullanıcının sonraki isteğiyle istemde başarısız komut rozeti kaldırıldı."
+      }
+    },
+    "dis_kabuk_olculeri": {
+      "kaynak": "03-terminal-detayi.png",
+      "kaynak_ekran_px": [
+        1672,
+        941
+      ],
+      "kaynak_terminal_sinirlari_yaklasik": [
+        65,
+        133,
+        677,
+        794
+      ],
+      "kose_yaricapi_yaklasik_px": 22,
+      "baslik_yuksekligi_yaklasik_px": 40,
+      "kontur_cekirdegi_yaklasik_px": [
+        1,
+        2
+      ],
+      "uyarlama": "03teki son sade/yuvarlak dış kabuk ve hafif eşit ışık; 01deki logo ve 02deki masaüstü yerleşimi korunur. Kaynak ölçüleri gerçek DPI/ölçeğe uyarla, içeriği/başlığı kesme. Eski yerel parlak noktalar geri gelmez.",
+      "islev": "Gerçek sürükleme, kenar/köşeden boyutlandırma, küçültme, büyütme/geri yükleme, kapatma, sekmeler ve bölmeler çalışır; sabit resim bindirerek taklit edilmez.",
+      "ortak_mavi_ana_ton": "#49AEE6"
+    },
+    "zemin_saydamligi": {
+      "renk": "#041321",
+      "renk_kurali": "Mevcut koyu lacivert/cam görünümü korunur. Bu temel renk, son önizlemelerde kullanılan navy kaplamadır; sonradan denenmiş farklı lacivert ton benimsenmedi.",
+      "opaklik": 0.8,
+      "saydamlik": 0.2,
+      "rgba": [
+        4,
+        19,
+        33,
+        0.8
+      ],
+      "kapsam": "Terminalin içerik zemini; Thunarın dosya alanı, yan çubuk, menü/araç/durum çubuğunun zemin katmanları. Başlık ve normal pencere düğmelerinin onaylı görünümü korunur.",
+      "metin_opakligi": 1.0,
+      "simge_opakligi": 1.0,
+      "tum_pencere_opakligi": 1.0,
+      "ayri_katmanlar": "Metin, imleç, simge, grafik ve odak/seçim göstergeleri soluklaştırılmaz. Çerçeve ışığı ve bölücü çizgi kendi katmanında kalır. Genel pencere/ebeveyn opacitysini %80e düşürerek taklit etme.",
+      "bulaniklastirma_varsayilan": false,
+      "aktif_pasif": "Odak değişiminde zemin opaklığı %80 kalır; metinler genel pencere karartmasıyla solmaz.",
+      "gercek_saydamlik": "Gerçek alpha/compositor kullanılır; terminalin veya Thunarın içine sabit duvar kâğıdı/logo resmi basılmaz. Pencere sürüklenince altta kalan görüntü doğru değişir; her bölmenin arkasında aynı masaüstü devam eder.",
+      "uygulama": "Gerçek terminal/GTK/WM ve X11/Wayland yeteneklerini keşfet. Yalnız zemin için alpha desteğini kullan; zemin ve metin katmanlarını ayıramayan bir uygulamada körlemesine tüm pencereyi soldurma. Destek yoksa elde edilen görünümü ve sınırlamayı bildir; uygulanmadığı halde %80 yapıldı deme."
+    }
+  },
+  "ust_gorev_cubugu": {
+    "referans": "02-onayli-masaustu.png",
+    "konum": "üst",
+    "bicim": "Tam genişlik, ince koyu saydam lacivert, iki uçta aşağı eğimli kesik köşe, ince camgöbeği alt kontur ve kısa açık vurgular; yuvarlak dock değil.",
+    "sol": [
+      "Arch simgesi/Arch Linux ile aramalı menü",
+      "1–4 çalışma alanı; aktif alan mavi kutu",
+      "Terminal",
+      "Dosyalar",
+      "Tarayıcı",
+      "VS Code"
+    ],
+    "orta": "Açık uygulama düğmeleri; odak/geri getirme/alta alma; birden çok uygulama ve taşma/gruplama desteği.",
+    "sag": [
+      "Sistem simgesi",
+      "Pano geçmişi",
+      "Bildirimler",
+      "Ses",
+      "Ağ/Wi-Fi",
+      "Bluetooth",
+      "Güç/pil",
+      "Saat/tarih"
+    ],
+    "kosullu_kontroller": "Kayıt sırasında belirgin kayıt sürüyor/durdur kontrolü. Desteklenmeyen donanım veya sahte pil değeri gösterilmez.",
+    "acilir_ogeler": "Panelin altına açılır, ekran sınırında kalır. Normalde kapalı; simgeye tekrar/dışarı tıklama veya Esc kapatır.",
+    "pencere_alani": "Panel büyütülen pencerenin üstünde erişilebilir kalır; başlık altında sıkışmaz. Gerçek tam ekran modu ayrıdır."
+  },
+  "sistem_kutusu": {
+    "erisim": "Üst panelde küçük simgeye tıklama; varsayılan kapalı; aşağıya açılır.",
+    "icerik": [
+      "CPU kullanım yüzdesi",
+      "RAM kullanılan/toplam",
+      "Disk kullanılan/toplam; disk adları",
+      "GPU başına VRAM kullanılan/toplam",
+      "Erişilebilen tüm donanım sıcaklıkları; açık bileşen/sensör adı ve °C"
+    ],
+    "dogruluk": "CPU/GPU/hotspot/bellek, SSD/NVMe/HDD, anakart/VRM, RAM vb. yalnız gerçek sensör varsa. Eksik/bozuk/eskimiş okumayı belirt; sahte 0 yok. Aynı sensörü tekilleştir; iGPU paylaşımlı RAM ayrı VRAM sayılmaz.",
+    "yenileme_saniye": 2,
+    "kapaliyken": "Sık sorgulamayı durdur; tekrar açmada sayaç/süreç biriktirme.",
+    "boyut": "Kompakt, uzun içerikte kutu içinde kaydırma; sürekli açık büyük masaüstü widgetı yok."
+  },
+  "kisayollar": [
+    {
+      "tus": "Super",
+      "kapsam": "genel",
+      "islev": "Aramalı uygulama menüsü"
+    },
+    {
+      "tus": "Super+T",
+      "kapsam": "genel",
+      "islev": "Her basışta ayrı yeni terminal penceresi"
+    },
+    {
+      "tus": "Alt+T",
+      "kapsam": "terminal",
+      "islev": "Etkin sekmenin güncel dizininde aynı profil/kabukla yeni sekme"
+    },
+    {
+      "tus": "Super+L",
+      "kapsam": "genel",
+      "islev": "Gerçek oturum kilidi; açık işler korunur, kimlik doğrulamasıyla açılır"
+    },
+    {
+      "tus": "Super+E",
+      "kapsam": "genel",
+      "islev": "Thunar dosya yöneticisi"
+    },
+    {
+      "tus": "Super+Up",
+      "kapsam": "genel",
+      "islev": "Kullanılabilir alana büyüt; zaten büyükse büyük kalır"
+    },
+    {
+      "tus": "Super+Down",
+      "kapsam": "genel",
+      "islev": "Büyükse eski normal boyut/konuma dön; normaldeyse üst görev çubuğuna küçült"
+    },
+    {
+      "tus": "Super+Left / Super+Right",
+      "kapsam": "genel",
+      "islev": "Pencereyi sola/sağa yerleştir"
+    },
+    {
+      "tus": "Super+1 / Super+2 / Super+3 / Super+4",
+      "kapsam": "genel",
+      "islev": "Dört çalışma alanı arasında geçiş"
+    },
+    {
+      "tus": "Super+V",
+      "kapsam": "genel",
+      "islev": "Metin ve görsel pano geçmişi"
+    },
+    {
+      "tus": "Print",
+      "kapsam": "genel",
+      "islev": "Ekran görüntüsü aracı"
+    },
+    {
+      "tus": "Ctrl+C",
+      "kapsam": "terminal",
+      "islev": "Seçimi sistem panosuna kopyala; seçim yoksa işi KESME"
+    },
+    {
+      "tus": "Ctrl+Shift+C",
+      "kapsam": "terminal",
+      "islev": "Seçim olsa da standart TTY kesme isteği gönder; yazılmakta olan komutu iptal et"
+    },
+    {
+      "tus": "Ctrl+V",
+      "kapsam": "terminal",
+      "islev": "Sistem panosundan yapıştır; bracketed paste korunur, fazladan Enter gönderilmez"
+    },
+    {
+      "tus": "Ctrl+Shift+V",
+      "kapsam": "terminal",
+      "islev": "Quoted-insert: sonraki tuşu olduğu gibi ekleme; yapıştırma değil"
+    },
+    {
+      "tus": "Up / Down",
+      "kapsam": "terminal",
+      "islev": "Komut geçmişinde geri/ileri"
+    },
+    {
+      "tus": "Ctrl+R",
+      "kapsam": "terminal",
+      "islev": "Komut geçmişinde arama"
+    },
+    {
+      "tus": "Ctrl+Left / Ctrl+Right",
+      "kapsam": "terminal",
+      "islev": "Seçimsiz kelime hareketi"
+    },
+    {
+      "tus": "Shift+Left / Shift+Right",
+      "kapsam": "terminal",
+      "islev": "Karakter seçimini çift yönde genişlet/daralt"
+    },
+    {
+      "tus": "Ctrl+Shift+Left / Ctrl+Shift+Right",
+      "kapsam": "terminal",
+      "islev": "Kelime seçimini çift yönde genişlet/daralt"
+    },
+    {
+      "tus": "Shift+Up / Shift+Down",
+      "kapsam": "terminal",
+      "islev": "Çok satırlı komutta satır/karakter seçimi; geçmişe geçme"
+    },
+    {
+      "tus": "Ctrl+Shift+Up / Ctrl+Shift+Down",
+      "kapsam": "terminal",
+      "islev": "Çok satırlı komutta blok sınırlarına seçim"
+    },
+    {
+      "tus": "Backspace / Delete / normal yazı / Ctrl+V",
+      "kapsam": "komut satırında seçim",
+      "islev": "Seçilen bölgeyi sil veya yerine yaz/yapıştır"
+    },
+    {
+      "tus": "Ctrl+Shift+F",
+      "kapsam": "terminal",
+      "islev": "Gerçek çıktı/scrollback tamponunda arama; ileri/geri eşleşme"
+    },
+    {
+      "tus": "Esc",
+      "kapsam": "arama/açılır kutu",
+      "islev": "Aramayı veya açık sistem kutusunu kapat"
+    },
+    {
+      "tus": "Ctrl+Shift+R",
+      "kapsam": "terminal",
+      "islev": "Etkin bölümü yan yana iki bağımsız bölüme ayır"
+    },
+    {
+      "tus": "Ctrl+Shift+D",
+      "kapsam": "terminal",
+      "islev": "Etkin bölümü üst üste iki bağımsız bölüme ayır"
+    }
+  ],
+  "tus_uygulama_kurallari": [
+    "Super+Aşağı iki ayrı fiziksel basışta iki aşama; basılı tutmanın otomatik tekrarları geri yükle+küçültü tek basışta yapmaz. Kısmi büyütme/tiling/çoklu monitör ve restore geometrisini test et.",
+    "Super kombinasyonu bırakılınca menü istemeden açılmasın. Alt+T yalnız terminale aittir; yeni sekme etkin sekmenin o andaki dizinini alır, ilk açılış dizinini değil.",
+    "Ctrl+C fareyle seçilmiş çıktı veya Zsh seçili bölgesini gerçek sistem panosuna aktarır; yalnız shell kill ring yeterli değildir. Seçim yokken interrupt göndermez.",
+    "Ctrl+Shift+C standart TTY interrupt isteğini iletir; her programın mutlaka sonlanacağı iddia edilmez. Ctrl+V fazladan Enter ile komut çalıştırmaz.",
+    "Ctrl+Shift+V quoted-insert için gerçek tuş baytlarını doğrula; Shift ayrımını ve protokol desteğini varsayma. Kesin takas sağlanamıyorsa açıkça raporla.",
+    "Zsh komut tamponu ile terminal scrollback seçimi farklıdır. Shift/Ctrl+Shift yön dizilerini, Türkçe/çok satırlı düzenlemeyi ve kopyala/sil/yerine yazmayı gerçekten test et.",
+    "SSH/tmux/TUI uygulamalarında yerel pano, dizin ve tuş kapsamını kontrol et; tüm programlarda aynı davranış garantisi verme."
+  ],
+  "diger_ozellikler": {
+    "uzun_islem_bildirimi": "15 sn üzeri işlem terminal odakta değilken bitince bir bildirim; başarı/hata/iptal, kısa ad/süre; odaktayken gereksiz bildirim yok.",
+    "cikti_aramasi": "Ctrl+Shift+F scrollback içinde arama; ileri/geri eşleşme ve görünür vurgu; Esc ile kapanır. Yalnız komut geçmişinde arama yeterli değildir.",
+    "pano_gecmisi": "Birden çok metin VE görsel; arama/önizleme/seçme/tek silme/temizleme. Seçim normal CLIPBOARDa döner, Ctrl+V yapıştırır; Enter eklenmez. PRIMARY ile karıştırma.",
+    "ekran_kaydi": "Hem seçili bölge hem tek pencere; menüden hedef seç, belirgin başlat/durdur, oynatılabilir dosya. Mikrofon varsayılan kapalı; ses açık seçimle.",
+    "tema_disari_aktarma": "Gerçek kurulum sonrası tema/profil/font/eklenti/panel/kısayol/kilit/OSD ayarlarını manifest ve geri yükleme/yedeklemeyle aktar; yol/monitör/DPI uyarlaması. Kişisel belgeler, parola/token/anahtar, komut/pano geçmişi dahil değil.",
+    "genel_tema": "Açılış, giriş, gerçek oturum kilidi, aramalı menü, simge/imleç, dosya yöneticisi/önizleme, bildirim ve ses/parlaklık göstergeleri aynı lacivert/mavi tasarımda; hafif gölge ve yaklaşık 160 ms kısa geçişler.",
+    "uygulama_erisimleri": "Paneldeki başlatıcılar ve menü çalışır. Projeler/Lab ve kuruluysa VirtualBox/VMware gibi önceki erişimleri menüden koru; yalnız örnek simge yüzünden yazılım kurma. Güncel masaüstünün görünümünü 02 ile eşleştir.",
+    "diger_pencereler": "Thunar için 11 ve thunar bölümü ile ortak_pencere_stili: aynı hafif/eşit mavi çerçeve ışığı, mevcut lacivert renk ve %80 zemin opaklığı. Editör/tarayıcının mevcut koyu lacivert/mavi tema bütünlüğü korunur; onların opaklığını bu isteği genelleyerek değiştirme."
+  },
+  "uygulama": {
+    "ortam": "Gerçek masaüstü/pencere yöneticisi, terminal, kabuk, X11/Wayland, donanım, sürücü, çözünürlük ve DPI önce keşfedilir. Değişecek dosyalar yedeklenir.",
+    "entegrasyon": "Mevcut .zshrcyi toptan ezme; eklenti/hookları birleştir, çift source/süreç ve çakışan tuş oluşturma. Arch paket yollarını doğrula.",
+    "sinirlar": "Yuvarlatılmış dış pencere, özel başlık, ince kenarlık/gölge ve koyu lacivert iç zemin gerçek terminal/pencere yöneticisi yetenekleriyle uygulanır; eski pahlı/süs şeritli dekorasyona dönme. Sabit resim bindirerek işlevsel kurulum gibi sunma; teknik sınırı raporla.",
+    "gercek_veri": "Görseldeki fish/Hyprland, kimlik, saat/sürüm/donanım/komutlar örnektir; talimat olarak çalıştırma veya mevcut sistem bilgisi sayma."
+  },
+  "kali_kaynaklari": {
+    "themes_commit": "1248554c02e111fe25b909733fd3ea0075c4b73e",
+    "defaults_commit": "76c5b1cabf38b12c8f6478e962285f1bf8de8750",
+    "font_ve_profil": "https://gitlab.com/kalilinux/packages/kali-themes/-/blob/1248554c02e111fe25b909733fd3ea0075c4b73e/etc/xdg/qterminal.org/qterminal.ini",
+    "ansi_paleti": "https://gitlab.com/kalilinux/packages/kali-themes/-/blob/1248554c02e111fe25b909733fd3ea0075c4b73e/share/qtermwidget6/color-schemes/Kali-Dark.colorscheme",
+    "istem_ve_stiller": "https://gitlab.com/kalilinux/packages/kali-defaults/-/blob/76c5b1cabf38b12c8f6478e962285f1bf8de8750/etc/skel/.zshrc",
+    "not": "Renk/font/stil değerleri için kaynaklar; bu dosyalardaki genel ayar ve kısayolları topluca içeri aktarma.",
+    "ls_colors": "https://man.archlinux.org/man/ls.1.en",
+    "tree": "https://man.archlinux.org/man/tree.1.en",
+    "ip_color": "https://man.archlinux.org/man/ip.8.en",
+    "pacman_color": "https://man.archlinux.org/man/pacman.conf.5.en",
+    "istege_bagli_grc": "https://github.com/garabik/grc",
+    "bolme_kenarligi_yetenek_ornegi": "https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.window_border_width"
+  },
+  "gorsel_sha256": {
+    "01-duvar-kagidi.png": "299b94d4cb4c4a535b3627f847033cfe055d879cf803ec6549d460485f8853ff",
+    "02-onayli-masaustu.png": "3a0ce8a3a8063745ef52f40fe9138b166e742b5e0a589844d726770d187c4143",
+    "03-terminal-detayi.png": "19315510baa29f1d4af2b991319bb07de3f3b2e1958b0c08cc5c6c0c27d848d1",
+    "05-acilis-ekrani.png": "14fe8c68f1d8e7616f3ff8127c7f4c8f9d42e39139f7b86c4f47177f5e6f0287",
+    "06-giris-kilit-ekrani.png": "b9f12da983c85d19bb53fb2ccc5c9584df1e702084f5b08323230b6a88e85091",
+    "07-bolme-cizgileri-referansi.png": "43f36aa1508c09edcf46c72efba161341ae065e484c3a3d90ac7f9d4006e32e6",
+    "08-bolmeli-terminal-ornek.png": "971b5ea0c7464517862aaff161ac65f2c4b31cd85dff363fe6f6c6cd9ce324bd",
+    "09-dosya-log-renk-ornekleri.png": "8e03ad504a6ba648f989f75e8a33a9c00bde330162a1d4336003d6c4d2736921",
+    "10-batarya-modu.png": "758e4d1e6e376f12b40d475bd15da9e1210a45e052a1d1b901640a15b03bc31e",
+    "11-thunar-dosya-yoneticisi.png": "b8ee362554223ed33cc6e065b5b5984e7a45edd5dce6b539b7b297e98d33f62c"
+  },
+  "acilis_giris_kilit": {
+    "acilis": "05 gibi Arch logosu, ince mavi gerçek açılış göstergesi ve Sistem başlatılıyor metni. Zeminde 01; çalışan açılış altyapısına uygun tema.",
+    "giris_ve_kilit": "06 gibi saat/tarih, kullanıcı ve parola alanı, ince mavi açılı denetimler. Örnek user/saat/Xfce değerlerini sabitleme; gerçek oturum/kullanıcı bilgisi.",
+    "arka_plan": "01 duvar kâğıdı; logo boyut/konumu ve kısılmış orta ışık/ayak yansımaları korunur. 05/06 yerleşim ve UI referansıdır.",
+    "kilit_islevi": "Super+L gerçek oturumu kilitler; yalnız görsel/karartma değil. Açık uygulamalar sürer, kimlik doğrulamasıyla geri dönülür.",
+    "entegrasyon": "Kurulu açılış/giriş/oturum kilidi bileşenlerine uygula; ikinci kilitleyici veya yeni masaüstü ortamını resimdeki etiket yüzünden kurma."
+  },
+  "gorsel_kapsamlari": {
+    "02": "Terminal ve Thunarın masaüstünde birlikte açılmış son önizlemesi; üst panel ve merkezdeki Arch logosunun konum/boyutu. Her iki zemin %80 opak, yazı/simgeler net; hafif eşit çerçeve ışığı. Komut/klasör/durumlar örnektir; kesin font/RGB/davranış JSONda.",
+    "03": "Son terminal dış kabuğu/başlık/düğme/yuvarlak köşe, hafif kısılmış eşit çerçeve ışığı ve %80 opak lacivert zemin. Mevcut zemin rengi korunmuştur. İçerideki sistem özeti/kartlar/komutlar yerleşim örneği; gerçek veriler kullanılır. Duvar kâğıdı ve logo için 01 asıldır.",
+    "05_06": "Korunan açılış ve giriş/kilit ekranı yerleşimi.",
+    "07": "Son onaylı yaklaşık 2 px ince, %40 yerel opaklıklı çerçeve mavisi iç bölme çizgileri. Düz uçlar ve sade artı kesişimi; üçgen/ok uç yok. Yalnız çizgi geometrisi için; zemin saydamlığı 03/08/09 ve JSONa bağlı.",
+    "08_09": "Aynı son yuvarlak/hafif ve eşit aydınlık çerçeve, mevcut lacivert %80 zemin opaklığı. 08de üçgensiz ince bölmeler; 09da dosya/log/tam opak yazı örnekleri. İki satırlı Zsh, kesin font/RGB ve gerçek işlev JSONda; örnek komut/veriler otomatik çalıştırılmaz.",
+    "10": "Yalnız kompakt batarya kutusu Ev %55/%80 ve Seyahat geçici %100 için. Arka taraftaki terminalin eski kompozit görünümü yeni terminal/Thunar çerçevesi veya opaklık kuralını değiştirmez; bunlarda 02/03/08/09/11 ve JSON geçerli.",
+    "11": "Son Thunar: yuvarlak köşe, hafif kısılmış/eşit mavi çerçeve ışığı, mevcut lacivert zeminde %80 opaklık. Mavi klasörler, beyaz adlar, menü/araç/konum, Yerler/Aygıtlar ve seçim görünümü korunur. İçerik/yollar/sayaçlar örnektir; gerçek dosyalar gösterilir."
+  },
+  "gorsel_analizi": {
+    "1": "Mevcut tek pencere tasarımına yeni bağımsız split görünümü ekleniyor; kaynak ayırıcı çizgileri ve üçgen uçlar doğrudan referans.",
+    "2": "Sistem özeti başlık/değer ayrımı, ağ arayüz/durumları, veri ve yüzdeler. Kali adı/ejderhası yerine Arch kimliği; gerçek program çıktı temaları ayrı.",
+    "3": "Paket/indirme/durum, sürüm ve Git çıktı vurguları görülüyor. Archta pacman yerel renkleri; Git çıktı rengi, kaldırılan Git istemi özelliğinden farklı.",
+    "4": "Arayüz/IP/UP/LISTEN/port/gecikme vurguları birden fazla programa ait; tek Zsh eklentisi bunların tümünü üretmez. Seçili yerel renk/renklendirici gerekli.",
+    "5": "ls/tree dosya türleri, çalıştırma izinleri, log seviyeleri, grep eşleşmeleri ve rapor başlıkları için ek program/renklendirici ayarları gerekli.",
+    "font": "JPEG/WEBP maketten font ailesi kesin belirlenemez. Font hedefi resmî Kali ayarındaki Fira Code 10 pt; gerçek kurulumda font dosyası ve Bold yüzü doğrulanır. Görseller font dosyası değil önizlemedir."
+  },
+  "dogrulama_ekleri": [
+    "Tek/yan yana/üst üste/2x2 düzeni, odak, sürükleyerek boyutlandırma, kapatma, farklı dizinler/PTY, sekme ve kısayollar.",
+    "07deki ince düz/üçgensiz bölme çizgileri ve DPI; görünmez yeterli sürükleme hedefi, bağımsız PTY ve gerçek boyutlandırma.",
+    "Tüm user@makine kimliği, parantez/bağlantı çizgileri ve $ aynı çerçeve mavisi #49AEE6; dizin beyaz, kimlik kalın, @ sonrası renk reseti yok.",
+    "Geçici dizin, çalıştırma izni olan/olmayan dosya, sembolik ve kırık bağ, Tab listesi; izin/uzantı ayrımı.",
+    "Native color=auto TTY/pipeline kontrolü, log seviyeleri, grep eşleşmesi, gerçek exit status/TTY/stderr ve mevcut kopyala/seçim/arama işlevleri.",
+    "Batarya popupı, gerçek eşik desteği ve geri okuma, Ev %55/%80, geçici %100 ve tüm iptal/otomatik geri dönüş yolları; donanımda denenmeyenleri açık raporla.",
+    "03/11deki yuvarlak dış kabuk/sade başlık ve hafif kısılmış eşit çerçeve ışığı. Terminal/Thunar zemini ayrı katmanda %80; yazı/simge/grafikler tam opak. Pencere hareketinde gerçek arka plan değişir.",
+    "07/08 bölücüler yaklaşık 2 px, #49AEE6/%40 yerel opaklık/parlamasız; düz uç ve sade artı. Hiçbir uçta üçgen/ok/dekorasyon yok; yazı/font/renkler ve zemin %80 ayrı korunur.",
+    "Yanlış/başarısız komut sonrası istemde ek çarpı veya sayısal durum rozeti yok; programın hata çıktısı, gerçek çıkış kodu ve bilinmeyen komut beyaz/altı çizili stili korunur.",
+    "Onaylı 11 Thunar görünümü, yerel dosya işlemleri/tuşlar, gerçek dizinler/yer imleri, DPI ve diğer uygulamalara etki kontrolü.",
+    "Farklı koyu/açık arka planla terminal ve Thunarda %80 zemin opaklığını, net metin/simgeleri, kenar/köşe ışığının eşitliğini ve odak/yeniden boyutlandırmayı gerçek oturumda doğrula."
+  ],
+  "batarya_sarj_korumasi": {
+    "onay": {
+      "onaylandi": true,
+      "tarih": "2026-11-26"
+    },
+    "amac": "Evde prizde kullanımda batarya şarj sınırı. CPU/GPU performans veya güç tasarrufu profili değildir.",
+    "gorsel": "10-batarya-modu.png",
+    "erisim": "Üst panelde mevcut Güç/pil simgesine tıklayınca aşağı açılan kompakt kutu. Varsayılan kapalı; tekrar/dışarı tıklama veya Esc kapatır. Ekran sınırında kalır. Mevcut güç/askıya alma/kapatma erişimlerini kaybetme.",
+    "tasarim": {
+      "bicim": "10 gibi saydam koyu lacivert, kesik açılı dış köşeler ve simgeye bakan küçük üst uç; ince kontur/hafif gölge. Geniş beyaz parlama veya ayrı sürekli masaüstü widgetı yok.",
+      "kontur": "#00C8EE",
+      "secili_vurgu": "#5DC8C8",
+      "ana_metin": "#FFFFFF",
+      "ikincil_metin": "#80CAEA",
+      "yazi": "Üst panelle aynı okunaklı UI fontu; terminalin Fira Code tercihini değiştirme.",
+      "icerik": [
+        "Batarya adı ve gerçek doluluk",
+        "Prizde/pilde ve gerçek şarj durumu",
+        "İnce doluluk çubuğu ve etkin sınır",
+        "Ev modu · Prizde: %55 altında başlar, %80'de durur.",
+        "Seyahat · Geçici %100 şarj",
+        "Tam dolunca ev moduna döner."
+      ],
+      "durumlar": [
+        "Şarj oluyor",
+        "Prizde · Şarj sınırında",
+        "Prizde · Yeniden başlama eşiği bekleniyor",
+        "Pilde",
+        "Seyahat etkin",
+        "Desteklenmiyor / okunamıyor / uygulama başarısız"
+      ],
+      "durum_dogrulugu": "Şarj sınırında ve şarj olmuyor durumunu arıza veya tasarruf olarak sunma. Full/Not charging/Discharging/Unknown verisini güç kaynağı ve okunan eşiklerle birlikte yorumla; bilinmeyeni tahmin etme.",
+      "kompakt_boyut": {
+        "referans_ekran_px": [
+          1672,
+          941
+        ],
+        "yaklasik_govde_px": [
+          368,
+          280
+        ],
+        "ust_isaret_yuksekligi_px": 18,
+        "uyarlama": "10daki küçük yerleşimi esas al; DPI/ölçeğe göre orantıla ve ekran içinde tut. İki kısa seçenek satırı, dar iç boşluklar ve ince doluluk çubuğu. Yazıyı okunamaz küçültme; gerekirse açıklamayı iki satıra sar. Fazladan büyük başlık/kart boşlukları ekleme."
+      }
+    },
+    "ev_modu": {
+      "varsayilan": true,
+      "kalici": true,
+      "durdurma_yuzde": 80,
+      "yeniden_baslama_esigi_yuzde": 55,
+      "baslama_kosulu": "Adaptör bağlı ve batarya %55 eşiğinin altında olduğunda şarj başlar; donanım eşiği böyle destekliyorsa. Kullanıcıya tam %55 noktasındaki kontrolcü yuvarlaması için garanti verme.",
+      "durdurma_kosulu": "Şarj sürerken doluluk %80 eşiğine ulaşınca kontrolcü durdurur. Örneğin %54ten başlayan şarj %55te kesilmez; %80e devam eder.",
+      "bekleme": "Şarj durduktan sonra örneğin %79/%65/%56 gibi %55 başlangıç eşiğinin üzerindeki değerlerde yeniden başlamaz. Bu aralıkta prize takınca beklemesi normaldir.",
+      "zorla_bosaltma": false,
+      "mevcut_doluluk_yuksekse": "%90/%100 doluyken ev moduna geçmek bataryayı zorla %80e boşaltmaz. Adaptör takılıyken bilerek deşarj ve yeniden şarj döngüsü oluşturma.",
+      "aciklama": "Bu iki eşik prize takılıyken durmadan %80→%54→%80 döngüsü yaptırmaz. Cihaz adaptörden çalışabilir; doğal düşüş veya prizsiz kullanım sonrası eşik altında kalırsa şarj yeniden başlar.",
+      "enerji_kaynagi": "Adaptör bağlı değilse doluluk %55in altında da olsa şarj başlayamaz; pil kullanımı sürer. Örneğin %54te adaptör takıldığında şarj başlar ve %80e devam eder. %65te takıldığında şarj bekler. Şarj başlatma eşiği güç kaynağının yerini tutmaz.",
+      "prizdeki_normal_davranis": "Cihaz genellikle adaptörden çalışır. %80e ulaşıp şarj durduğunda pil %80 civarında kalabilir; tam %80de sürekli sabit tutulması garanti edilmez. Doğal azalma veya prizsiz kullanım sonrası %55in altına düşerse adaptör bağlıyken şarj yeniden başlar. Sistem %55e düşürmek için pil tüketimini zorlamaz ve döngüsel %80→%55→%80 şarj/deşarj yaptırmaz. Kontrolcünün güç yolu ve davranışı gerçek donanımda doğrulanır."
+    },
+    "donanim_yetenekleri": {
+      "kesif": "Gerçek model, BIOS/EC, çekirdek ve güç yönetimi bileşenlerini keşfet. UPower/power_supply üzerinden pil kimliklerini ve desteklenen aralıkları oku; BAT0 adını veya görseldeki ThinkPadi varsayma.",
+      "iki_esik": "Her iki eşik ve tam %55 başlangıç/%80 duruş değerleri destekleniyorsa uygula; okunan etkin eşikleri göster. Başlangıç denetimi olsa bile %55 değeri kabul edilmiyorsa üretici kısıtını belirt; başka sayıyı sessizce %55 diye gösterme.",
+      "yalniz_ust_sinir": "%80 duruş destekleniyorsa uygula. Başlangıç eşiği donanıma bırakılır; UIda %55 sözü yerine Yeniden başlama eşiği donanım yönetiminde yaz. Desteklenmeyen başlangıç yazımı yapma.",
+      "destek_yok": "Gerçek pil bilgisi kalsın; Bu donanımda şarj sınırı desteklenmiyor metni ve pasif kontroller. Batarya yoksa pil yüzdesi veya şarj kontrolü uydurma.",
+      "sabit_aralik": "Üretici yalnız sabit değer sunuyorsa %80in gerçekten desteklendiğini doğrula; farklı değeri sessizce %80miş gibi göstermeden sınırlamayı raporla.",
+      "birden_cok_pil": "Her bataryanın gerçek kimliğini ve yeteneklerini ayrı değerlendir/göster; birleşik yüzde üzerinden tüm pillere destek varmış gibi davranma.",
+      "hatada": "Yazma/okuma başarısızsa başarı/Etkin onayı verme; gerçek durumu göster, geri yükleme hatasını bildir."
+    },
+    "uygulama": {
+      "arka_uc": "Önce mevcut güç yöneticisi ve çekirdek/üretici şarj sınırı arayüzünü kullan. Gerekiyorsa donanımla uyumlu TLP veya eşdeğeri; birden fazla araç aynı eşikleri eşzamanlı yönetmesin.",
+      "kapsam": "Yalnız şarj koruması eklenir. TLP seçildi diye kullanıcı istemeden CPU/GPU performansı, USB, disk, ağ veya askıya alma ayarlarını değiştirme. Servis çatışmalarını keşfet, en dar uyumlu çözümü seç.",
+      "yetki": "Arayüzü root olarak çalıştırma; değişiklikler için yalnız keşfedilmiş pil/eşik işlemlerini kabul eden sınırlı yetkili backend/PolicyKit eylemi. Arayüzden gelen serbest kabuk veya dosya yolu çalıştırma.",
+      "kalicilik": "Ev modu kalıcı; yeniden başlatma/uyandırma/AC değişimi sonrası desteklenen eşikleri uygula ve doğrula. Geçici tam şarjın bitiş kuralları kalıcı ev profilinden ayrıdır.",
+      "dusuk_yuk": "Öncelik UPower/D-Bus veya mevcut güç yöneticisi olayları. Kutuyu kapatmak %100 isteğinin tamamlanma/geri yükleme takibini durdurmaz. Geçici tam şarj etkinse kaçan olay için en fazla 30–60 sn aralıklı hafif kontrol; kapalı kutuda ek sık sensör/GPU sorgusu yok.",
+      "disari_aktarma": "Tema/ayar dışa aktarmasına görünüm ve genel ev/tam-şarj tercihlerini ekle. Geçici etkin %100 durumu, bilgisayara özgü pil kimliği/seri numarası ve donanım yolu otomatik taşınmaz; hedef bilgisayarda desteği yeniden keşfet."
+    },
+    "kabul_kontrolu": [
+      "Destekli iki eşik / yalnız üst sınır / destek yok / pil yok durumlarını gerçek yeteneklerle ayır; yanlış Etkin mesajı yok.",
+      "Ev eşiklerini yazıp geri oku; %80de durma, %65/%56da bekleme, eşik altında adaptörle başlama ve %80e kadar devam etme davranışını uygun koşullarda kontrol et. Adaptör yokken %55 altında şarj olmaz. Test için zorla deşarj etme.",
+      "Seyahat geçici geçişini, gerçek tam dolum sonrası ev eşiklerinin geri okunmasını, elle iptal ve adaptör çıkarma/yeniden takma durumunu doğrula.",
+      "Yeniden başlatma, uyandırma ve izleyici yeniden açılmasında tamamlanmış istisna tekrarlanmasın. Kutuyu kapatınca geri yükleme takibi sürsün.",
+      "Popup simge/tekrar/dışarı/Esc, DPI/ekran sınırı, gerçek pil/doluluk/durum, destek yok mesajı ve kapalıyken düşük yük.",
+      "Gerçekte beklenerek doğrulanamayan şarj bitişi gibi kontrolleri açıkça test edilmedi diye raporla; bu referans paketi gerçek donanım testinin kanıtı değildir.",
+      "Küçültülmüş kutu 10 ile eşleşsin; her yerde Seyahat etiketi ve %55/%80 görünsün. Önceki eşik veya eski tam şarj başlığı kalmasın."
+    ],
+    "kaynaklar": {
+      "esikler": "https://linrunner.de/tlp/settings/battery.html",
+      "davranis_ve_desarj": "https://linrunner.de/tlp/faq/battery.html",
+      "gecici_tam_sarj": "https://linrunner.de/tlp/usage/tlp.html",
+      "donanima_gore_destek": "https://linrunner.de/tlp/settings/bc-vendors.html"
+    },
+    "seyahat_modu": {
+      "etiket": "Seyahat",
+      "aciklama": "Geçici %100 şarj",
+      "hedef_yuzde": 100,
+      "etkinlestirme": "Yalnız kullanıcının açık seçimiyle ve adaptör bağlıyken. Seçim desteklenen kontrolcü arayüzüyle mevcut sınırı geçici kaldırır; kalıcı ev ayarları korunur. Destek yoksa başarı gösterme.",
+      "tamamlanma": "Gerçek kontrolcünün Full/tam dolu sinyali veya doğrulanmış tam şarj durumunda geçici istisnayı bitir; kalıcı ev eşiklerini geri yaz, okuyarak doğrula. Yalnız yuvarlanmış ekranda %100 görünmesini kesin tamamlanma sayma.",
+      "diger_sona_erme": "Kullanıcı Ev modunu seçerse, adaptör çıkarılırsa veya yeniden başlatılırsa istisnayı iptal et ve ev eşiklerine dön. Adaptör çıkarılıp takıldığında eski %100 isteği yeniden tetiklenmesin.",
+      "uyku_ve_yeniden_acma": "Uyandırma/izleyici yeniden başlama sonrası gerçek AC/doluluk/kontrolcü durumu uzlaştırılır. Tamamlanmış veya iptal olmuş istisna yeniden başlatılmaz. Durum kaydı tutarsızsa ev eşiklerine dön; yeni %100 isteği kullanıcı seçimi gerektirir.",
+      "tam_dolum_sonrasi": "%100den hemen %80e zorla boşaltma yok; ev eşikleri yeniden şarj başlangıcını belirler.",
+      "uygulama_uyarisi": "TLP fullcharge tek başına dolumu beklemez ve tam dolunca otomatik ev moduna döndürmez. Bu paket davranışı ayrıca durum izleyicisi/geri yükleme gerektirir; yalnız komutu çağırıp tamamlandı deme."
+    }
+  },
+  "thunar": {
+    "onay": {
+      "onaylandi": true,
+      "tarih": "2026-11-26",
+      "gorsel": "11-thunar-dosya-yoneticisi.png"
+    },
+    "uygulama": "Gerçek Thunar dosya yöneticisi. Başlatıcı, klasör açma ve Super+E erişimleri bununla uyumlu olsun.",
+    "dis_gorunum": {
+      "referans": "11-thunar-dosya-yoneticisi.png",
+      "cerceve": "Terminalle aynı yuvarlatılmış dört köşe, ince mavi kontur ve hafif kısılmış çevresel ışık. Dört kenar/köşede eşit aydınlık; yerel parlama veya beyaz çizgi yok. Sade lacivert başlık ve normal küçült/büyüt/kapat düğmeleri; 11deki son görünüm.",
+      "zemin": "Mevcut koyu lacivert renk korunur; ortak_pencere_stili.zemin ile %80 opaklık/%20 saydamlık. Dosya alanı/yan çubuk/menü/araç/durum zemininde alttaki gerçek masaüstü hafif görünür. Dosya adları, ikonlar, seçim ve düğmeler net/tam opak kalır. Terminalin yazı fontunu Thunara yayma.",
+      "vurgu_mavisi": "#49AEE6",
+      "normal_metin": "#FFFFFF",
+      "ikincil_metin": "Okunur soluk mavi-gri; 11 görünümüyle eşleştir.",
+      "simge": "Mavi klasörler ve temayla tutarlı çizgisel gezinme simgeleri; örnek görseldeki gibi dengeli ve okunur.",
+      "secim": "11deki Projeler örneği gibi yumuşak koyu mavi seçim dolgusu; seçili adlar ve klavye odağı okunur. Parlak neon kutu yok.",
+      "ayiricilar": "İnce, mavi tonda düşük opaklıklı sidebar/araç çubuğu/durum ayırıcıları. Metinlere/pencerenin tamamına yerel çizgi opaklığı uygulanmaz.",
+      "font": "11deki okunur normal masaüstü UI yazısı; terminalin Fira Code 10 pt tercihi korunur. Bütün dosya yöneticisini zorla terminal monospace fontuna çevirme.",
+      "olcek": "Görsel yerleşimi gerçek DPI/ölçek/ekran alanına uyarla; başlık, tam dosya adları, ikonlar ve tıklama alanları kesilmesin. Pencere sürükleme/boyutlandırma/büyütme çalışır.",
+      "zemin_saydamligi": {
+        "renk": "#041321",
+        "renk_kurali": "Mevcut koyu lacivert/cam görünümü korunur. Bu temel renk, son önizlemelerde kullanılan navy kaplamadır; sonradan denenmiş farklı lacivert ton benimsenmedi.",
+        "opaklik": 0.8,
+        "saydamlik": 0.2,
+        "rgba": [
+          4,
+          19,
+          33,
+          0.8
+        ],
+        "kapsam": "Terminalin içerik zemini; Thunarın dosya alanı, yan çubuk, menü/araç/durum çubuğunun zemin katmanları. Başlık ve normal pencere düğmelerinin onaylı görünümü korunur.",
+        "metin_opakligi": 1.0,
+        "simge_opakligi": 1.0,
+        "tum_pencere_opakligi": 1.0,
+        "ayri_katmanlar": "Metin, imleç, simge, grafik ve odak/seçim göstergeleri soluklaştırılmaz. Çerçeve ışığı ve bölücü çizgi kendi katmanında kalır. Genel pencere/ebeveyn opacitysini %80e düşürerek taklit etme.",
+        "bulaniklastirma_varsayilan": false,
+        "aktif_pasif": "Odak değişiminde zemin opaklığı %80 kalır; metinler genel pencere karartmasıyla solmaz.",
+        "gercek_saydamlik": "Gerçek alpha/compositor kullanılır; terminalin veya Thunarın içine sabit duvar kâğıdı/logo resmi basılmaz. Pencere sürüklenince altta kalan görüntü doğru değişir; her bölmenin arkasında aynı masaüstü devam eder.",
+        "uygulama": "Gerçek terminal/GTK/WM ve X11/Wayland yeteneklerini keşfet. Yalnız zemin için alpha desteğini kullan; zemin ve metin katmanlarını ayıramayan bir uygulamada körlemesine tüm pencereyi soldurma. Destek yoksa elde edilen görünümü ve sınırlamayı bildir; uygulanmadığı halde %80 yapıldı deme."
+      }
+    },
+    "duzen": {
+      "baslik": "Geçerli dizin adı ve Thunar; örnek Ev Dizini — Thunar.",
+      "menu": [
+        "Dosya",
+        "Düzenle",
+        "Görünüm",
+        "Git",
+        "Yer İmleri",
+        "Yardım"
+      ],
+      "arac_cubugu": "Geri/ileri/üst/ev gezinme, düzenlenebilir gerçek konum alanı, arama ve görünüm seçimi; kurulu sürümün yerel denetimleri.",
+      "yan_cubuk": "Yerler ve Aygıtlar: ev/masaüstü ve mevcut XDG kullanıcı dizinleri, Çöp Kutusu, gerçek dosya sistemi/aygıtlar; var olan yer imlerini ve erişimleri birleştir.",
+      "ana_alan": "11 gibi düzenli simge ızgarası; kullanılabilir genişliğe uyumlu sütun sayısı, ikon/ad hizası. Ayrıntılı liste ve diğer yerel görünümlere geçiş korunur.",
+      "durum_cubugu": "Gerçek öğe sayısı, seçim ve varsa gerçek depolama bilgisi; sabit 8 klasör veya Projeler seçili metnini her dizine basma.",
+      "gercek_icerik": "/home/user/ ve Belgeler/İndirilenler/Masaüstü/Müzik/Resimler/Videolar/Projeler/Lab örnektir. Gerçek kullanıcı dizini, XDG yolları ve mevcut içerik gösterilir. Resmi taklit etmek için rastgele sahte klasör/dosya üretme."
+    },
+    "islevler": [
+      "Gerçek klasör açma ve geri/ileri/üst/ev gezinme; konum alanına yol yazma",
+      "Menü/sağ tık, tek/çoklu seçim, kopyala/yapıştır, taşıma, yeniden adlandırma ve çöp kutusuna gönderme/geri alma",
+      "Yer imleri ve sık kullanılan klasörler; mevcut yer imleri korunur",
+      "Arama, sekmeler, simge/ayrıntılı liste geçişi ve klavye odağı",
+      "Mevcut dosya önizlemeleri/küçük resimler ve gerçek aygıt erişimi"
+    ],
+    "tuslar": "Super+E Thunarı açar. Ctrl+C/Ctrl+V gibi normal dosya yöneticisi tuşları yerel işlevleriyle sürer; terminale özel kopyala/kesme/quoted-insert takaslarını Thunara yayma.",
+    "uygulama_kurallari": {
+      "kesif": "Önce gerçek Thunar/GTK sürümü, masaüstü/pencere yöneticisi, X11/Wayland, CSD/SSD dekorasyonu ve compositor yeteneklerini belirle; değişecek tema/Thunar/xfconf/başlatıcı ayarlarını yedekle.",
+      "yontem": "Thunarın yerel tercihlerine, sürüme uygun GTK tema/CSS kurallarına ve pencere yöneticisi dekorasyonuna uygula. Gerekli Thunar/uyumlu eklenti ve mevcut küçük resim/çöp kutusu/aygıt bileşenlerini doğrula; yalnız maketteki Xfce etiketi yüzünden yeni masaüstü ortamı kurma.",
+      "kapsam": "Thunar tema kurallarını mümkün olduğunca uygulamaya uygun kapsamla ekle. Genel GTK ayarını toptan ezip paneli, terminali veya diğer uygulamaları bozma. Var olan kişisel ayarları ve yer imlerini birleştir.",
+      "saydamlik": "Gerçek terminal/GTK/WM ve X11/Wayland yeteneklerini keşfet. Yalnız zemin için alpha desteğini kullan; zemin ve metin katmanlarını ayıramayan bir uygulamada körlemesine tüm pencereyi soldurma. Destek yoksa elde edilen görünümü ve sınırlamayı bildir; uygulanmadığı halde %80 yapıldı deme. Hedef Thunar zemini %80; tüm pencere ve çocuklara genel opacity uygulama. Sürükleme sırasında gerçek arka planın değiştiğini kontrol et.",
+      "gerceklik": "Thunar gerçek dosyalarla çalışır; sabit ekran görüntüsü/HTML maket/başka uygulama ile taklit edilmez. Gerçek oturumda son görünümü 11 ve terminal 03 ile karşılaştır.",
+      "disari_aktarma": "Kurulum sonrası tema dışa aktarımına Thunar/GTK tema kuralları, ikon ve genel görünüm/tercihleri ekle. Kişisel dosya adları/son kullanılanlar/bağlantı sırları taşınmaz; kullanıcı yolları ve donanım hedefte uyarlanır."
+    },
+    "kabul_kontrolu": [
+      "Super+E, panelde Dosyalar ve gerçek bir klasör açma Thunara ulaşır; görünüm tüm yeni Thunar pencerelerinde uygulanır.",
+      "11 ile köşeler/kontur/başlık/lacivert zemin/ikon/menü/yan çubuk/seçim/durum çubuğu ve farklı DPI karşılaştırılır.",
+      "Geçici deneme dizininde gezinme, arama, sekme, Ctrl+C/V, yeniden adlandırma ve çöp kutusu/geri alma; gerçek kullanıcı dosyalarıyla yıkıcı test yapılmaz.",
+      "Var olan yer imleri, küçük resimler, sağ tık ve gerçek aygıt erişimi korunur; sahte sabit yol/öğe/sayaç yok.",
+      "Terminal, üst panel, boot/kilit, kısayollar ve batarya özellikleri etkilenmedi; desteklenmeyen/test edilmeyen ayrıntılar raporlanır.",
+      "Zemin opaklığı 0.80; yazı/ikon tam opak. Dört kenar ve köşede eşit/kısılmış ışık. Thunar taşındığında arkasındaki masaüstü değişir; sabit logo veya genel pencere soldurması yok."
+    ],
+    "kaynaklar": {
+      "thunar": "https://docs.xfce.org/xfce/thunar/start",
+      "yerlesim": "https://docs.xfce.org/xfce/thunar/the-file-manager-window",
+      "tercihler_ve_css": "https://docs.xfce.org/xfce/thunar/hidden-settings"
+    }
+  },
+  "ortak_pencere_stili": {
+    "onay": "26 Kasım 2026: hafif kısılmış, tüm çevrede eşit çerçeve ışığı ve ince/üçgensiz bölücüler onaylandı. Terminal ve Thunar zemin opaklığı %80. Son istekle mevcut lacivert renkler korundu; yeni bir zemin rengi seçilmedi.",
+    "gorsel_referanslar": [
+      "02-onayli-masaustu.png",
+      "03-terminal-detayi.png",
+      "11-thunar-dosya-yoneticisi.png"
+    ],
+    "cerceve_ana_tonu": "#49AEE6",
+    "cerceve_isigi": "Aydınlık ince kontur ve dar/yumuşak mavi hale; son onaylanan hafif kısılmış düzey. Dört kenar ve yuvarlak köşelerde eşit dağılım; yerel parlak nokta, beyaz ışık sıçraması veya daha parlak alt/köşe yok. Üst görev çubuğu ve duvar kâğıdının ışığını bu değişiklikle kısma.",
+    "statik_isik": true,
+    "zemin": {
+      "renk": "#041321",
+      "renk_kurali": "Mevcut koyu lacivert/cam görünümü korunur. Bu temel renk, son önizlemelerde kullanılan navy kaplamadır; sonradan denenmiş farklı lacivert ton benimsenmedi.",
+      "opaklik": 0.8,
+      "saydamlik": 0.2,
+      "rgba": [
+        4,
+        19,
+        33,
+        0.8
+      ],
+      "kapsam": "Terminalin içerik zemini; Thunarın dosya alanı, yan çubuk, menü/araç/durum çubuğunun zemin katmanları. Başlık ve normal pencere düğmelerinin onaylı görünümü korunur.",
+      "metin_opakligi": 1.0,
+      "simge_opakligi": 1.0,
+      "tum_pencere_opakligi": 1.0,
+      "ayri_katmanlar": "Metin, imleç, simge, grafik ve odak/seçim göstergeleri soluklaştırılmaz. Çerçeve ışığı ve bölücü çizgi kendi katmanında kalır. Genel pencere/ebeveyn opacitysini %80e düşürerek taklit etme.",
+      "bulaniklastirma_varsayilan": false,
+      "aktif_pasif": "Odak değişiminde zemin opaklığı %80 kalır; metinler genel pencere karartmasıyla solmaz.",
+      "gercek_saydamlik": "Gerçek alpha/compositor kullanılır; terminalin veya Thunarın içine sabit duvar kâğıdı/logo resmi basılmaz. Pencere sürüklenince altta kalan görüntü doğru değişir; her bölmenin arkasında aynı masaüstü devam eder.",
+      "uygulama": "Gerçek terminal/GTK/WM ve X11/Wayland yeteneklerini keşfet. Yalnız zemin için alpha desteğini kullan; zemin ve metin katmanlarını ayıramayan bir uygulamada körlemesine tüm pencereyi soldurma. Destek yoksa elde edilen görünümü ve sınırlamayı bildir; uygulanmadığı halde %80 yapıldı deme."
+    }
+  },
+  "yayin_surumu": "1.0"
+}
