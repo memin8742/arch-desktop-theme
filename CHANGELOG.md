@@ -1,3 +1,7 @@
+# v1.2.3
+
+- Başlat+Yukarı aynı çalışma alanında Başlat+Aşağı ile küçültülen son pencereyi eski boyutunda geri getirir. Geri getirilecek pencere yoksa odaktaki uygulamayı büyütür.
+
 # v1.2.2
 
 - Terminal ve Thunar başlık düğmeleri oval köşelerin içine alındı.

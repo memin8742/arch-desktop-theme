@@ -340,21 +340,23 @@ def install(home=None):
         for prop in sorted(wallpapers):
             tx.xf('xfce4-desktop',prop,'string',str(data/'wallpaper.png'))
             tx.xf('xfce4-desktop',prop.rsplit('/',1)[0]+'/image-style','int',5)
-        shortcuts = {'<Super>t':str(launcher), '<Super>l':'xfce4-screensaver-command --lock',
-                     '<Super>v':'copyq toggle', 'Print':'xfce4-screenshooter', '<Super>Down':str(helper)+' down'}
+        shortcuts = {'<Super>l':'xfce4-screensaver-command --lock',
+                     '<Super>v':'copyq toggle', 'Print':'xfce4-screenshooter'}
         # xfconf stores commands as strings; quote paths for GLib shell parsing.
         import shlex
         shortcuts['<Super>t'] = shlex.quote(str(launcher))
         shortcuts['<Super>e'] = shlex.quote(str(home / '.local/bin/arch-thunar'))
         shortcuts['<Super>Down'] = shlex.quote(str(helper))+' down'
+        shortcuts['<Super>Up'] = shlex.quote(str(helper))+' up'
+        # Release Xfwm's key grab before registering the replacement command.
+        for key in ('<Super>Down', '<Super>Up'):
+            prop = '/xfwm4/custom/'+key
+            if run(['xfconf-query','-c','xfce4-keyboard-shortcuts','-p',prop],False).returncode == 0:
+                tx.xf('xfce4-keyboard-shortcuts',prop,'string','')
         for key, command in shortcuts.items(): tx.xf('xfce4-keyboard-shortcuts','/commands/custom/'+key,'string',command)
-        wm = {'<Super>Up':'maximize_window_key', '<Super>Left':'tile_left_key', '<Super>Right':'tile_right_key'}
+        wm = {'<Super>Left':'tile_left_key', '<Super>Right':'tile_right_key'}
         wm.update({f'<Super>{n}':f'workspace_{n}_key' for n in range(1,5)})
         for key, action in wm.items(): tx.xf('xfce4-keyboard-shortcuts','/xfwm4/custom/'+key,'string',action)
-        # Remove a conflicting Super+Down WM binding, after journaling its current value.
-        prop = '/xfwm4/custom/<Super>Down'
-        if run(['xfconf-query','-c','xfce4-keyboard-shortcuts','-p',prop],False).returncode == 0:
-            tx.xf('xfce4-keyboard-shortcuts',prop,'string','')
         report = feature_report()
         tx.write(data / 'installed.json', json.dumps({'version':(ROOT/'VERSION').read_text().strip(), 'backup':str(tx.backup),'features':report},ensure_ascii=False,indent=2))
         tx.finish()

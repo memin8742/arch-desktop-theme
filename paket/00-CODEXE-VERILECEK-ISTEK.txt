@@ -1,4 +1,4 @@
-﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.2.2
+﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.2.3
 
 Terminalin lacivert zemini %90, Thunar'ın lacivert zemini %80 opaktır. Yazı,
 simge, grafik ve düğmeler tam opaktır. Pencerenin `#3D98D7` konturu oval,
@@ -13,7 +13,7 @@ kuralları kullanıcı tarafından onaylandı; kurulumda uygulanacak son tercihl
 CODEXE GÖNDERİLECEK METİN
 ZIPi çıkardığın bu klasörü Codexte çalışma klasörü aç, aşağıdaki metni gönder:
 
-Bu klasördeki v1.2.2 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
+Bu klasördeki v1.2.3 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
 
 Önce 00-CODEXE-VERILECEK-ISTEK.txt ve 04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Bütün görselleri açıp dosyalarda belirtilen kapsamlarında incele: 01/02 duvar kâğıdı ve masaüstü, 03 terminalin dışı ve zemin rengi, 05/06 açılış ve giriş/kilit, 07 bölme çizgileri, 08/09 terminal yazıları, 10 batarya menüsü ve 11 Thunar görünümü.
 
@@ -98,7 +98,9 @@ KISAYOLLAR VE ÖZELLİKLER
 - Super+T her basışta yeni pencere; Alt+T terminalde aynı güncel dizinde yeni sekme;
   Super+L gerçek oturum kilidi. Super menü, Super+E dosyalar, Super+1–4 alanlar,
   Super+Sol/Sağ yerleştirme, Super+V pano geçmişi, Print ekran görüntüsü.
-- Super+Yukarı büyüt; Super+Aşağı büyükse eski boyut/konuma dön, normalde alta al.
+- Super+Aşağı büyük pencereyi eski boyutuna döndürür veya normal pencereyi alta alır.
+  Super+Yukarı aynı çalışma alanında bu şekilde küçültülen son pencereyi geri getirir.
+  Geri getirilecek pencere yoksa odaktaki uygulamayı büyütür.
   Basılı tuş tekrarı tek fiziksel basışta iki aşamayı yapmasın; panelden geri getir.
 - Ctrl+C yalnız seçimi panoya kopyala; seçim yoksa işi kesme. Ctrl+Shift+C kesme/iptal.
   Ctrl+V normal sistem panosundan yapıştır, Enter ekleme. Ctrl+Shift+V quoted-insert

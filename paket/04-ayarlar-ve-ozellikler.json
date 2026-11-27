@@ -400,7 +400,7 @@
     {
       "tus": "Super+Up",
       "kapsam": "genel",
-      "islev": "Kullanılabilir alana büyüt; zaten büyükse büyük kalır"
+      "islev": "Aynı çalışma alanında Super+Down ile küçültülen son pencereyi eski boyutunda geri getir. Geri getirilecek pencere yoksa odaktaki uygulamayı büyüt."
     },
     {
       "tus": "Super+Down",
@@ -896,7 +896,7 @@
       "pasif_cerceve_isik_orani": 0.9
     }
   },
-  "yayin_surumu": "1.2.2",
+  "yayin_surumu": "1.2.3",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",

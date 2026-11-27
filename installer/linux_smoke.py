@@ -46,6 +46,7 @@ try:
     _,data,state=install.paths()
     assert 'ARCH_PRESERVED=yes' in (home/'.zshrc').read_text()
     assert call('xfconf-query','-c','xfwm4','-p','/general/theme') == 'Arch-Blue'
+    assert call('xfconf-query','-c','xfce4-keyboard-shortcuts','-p','/commands/custom/<Super>Up').endswith(' up')
     assert call('xfconf-query','-c','xfce4-panel','-p','/plugins/plugin-1/show-labels') == 'false'
     subprocess.run([sys.executable,str(data/'terminal.py'),'--self-check'],check=True)
     spec=importlib.util.spec_from_file_location('arch_terminal',data/'terminal.py')
@@ -135,6 +136,7 @@ try:
     assert len(window.terms)==2 and window.book.get_n_pages()==2
     # Native Thunar process, composited RGBA visual and theme CSS loaded on new windows.
     wid=call('xdotool','getactivewindow')
+    normal_geometry=call('xdotool','getwindowgeometry','--shell',wid)
     call('wmctrl','-ir',hex(int(wid)),'-b','add,maximized_vert,maximized_horz')
     spin(lambda: '_NET_WM_STATE_MAXIMIZED_VERT' in call('xprop','-id',wid,'_NET_WM_STATE'))
     call('xdotool','keydown','Down')
@@ -155,9 +157,23 @@ try:
     output=helper.output
     with patch.object(helper,'output',side_effect=lambda args: desktop if args==['xdotool','getactivewindow'] else output(args)):
         for _ in range(3):
-            helper.down()
+            helper.window_shortcut('down')
     assert 'Map State: IsViewable' in call('xwininfo','-id',desktop)
-    call('wmctrl','-ia',hex(int(wid)))
+    call('xdotool','keydown','Up')
+    up_process=subprocess.Popen([sys.executable,str(DATA_HELPER),'up'])
+    try:
+        spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
+        assert up_process.poll() is None, 'Up repeat latch released before physical key release'
+        subprocess.run([sys.executable,str(DATA_HELPER),'up'],check=True,timeout=2)
+    finally:
+        call('xdotool','keyup','Up')
+    up_process.wait(timeout=2)
+    assert '_NET_WM_STATE_MAXIMIZED_' not in call('xprop','-id',wid,'_NET_WM_STATE')
+    assert call('xdotool','getwindowgeometry','--shell',wid)==normal_geometry
+    call('xdotool','key','super+Down')
+    spin(lambda: '_NET_WM_STATE_HIDDEN' in call('xprop','-id',wid,'_NET_WM_STATE'))
+    call('xdotool','key','super+Up')
+    spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
     spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
     children.append(subprocess.Popen(['thunar',str(home)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
     time.sleep(.8)
@@ -212,7 +228,7 @@ try:
     journal=json.loads((data/'installed.json').read_text())
     install.restore(journal['backup'])
     assert (home/'.zshrc').read_text()=='export ARCH_PRESERVED=yes\n'
-    print('PASS: Arch/Xfwm, backup/restore, PTYs, split and undo shortcuts, tabs, desktop-safe Super+Down, Ctrl+C, SIGINT, ZLE, clipboard, RGBA Thunar.')
+    print('PASS: Arch/Xfwm, backup/restore, PTYs, split undo, tabs, Super+Down/Up, Ctrl+C, SIGINT, ZLE, clipboard, RGBA windows.')
 finally:
     for process in children:
         process.terminate()

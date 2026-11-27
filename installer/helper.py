@@ -3,36 +3,74 @@
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
 import time
 
 DATA = Path(__file__).resolve().parent
+MINIMIZED_AT = '_ARCH_BLUE_MINIMIZED_AT'
 
 
 def output(args):
     return subprocess.run(args,capture_output=True,text=True,errors='replace').stdout.strip()
 
 
-def down():
+def active_application():
+    window = output(['xdotool', 'getactivewindow'])
+    if not window.isdigit(): return None, ''
+    properties = output(['xprop', '-id', window, '_NET_WM_WINDOW_TYPE', '_NET_WM_STATE'])
+    if any(f'_NET_WM_WINDOW_TYPE_{kind}' in properties for kind in ('DESKTOP', 'DOCK')):
+        return None, ''
+    return window, properties
+
+
+def restore_minimized(include_unmarked):
+    workspace = output(['xprop', '-root', '-notype', '_NET_CURRENT_DESKTOP']).rsplit(' ', 1)[-1]
+    stacking = output(['xprop', '-root', '-notype', '_NET_CLIENT_LIST_STACKING'])
+    order = {int(window, 16): index for index, window in enumerate(re.findall(r'0x[\da-f]+', stacking))}
+    candidates = []
+    for line in output(['wmctrl', '-l']).splitlines():
+        window, desktop, _ = line.split(None, 2)
+        if desktop not in (workspace, '-1'): continue
+        properties = output(['xprop', '-id', window, '-notype', MINIMIZED_AT,
+                             '_NET_WM_STATE', '_NET_WM_WINDOW_TYPE'])
+        if '_NET_WM_STATE_HIDDEN' not in properties: continue
+        if any(f'_NET_WM_WINDOW_TYPE_{kind}' in properties for kind in ('DESKTOP', 'DOCK')): continue
+        marker = properties.partition('\n')[0].partition(' = ')[2].strip('"')
+        if marker.isdigit() or include_unmarked:
+            candidates.append((int(marker) if marker.isdigit() else 0, order.get(int(window, 16), -1), window))
+    if not candidates: return False
+    window = max(candidates)[2]
+    subprocess.run(['wmctrl', '-ia', window], check=True)
+    subprocess.run(['xprop', '-id', window, '-remove', MINIMIZED_AT], check=False)
+    return True
+
+
+def window_shortcut(direction):
     import fcntl
-    # Wait until physical Down is released. Holding it cannot restore and then minimize.
-    # A per-user lock ignores repeats while the first press is waiting for release.
+    # Accept one action per physical press, even when X11 repeats the key.
     state = Path.home()/'.local/state/arch-desktop-theme'
     state.mkdir(parents=True,exist_ok=True)
-    with (state/'down.lock').open('w') as lock:
+    with (state/f'{direction}.lock').open('w') as lock:
         try: fcntl.flock(lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError: return
-        wid = output(['xdotool','getactivewindow'])
-        if not wid.isdigit(): return
-        properties = output(['xprop', '-id', wid, '_NET_WM_WINDOW_TYPE', '_NET_WM_STATE'])
-        if any(f'_NET_WM_WINDOW_TYPE_{kind}' in properties for kind in ('DESKTOP', 'DOCK')):
+        window, properties = active_application()
+        if direction == 'up':
+            if not restore_minimized(include_unmarked=window is None):
+                if window is None: return
+                subprocess.run(['wmctrl', '-ir', hex(int(window)), '-b',
+                                'add,maximized_vert,maximized_horz'], check=True)
+        elif window is None:
             return
-        if '_NET_WM_STATE_MAXIMIZED_' in properties:
-            subprocess.run(['wmctrl','-ir',hex(int(wid)),'-b','remove,maximized_vert,maximized_horz'],check=True)
-        else: subprocess.run(['xdotool','windowminimize',wid],check=True)
-        # Query the actual X keymap, no arbitrary debounce delay used as key-release evidence.
+        elif '_NET_WM_STATE_MAXIMIZED_' in properties:
+            subprocess.run(['wmctrl', '-ir', hex(int(window)), '-b',
+                            'remove,maximized_vert,maximized_horz'], check=True)
+        else:
+            subprocess.run(['xprop', '-id', window, '-f', MINIMIZED_AT, '8s', '-set',
+                            MINIMIZED_AT, str(time.monotonic_ns())], check=True)
+            subprocess.run(['xdotool', 'windowminimize', window], check=True)
         import ctypes
         x = ctypes.CDLL('libX11.so.6')
         x.XOpenDisplay.restype=ctypes.c_void_p
@@ -42,7 +80,7 @@ def down():
         display=x.XOpenDisplay(None)
         if not display: return
         try:
-            code=x.XKeysymToKeycode(display,0xff54)
+            code=x.XKeysymToKeycode(display,0xff52 if direction == 'up' else 0xff54)
             keys=ctypes.create_string_buffer(32)
             while True:
                 x.XQueryKeymap(display,keys)
@@ -140,8 +178,8 @@ def notify(window):
 
 if __name__=='__main__':
     action=sys.argv[1] if len(sys.argv)>1 else 'sensors'
-    if action=='down': down()
+    if action in ('down', 'up'): window_shortcut(action)
     elif action=='compositor': compositor()
     elif action=='sensors': sensors()
     elif action=='notify': notify(sys.argv[2] if len(sys.argv)>2 else '')
-    else: raise SystemExit('Kullanım: arch-theme [sensors|down|compositor]')
+    else: raise SystemExit('Kullanım: arch-theme [sensors|down|up|compositor]')
