@@ -132,6 +132,7 @@ try:
     subprocess.run([sys.executable,str(DATA_HELPER),'down'],check=True,timeout=2)
     spin(lambda: '_NET_WM_STATE_HIDDEN' in call('xprop','-id',wid,'_NET_WM_STATE'))
     call('wmctrl','-ia',hex(int(wid)))
+    spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
     children.append(subprocess.Popen(['thunar',str(home)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
     time.sleep(.8)
     ids=call('xdotool','search','--onlyvisible','--class','Thunar').splitlines()
@@ -153,9 +154,26 @@ try:
     x.XDestroyImage(image); x.XCloseDisplay(display)
     assert 195 <= alpha <= 213, f'Expected 80% local background alpha, got {alpha}/255'
     # Export only the disposable CI desktop, never a user screenshot.
-    capture=Path('/tmp/arch-theme-ci.png')
-    pixbuf=module.Gdk.pixbuf_get_from_window(module.Gdk.get_default_root_window(),0,0,1280,1024)
-    pixbuf.savev(str(capture),'png',[],[])
+    end=time.monotonic()+.3
+    while time.monotonic()<end:
+        while Gtk.events_pending(): Gtk.main_iteration_do(False)
+        time.sleep(.01)
+    # Picom renders to the Composite overlay; a root-window read omits redirected clients.
+    import gi
+    gi.require_version('GdkX11','3.0')
+    from gi.repository import GdkX11
+    comp=ctypes.CDLL('libXcomposite.so.1')
+    comp.XCompositeGetOverlayWindow.argtypes=[ctypes.c_void_p,ctypes.c_ulong]
+    comp.XCompositeGetOverlayWindow.restype=ctypes.c_ulong
+    comp.XCompositeReleaseOverlayWindow.argtypes=[ctypes.c_void_p,ctypes.c_ulong]
+    x.XDefaultRootWindow.argtypes=[ctypes.c_void_p]; x.XDefaultRootWindow.restype=ctypes.c_ulong
+    display=x.XOpenDisplay(None); root=x.XDefaultRootWindow(display)
+    overlay=comp.XCompositeGetOverlayWindow(display,root)
+    foreign=GdkX11.X11Window.foreign_new_for_display(module.Gdk.Display.get_default(),overlay)
+    width,height=map(int,call('xdotool','getdisplaygeometry').split())
+    pixbuf=module.Gdk.pixbuf_get_from_window(foreign,0,0,width,height)
+    pixbuf.savev('/tmp/arch-theme-ci.png','png',[],[])
+    comp.XCompositeReleaseOverlayWindow(display,root); x.XCloseDisplay(display)
     window.destroy()
     while Gtk.events_pending(): Gtk.main_iteration_do(False)
     journal=json.loads((data/'installed.json').read_text())
