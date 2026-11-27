@@ -4,8 +4,8 @@
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
-      "bytes": 14106,
-      "sha256": "e378871cc145b54487b1414a66f5d5301ed4a750a78b4906b0864905b5bbfc05"
+      "bytes": 13962,
+      "sha256": "c14fc46df7da8d01270c311b66a251373ae2d0091885cdab75c00bf178ddf57d"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -54,8 +54,8 @@
   },
   "installer_files": {
     "AGENTS.md": {
-      "bytes": 4664,
-      "sha256": "f75222487fe6b8868d0bf335d475ebcc2acd95a7507960b9bfd0bd5deb36df00"
+      "bytes": 4231,
+      "sha256": "83af7d672cf4f0d227d55cbe4c7ee9aae7dd06417f14f0761727006c14e568e6"
     },
     "CHANGELOG.md": {
       "bytes": 6548,
@@ -70,8 +70,8 @@
       "sha256": "75c16963381c2d59faffd0dffa6dff1b30f51fdfd32ff2fdeb219ac55b872265"
     },
     "KURULUM.md": {
-      "bytes": 5912,
-      "sha256": "8e7c22aee09c3521741d97fc801d4df8b70a8f003f4d3509fe1ce05f48dc637d"
+      "bytes": 5732,
+      "sha256": "082962f7e8e5ff3fd3393257800f3294d389a91cf56cb2eb43b6cb8798feef26"
     },
     "README.md": {
       "bytes": 4838,
