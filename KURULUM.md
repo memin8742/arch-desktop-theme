@@ -1,8 +1,16 @@
-# Arch üzerinde Codex ile kurulum
+# Arch / Xfce kurulumu
 
 Repo: https://github.com/memin8742/arch-desktop-theme
 
 Hazır kullanıcı isteği: [`CODEXE-VERILECEK-ISTEK.txt`](CODEXE-VERILECEK-ISTEK.txt).
+
+## Codex gerektirmeyen araç
+
+Xfce / X11 kullanıcısı ZIP'i çıkartıp `bash kur.sh` çalıştırabilir. [KOLAY-KURULUM.txt](KOLAY-KURULUM.txt) kurulum, kontrol ve geri dönüş adımlarını anlatır. Araç mevcut Xfce'yi kullanır, başka masaüstüne geçirmez. Kendi kullanıcı hesabından açılır; yalnız dağıtım paketleri için sudo kullanılır.
+
+Bu sürüm tamamlanmış birebir sistem imajı değildir. `python3 installer/install.py --plan` ve `installer/install.py` içindeki `feature_report()` kapsamı açıkça belirtir. Özellikle Thunar zemin alfa, açılış/giriş tasarımı ve donanım şarj kuralları beklemektedir. Bunları referansta var diye kurulmuş saymayın.
+
+Codex de Xfce/X11 hedefte önce bu aracı çalıştırabilir, ardından yalnız uygulanmamış ayrıntıları gerçek ortamda tamamlayabilir. Aracın tarihli yedeğini korusun. Kurulum betiği sistem dosyalarına tema yazmaz, giriş yöneticisi/PAM/initramfs değiştirmez ve hesap kabuğunu `chsh` ile değiştirmez; Zsh yalnız yeni terminal profilinde çalışır.
 
 ## Kaynağı bilgisayara alma
 

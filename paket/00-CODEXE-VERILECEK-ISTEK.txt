@@ -1,4 +1,4 @@
-﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0.4
+﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.1.0
 
 SON GÖRÜNÜM: Terminal ve Thunarda mevcut koyu lacivert renk korunur; zemin
 opaklığı %80, saydamlık %20dir. Yazı/ikon/grafik/düğmeleri soldurma. Dış çerçeve
@@ -15,7 +15,7 @@ kuralları kullanıcı tarafından onaylandı; kurulumda uygulanacak son tercihl
 CODEXE GÖNDERİLECEK METİN
 ZIPi çıkardığın bu klasörü Codexte çalışma klasörü aç, aşağıdaki metni gönder:
 
-Bu klasördeki v1.0.4 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
+Bu klasördeki v1.1.0 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
 
 Önce 00-CODEXE-VERILECEK-ISTEK.txt ve 04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Bütün görselleri açıp dosyalarda belirtilen kapsamlarında incele: 01/02 duvar kâğıdı ve masaüstü, 03 terminalin dışı ve zemin rengi, 05/06 açılış ve giriş/kilit, 07 bölme çizgileri, 08/09 terminal yazıları, 10 batarya menüsü ve 11 Thunar görünümü.
 

@@ -2,11 +2,32 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**Güncel sürüm: v1.0.4.** Güncel kaynak her zaman [`paket/`](paket/) dizinidir. Kurulumu hedef Arch Linux bilgisayarındaki Codex, gerçek masaüstü ve donanımı inceleyerek uygular. Bu repo, kurulumun tamamlandığını gösteren bir sistem imajı veya tek komutluk otomatik yükleyici değildir.
+**v1.1.0: Xfce için kurulum aracı / deneme sürümü.** Codex olmadan kurulabilen bir araç eklendi. Hedef, mevcut **Arch Linux + Xfce + X11** oturumudur; işletim sistemi yükleyicisi değildir. Onaylı tasarım `paket/`, çalıştırılabilir kurulum kaynağı `installer/` içindedir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
-## Arch üzerinde kurulum
+## Codex kullanmadan kurulum
+
+[v1.1.0 ZIP paketini indirin](https://github.com/memin8742/arch-desktop-theme/releases/tag/v1.1.0), bir klasöre çıkartın. `kur.sh` dosyasının bulunduğu klasörde sağ tıklayıp **Burada Terminal Aç** seçin:
+
+```sh
+bash kur.sh
+```
+
+Türkçe menüden **1 Kur / güncelle** seçin. Araç önce kapsamı gösterir; değişen dosya ve Xfce ayarlarını yedekler. Gereken resmi Arch paketleri, sistem güncellemesiyle birlikte kurulur. Parola yalnız `sudo` tarafından istenir; aracın tamamını `sudo` ile açmayın. Sonunda oturumu kapatıp tekrar açın.
+
+Aynı menüden kontrol, **yedeğe dönme** ve yalnız tema ayarlarını dışa aktarma yapılır. [Kısa kullanım rehberi](KOLAY-KURULUM.txt).
+
+```sh
+bash kur.sh --plan   # Değişiklik yapmadan kapsam
+bash kur.sh --check  # Kurulan bileşenlerin kontrolü
+```
+
+**Kapsam:** Duvar kâğıdı, Xfwm mavi çerçeve, üst panel, simgeli pencere düğmeleri, koyu Thunar, gerçek VTE/Zsh terminali, Fira Code, %80 terminal zemini, sekme/bölme/çıktı arama, kopyalama ve pano uygulanır. Mevcut panel eklentileri korunur; bu sürüm eksik özel eklentileri otomatik eklemez.
+
+**Henüz otomatik uygulanmayanlar:** Thunar'ın yalnız zemininde %80 opaklık, birebir açılış/giriş/kilit tasarımı, batarya modları, özel CPU/MEM/NET kartları, ekran kaydı, tek Başlat ile menü ve pasif ışığın ayrıca azaltılması. Shift seçimi Zsh komut satırını kapsar; eski çıktı fareyle seçilir. Kurulum bunları bitmiş gibi göstermez. Onaylı istekler/görseller korunur; gerçek bilgisayarda görsel, ölçek, kilit ve donanım kabulü gerekir.
+
+## Codex ile kurulum / kalan ayrıntılar
 
 [Codex'e verilecek hazır isteği](CODEXE-VERILECEK-ISTEK.txt) kopyalayın. İstek repo bağlantısını da içerir; Codex'ten repoyu bilgisayara çekmesini ve kurulumu uygulamasını ister.
 
@@ -18,7 +39,7 @@ cd arch-desktop-theme
 python3 tools/package.py check
 ```
 
-Ardından bu klasörde Codex'e [`KURULUM.md`](KURULUM.md) ve `paket/` içindeki talimatları uygulamasını söyleyin. Kurulumdan önce değişecek ayarlar yedeklenir; uygulama ve donanım desteği gerçek sistemde kontrol edilir.
+Xfce/X11 için önce `bash kur.sh` aracını kullanın. Codex'ten kalan ayrıntıları tamamlamasını isteyecekseniz [`KURULUM.md`](KURULUM.md) ve `paket/` içindeki tanımları verin. Araçta uygulanmış özelliklerle bekleyen tasarım isteklerini ayırın.
 
 ## Tasarım ve özellikler
 
@@ -40,7 +61,7 @@ git pull --ff-only
 python3 tools/package.py check
 ```
 
-Sonra Codex'ten yeni tanımları mevcut kuruluma, kişisel ayarları ve yedekleri koruyarak uygulamasını isteyin. Dosyaları çekmek tek başına masaüstü ayarlarını değiştirmez.
+Ardından `bash kur.sh` menüsünden **Kur / güncelle** seçin. Dosyaları çekmek tek başına masaüstü ayarlarını değiştirmez. Her uygulama ayrı bir yedek oluşturur. Yedeğe dönüşte sonradan elle değişen dosyalar korunup raporlanır; kurulan dağıtım paketleri otomatik kaldırılmaz.
 
 [Yayımlanmış sürümler ve ZIP paketleri](https://github.com/memin8742/arch-desktop-theme/releases) · [Değişiklikler](CHANGELOG.md) · [Kurulum ayrıntıları](KURULUM.md)
 
@@ -52,3 +73,7 @@ python3 tools/package.py build
 ```
 
 Yeni içerik/sürüm hazırlanırken önce `VERSION` ve tanımlar güncellenir; ardından `python3 tools/package.py sync` özetleri yeniler. ZIP ve SHA256 dosyası `dist/` altında üretilir, Git geçmişine eklenmez. Videolar ve eski alternatif tasarımlar bu repoya alınmaz.
+
+## Uygulama kaynakları
+
+Çerçeveler [Xfwm'ın yerel XPM tema yapısını](https://wiki.xfce.org/howto/xfwm4_theme), panel [Xfce pencere düğmelerini](https://docs.xfce.org/xfce/xfce4-panel/tasklist) kullanır. Terminal PTY ve güvenli yapıştırma için [VTE](https://gnome.pages.gitlab.gnome.org/vte/gtk3/method.Terminal.paste_text.html), düzenlenen komutun seçimi için [Zsh ZLE](https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html), ışık için [Picom](https://picom.app/) kullanır. Tüm pencereyi soldurarak saydamlık taklidi yapılmaz.

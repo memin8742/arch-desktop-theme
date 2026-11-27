@@ -1,11 +1,11 @@
 {
-  "release_version": "1.0.4",
+  "release_version": "1.1.0",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 14398,
-      "sha256": "450538183d3890916e3cdaee14fce4547dbc99380c4567185a3c3bea7a9361d3"
+      "sha256": "a15878afa19d715864d5c8e606ebfba4d766fbe3b9f2c3ce3251b0f244cd8a91"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -20,8 +20,8 @@
       "sha256": "419f7d35ad3b1c0ae16c6a27a40156fa5ad3e9cc886a2176e6c5ecaf464d0b84"
     },
     "04-ayarlar-ve-ozellikler.json": {
-      "bytes": 69775,
-      "sha256": "c1c24f6b521ea7523f49d5a98a3445749087f3672eaa5b00e70cbbfbf58ba92d"
+      "bytes": 70245,
+      "sha256": "8a7f91e3dcceeec967e24dc32385a061d3f82d82db01dc90eb5602e7c9e90bc2"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,
@@ -50,6 +50,72 @@
     "11-thunar-dosya-yoneticisi.png": {
       "bytes": 1524354,
       "sha256": "7b275dbedfe616eeb367fc3baad2a55cb3e5d7b8dbe00a8826dfe1d45b683b71"
+    }
+  },
+  "installer_files": {
+    "AGENTS.md": {
+      "bytes": 4664,
+      "sha256": "f75222487fe6b8868d0bf335d475ebcc2acd95a7507960b9bfd0bd5deb36df00"
+    },
+    "CHANGELOG.md": {
+      "bytes": 4766,
+      "sha256": "1852b2de562b86cf2de27eb6a3a015b52b3892fc0a3f247445a3db7f08a74f68"
+    },
+    "CODEXE-VERILECEK-ISTEK.txt": {
+      "bytes": 1722,
+      "sha256": "cb149bd824152521d51ec43d1e9bf87f525015a87f95eb930d03249b50eb4da4"
+    },
+    "KOLAY-KURULUM.txt": {
+      "bytes": 3218,
+      "sha256": "75b7897c6822ee0656ddf57064e27cd78b3fdb947347cdbe3b88c6e2c433845b"
+    },
+    "KURULUM.md": {
+      "bytes": 5665,
+      "sha256": "b57ff16c988ca20faa5d57bdb0fa992e116cebc07d86d988d309757344f46cc7"
+    },
+    "README.md": {
+      "bytes": 6099,
+      "sha256": "c80770113cc6d63d3f7f1b75814bbb29d104d603a6e273ea248f4a6a2413bba9"
+    },
+    "VERSION": {
+      "bytes": 6,
+      "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
+    },
+    "installer/assets.py": {
+      "bytes": 5191,
+      "sha256": "fb95fe8430771f7e54bd34f93bf8ac473bd14deaacd94473ce3edcc2861abca2"
+    },
+    "installer/helper.py": {
+      "bytes": 6559,
+      "sha256": "fd5da214a9a6734552fa53458b0265ec151e1f25ceb0ff713a4d024582ee9018"
+    },
+    "installer/install.py": {
+      "bytes": 22428,
+      "sha256": "0d32e653a9552be1989626cf125e60840385291b012384620af46d5135d1a3fc"
+    },
+    "installer/linux_smoke.py": {
+      "bytes": 4452,
+      "sha256": "1f029ac510c95eb07c8111becadb35b90d3880a362ca87bc9c774652b30687f3"
+    },
+    "installer/terminal.py": {
+      "bytes": 13507,
+      "sha256": "46a32517f459ad434892a3b20dba2b476aa28214b22e80a11174db13ff4e9460"
+    },
+    "installer/test_installer.py": {
+      "bytes": 5646,
+      "sha256": "3b93703661a31f78865ce97dd7b4d0d0b9bbdd04bdec76cece14b47861601dc6"
+    },
+    "installer/theme.zsh": {
+      "bytes": 4008,
+      "sha256": "858f277195051b021d3802740544e946217a57dd9cee989b30f2a7cb67200267"
+    },
+    "kur.sh": {
+      "bytes": 1014,
+      "sha256": "5a692a41c49ef035f7b551050246fd98bbc10403ee07c8a0d13caefa677d5bb8"
+    },
+    "tools/package.py": {
+      "bytes": 7572,
+      "sha256": "c4ea75bb1bf579bb7e739a7d39e06e03ecc8582d781db83b41c539071837452b"
     }
   }
 }

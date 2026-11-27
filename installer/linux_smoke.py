@@ -1,0 +1,92 @@
+"""Run only in disposable Arch CI/Xvfb as a normal user, never on an owner's desktop."""
+import importlib.util
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+
+import install
+
+if os.environ.get('GITHUB_ACTIONS') != 'true':
+    raise SystemExit('Bu test yalnız geçici GitHub Actions ortamında çalıştırılır.')
+
+def call(*args): return subprocess.check_output(args,text=True).strip()
+def xf(channel,prop,kind,value): call('xfconf-query','-c',channel,'-p',prop,'-n','-t',kind,'-s',str(value))
+
+children=[]
+home=Path.home()
+try:
+    # A known, minimal panel fixture, not a user's existing live panel.
+    call('xfconf-query','-c','xfce4-panel','-p','/panels','-n','-a','-t','int','-s','1')
+    call('xfconf-query','-c','xfce4-panel','-p','/panels/panel-1/plugin-ids','-n','-a','-t','int','-s','1')
+    xf('xfce4-panel','/plugins/plugin-1','string','tasklist')
+    xf('xfce4-panel','/panels/panel-1/position','string','p=6;x=0;y=0')
+    xf('xfce4-desktop','/backdrop/screen0/monitor0/workspace0/last-image','string','/tmp/original.png')
+    for command in [['xfwm4','--compositor=off'],['xfce4-panel'],['xfdesktop']]:
+        children.append(subprocess.Popen(command,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
+    time.sleep(2)
+    (home/'.zshrc').write_text('export ARCH_PRESERVED=yes\n')
+    install.install()
+    _,data,state=install.paths()
+    assert 'ARCH_PRESERVED=yes' in (home/'.zshrc').read_text()
+    assert call('xfconf-query','-c','xfwm4','-p','/general/theme') == 'Arch-Blue'
+    assert call('xfconf-query','-c','xfce4-panel','-p','/plugins/plugin-1/show-labels') == 'false'
+    subprocess.run([sys.executable,str(data/'terminal.py'),'--self-check'],check=True)
+    spec=importlib.util.spec_from_file_location('arch_terminal',data/'terminal.py')
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    Gtk,GLib=module.Gtk,module.GLib
+    app=module.Application(); app.register(None)
+    window=module.TerminalWindow(app)
+    def spin(predicate,timeout=8):
+        end=time.monotonic()+timeout
+        while time.monotonic()<end:
+            while Gtk.events_pending(): Gtk.main_iteration_do(False)
+            if predicate(): return
+            time.sleep(.02)
+        raise AssertionError('Timed out: '+str(predicate))
+    first=window.current
+    spin(lambda: bool(first.shell_pid))
+    target=home/'same directory'; target.mkdir()
+    first.feed_child(('cd "'+str(target)+'"\n').encode())
+    spin(lambda: module.cwd_for(first)==str(target))
+    window.new_tab(); second=window.current
+    spin(lambda: bool(second.shell_pid))
+    spin(lambda: module.cwd_for(second)==str(target))
+    window.split(Gtk.Orientation.HORIZONTAL)
+    third=window.current
+    spin(lambda: bool(third.shell_pid))
+    assert len(window.terms)==3
+    assert first.shell_pid!=second.shell_pid!=third.shell_pid
+    marker=home/'pty-command-worked'
+    third.feed_child(('printf okay > "'+str(marker)+'"\n').encode())
+    spin(marker.exists)
+    assert marker.read_text()=='okay'
+    # Ctrl+C without selection must leave a foreground job running; shifted copy sends SIGINT.
+    interrupted=home/'interrupted'
+    script=home/'interrupt.py'
+    script.write_text('import signal,time,pathlib\nsignal.signal(signal.SIGINT,lambda *a:(pathlib.Path('+repr(str(interrupted))+').write_text("yes"),exit(0)))\ntime.sleep(30)\n')
+    third.feed_child(('python3 "'+str(script)+'"\n').encode())
+    spin(lambda: not window.at_prompt(third))
+    window.copy(third)
+    assert not interrupted.exists()
+    third.feed_child(b'\x03')
+    spin(interrupted.exists)
+    # Real ZLE syntax, prompt colour, buffer selection and clipboard integration.
+    third.feed_child(b'printf abcde')
+    time.sleep(.1)
+    third.feed_child(b'\x1b[1;2D\x1b[1;2D\x1b[99;5u')
+    spin(lambda: subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True).stdout==b'de')
+    third.feed_child(b'\x03')
+    window.destroy()
+    while Gtk.events_pending(): Gtk.main_iteration_do(False)
+    journal=json.loads((data/'installed.json').read_text())
+    install.restore(journal['backup'])
+    assert (home/'.zshrc').read_text()=='export ARCH_PRESERVED=yes\n'
+    print('PASS: Arch/Xfwm settings, backup/restore, GTK/VTE, real PTYs, independent split, same-CWD tab, Ctrl+C safety, SIGINT, ZLE selection, clipboard.')
+finally:
+    for process in children:
+        process.terminate()

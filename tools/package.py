@@ -20,6 +20,13 @@ EXPECTED = {
     '09-dosya-log-renk-ornekleri.png', '10-batarya-modu.png',
     '11-thunar-dosya-yoneticisi.png',
 }
+INSTALLER_FILES = {
+    'kur.sh', 'KOLAY-KURULUM.txt', 'README.md', 'KURULUM.md', 'AGENTS.md',
+    'CODEXE-VERILECEK-ISTEK.txt', 'CHANGELOG.md', 'VERSION', 'tools/package.py',
+    'installer/install.py', 'installer/assets.py', 'installer/terminal.py',
+    'installer/helper.py', 'installer/theme.zsh', 'installer/test_installer.py',
+    'installer/linux_smoke.py',
+}
 
 
 def require(condition, message):
@@ -49,6 +56,7 @@ def inputs():
     require(BUNDLE.is_dir(), 'paket/ bulunamadı.')
     require({p.name for p in BUNDLE.iterdir()} == EXPECTED, 'Paket tam olarak beklenen 12 dosyayı içermeli.')
     require(all((BUNDLE / name).is_file() and not (BUNDLE / name).is_symlink() for name in EXPECTED), 'Paket dosyaları normal dosya olmalı.')
+    require(all((ROOT / name).is_file() and not (ROOT / name).is_symlink() for name in INSTALLER_FILES), 'Kurulum aracı dosyası eksik.')
     config = read_json(BUNDLE / CONFIG)
     text = (BUNDLE / INSTRUCTIONS).read_text(encoding='utf-8-sig')
     require('\ufffd' not in text + json.dumps(config, ensure_ascii=False), 'Bozuk UTF-8 karakteri var.')
@@ -74,6 +82,8 @@ def manifest(config):
         'bundle_directory': 'paket',
         'files': {name: {'bytes': (BUNDLE / name).stat().st_size,
                          'sha256': sha256(BUNDLE / name)} for name in sorted(EXPECTED)},
+        'installer_files': {name: {'bytes': (ROOT / name).stat().st_size,
+                                  'sha256': sha256(ROOT / name)} for name in sorted(INSTALLER_FILES)},
     }
 
 
@@ -102,7 +112,7 @@ def check():
     require(config['terminal']['bolmeler']['renk_ve_malzeme']['uc_ucgenleri'] is False, 'Üçgensiz bölücü kuralı değişti.')
     require(config['terminal']['istem']['git_bilgisi'] is False, 'Git istem modülü eklenmemeli.')
     require(config['terminal']['basarisiz_komut']['etkin'] is False, 'Hata rozeti eklenmemeli.')
-    print('Paket doğrulandı: v' + version() + ', 12 dosya, 27 kısayol.')
+    print('Paket doğrulandı: v' + version() + ', 12 tasarım dosyası + Xfce kurulum aracı, 27 kısayol.')
     return config
 
 
@@ -111,16 +121,19 @@ def build():
     output = ROOT / 'dist'
     output.mkdir(exist_ok=True)
     destination = output / ('arch-desktop-theme-v' + version() + '.zip')
+    sources = {name: ROOT / name for name in INSTALLER_FILES}
+    sources['manifest.json'] = ROOT / 'manifest.json'
+    sources.update({'paket/' + name: BUNDLE / name for name in EXPECTED})
     with zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED) as archive:
-        for name in sorted(EXPECTED):
+        for name in sorted(sources):
             info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
             info.create_system = 3
-            info.external_attr = 0o100644 << 16
+            info.external_attr = (0o100755 if name == 'kur.sh' else 0o100644) << 16
             info.compress_type = zipfile.ZIP_DEFLATED
-            archive.writestr(info, (BUNDLE / name).read_bytes())
+            archive.writestr(info, sources[name].read_bytes())
     with zipfile.ZipFile(destination) as archive:
-        require(archive.testzip() is None and set(archive.namelist()) == EXPECTED, 'ZIP bütünlük hatası.')
-        require(all(archive.read(name) == (BUNDLE / name).read_bytes() for name in EXPECTED), 'ZIP kaynakla uyuşmuyor.')
+        require(archive.testzip() is None and set(archive.namelist()) == set(sources), 'ZIP bütünlük hatası.')
+        require(all(archive.read(name) == path.read_bytes() for name, path in sources.items()), 'ZIP kaynakla uyuşmuyor.')
     checksum = output / (destination.name + '.sha256')
     checksum.write_text(sha256(destination) + '  ' + destination.name + '\n', encoding='utf-8', newline='\n')
     print('Üretildi: ' + str(destination))

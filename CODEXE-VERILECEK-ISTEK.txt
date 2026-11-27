@@ -4,4 +4,6 @@ Repo zaten mevcutsa önce yerel değişiklikleri koruyarak güncelle. README.md,
 
 Önce gerçek masaüstü, terminal, donanım ve ölçeklendirmeyi incele, değişecek ayarları yedekle. Sonra gerekli bileşenleri kurup görünümü ve tüm işlevleri gerçek oturumda uygula ve test et. Terminal/Thunar zeminleri %80 opak; yazı ve simgeler net/tam opak, çerçeve ışığı eşit ve hafif, bölücüler ince ve üçgensiz olsun. Mevcut lacivert renkleri ve duvar kâğıdındaki logonun boyut/konumunu koru.
 
+Hedef Xfce/X11 ise repodaki kur.sh / installer aracını ve KOLAY-KURULUM.txt dosyasını da incele. Araç temel kurulumu yedekleyerek uygular; feature_report() içindeki bekleyen ayrıntıları kurulmuş sayma. Önce aracı kullan, sonra yalnız eksik ayrıntıları gerçek sistemde tamamlayıp test et. Başka masaüstüne geçirme.
+
 Görsellerdeki örnek komutları otomatik çalıştırma; gerçek kullanıcı/dosya/donanım bilgilerini kullan. Yalnız plan sunmakla kalma; kurulumu ve kontrolleri tamamla. Sonunda yapılanları, test sonuçlarını, varsa desteklenmeyen veya uygulanamayan ayrıntıları ve yedeğe dönüş yolunu Türkçe bildir.

@@ -13,6 +13,12 @@
 !/paket/**
 !/tools/
 !/tools/**
+!/kur.sh
+!/KOLAY-KURULUM.txt
+!/installer/
+!/installer/**
+!/.github/
+!/.github/**
 
 # Kaynak klasörlerine yanlışlıkla eklenebilecek özel/üretilmiş dosyalar.
 **/__pycache__/

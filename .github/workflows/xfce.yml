@@ -1,0 +1,36 @@
+name: Xfce installer checks
+on:
+  push:
+    branches: [main, codex/xfce-installer]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  arch-x11:
+    runs-on: ubuntu-latest
+    container: archlinux:base
+    timeout-minutes: 15
+    steps:
+      - name: Prepare official Arch packages
+        run: >-
+          pacman -Syu --noconfirm --needed git python python-gobject vte3 zsh
+          zsh-syntax-highlighting zsh-autosuggestions ttf-fira-code picom xclip wmctrl
+          xorg-xprop xdotool libnotify xfce4-screensaver xfce4-screenshooter
+          xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-power-manager
+          copyq papirus-icon-theme fastfetch grc tree xfwm4 xfconf xfce4-panel
+          xfdesktop thunar xorg-server-xvfb xorg-xauth dbus sudo
+      - uses: actions/checkout@v4
+      - name: Source and package checks
+        run: |
+          bash -n kur.sh
+          zsh -n installer/theme.zsh
+          python -m compileall -q installer tools
+          python -m unittest discover -s installer -p 'test_installer.py' -v
+          python tools/package.py check
+      - name: Non-root Arch / Xfwm / GTK / VTE integration
+        run: |
+          useradd -m tester
+          chmod -R a+rX .
+          sudo -u tester env XDG_CURRENT_DESKTOP=XFCE XDG_SESSION_TYPE=x11 \
+            dbus-run-session -- xvfb-run -a python installer/linux_smoke.py
