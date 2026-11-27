@@ -45,8 +45,55 @@ window#XfcePanelWindow {
 #separator-@LEFT@, #separator-@RIGHT@ { min-width: 23px; }
 #separator-@MENU_SEPARATOR@ { margin: 8px 7px; min-width: 1px; background-color: #157aa7; }
 #whiskermenu-button { font-weight: normal; }
-#whiskermenu-window { background-color: #041321; color: #fff; }
-#whiskermenu-window entry { border: 1px solid #125279; }
+#whiskermenu-window {
+  background: #041321;
+  color: #edf6fe;
+  border: 1px solid #255370;
+  border-radius: 8px;
+}
+#whiskermenu-window entry {
+  background: #081e30;
+  color: #edf6fe;
+  caret-color: #e8f6ff;
+  border: 1px solid #255370;
+  border-radius: 6px;
+  box-shadow: none;
+}
+#whiskermenu-window entry:focus { border-color: #3d98d7; }
+#whiskermenu-window entry image { color: #80c9f1; }
+#whiskermenu-window scrolledwindow,
+#whiskermenu-window viewport,
+#whiskermenu-window .view {
+  background: #071a2a;
+  color: #e5f2fc;
+}
+#whiskermenu-window .view:hover { background: #102b42; }
+#whiskermenu-window .view:selected {
+  background: #144262;
+  color: #fff;
+}
+#whiskermenu-window button {
+  background: transparent;
+  color: #e5f2fc;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-shadow: none;
+}
+#whiskermenu-window button:hover {
+  background: #102b42;
+  border-color: #214961;
+}
+#whiskermenu-window button:checked,
+#whiskermenu-window button:active {
+  background: #123951;
+  color: #f2faff;
+  border-color: #2d739f;
+}
+#whiskermenu-window scrollbar slider {
+  background: #2b5675;
+  border-color: transparent;
+}
+#whiskermenu-window scrollbar slider:hover { background: #3d98d7; }
 .thunar { background-color: rgba(4,19,33,0.8); color: #fff; font-size: 11pt; }
 .thunar * { background-color: transparent; background-image: none; color: #fff; }
 .thunar menubar { padding: 2px 7px; border-bottom: 1px solid #10344f; }

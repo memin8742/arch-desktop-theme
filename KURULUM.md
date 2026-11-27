@@ -40,7 +40,7 @@ Gerekli bileşenleri gerçek Arch paket kaynakları ve kurulu sürümlerle doğr
 - Terminal zemini %90, Thunar zemini %80 opaktır. Metin, simge ve grafikler tam opaktır. `ortak_pencere_stili.dis_kontur_ve_hale` içindeki mavi ton ve yumuşak hale tüm kenarlara ve oval köşelere uygulanır.
 - `ortak_pencere_stili.odak_vurgusu`: etkin pencere Thunar referansı gibi ince mavi çerçeveli, pasifler aynı yapı ve tonda yalnız yaklaşık %10 daha soluktur; kalın etkin veya çok koyu pasif kontur oluşturma. Tıklama/Alt+Tab/panel/çalışma alanı/modal değişiminde vurgu doğru pencereye ve yalnız ilgili uygulama simgesine geçer. Metin/ikon/içerik opaklığını bununla değiştirme; eşit ışığı her pencerenin kendi çevresinde koru.
 - Thunar `11` gibi gerçek dosyalarla çalışır. Açılış ve giriş/kilit `05/06`; batarya kutusu `10`.
-- Bütün 28 kısayol, bölmeler/sekmeler, geçmiş/arama, Windows benzeri seçim, pano, bildirim/kayıt/dışa aktarma işlevleri uygulanır.
+- Bütün 29 kısayol, bölmeler/sekmeler, geçmiş/arama, Windows benzeri seçim, pano, bildirim/kayıt/dışa aktarma işlevleri uygulanır.
 - Sistem sensörleri/VRAM ve şarj eşikleri gerçek donanım yetenekleriyle doğrulanır; desteklenmeyen özellik için sahte başarı gösterilmez.
 
 ## Kontrol ve teslim

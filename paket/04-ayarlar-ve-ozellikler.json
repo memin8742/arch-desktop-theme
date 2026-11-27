@@ -141,10 +141,12 @@
       ],
       "kisayollar": {
         "Ctrl+Shift+R": "Yan yana iki bölüm",
+        "Ctrl+Shift+E": "Yatay ayırıcıyla üst üste iki bölüm",
         "Ctrl+Shift+D": "Üst üste iki bölüm",
+        "Ctrl+Shift+yön tuşları": "Etkin sekmede komşu bölmeye odaklan",
         "Ctrl+Shift+B": "Geçerli sekmede son açılan bölmeyi kapat"
       },
-      "kaynak": "Bu iki terminal içi kısayol resmi Kali qterminal.ini içindeki split atamalarıyla uyumludur; mevcut kullanıcı tuşlarıyla çakışma kontrolü yapılır.",
+      "kaynak": "Bu kısayollar Arch Terminal içinde uygulanır. Tek bölmede Ctrl+Shift+yön tuşları komut satırı seçimini sürdürür.",
       "kesin_gorsel": "07-bolme-cizgileri-referansi.png",
       "geometri": {
         "duzen_ornegi": "2x2; tek pencerede ince kesintisiz dikey ve yatay çizgi, merkezde sade artı kesişimi.",
@@ -470,7 +472,7 @@
     {
       "tus": "Ctrl+Shift+Left / Ctrl+Shift+Right",
       "kapsam": "terminal",
-      "islev": "Kelime seçimini çift yönde genişlet/daralt"
+      "islev": "Birden fazla bölme açıkken sola veya sağa odaklan. Tek bölmede kelime seçimini genişlet ya da daralt."
     },
     {
       "tus": "Shift+Up / Shift+Down",
@@ -480,7 +482,7 @@
     {
       "tus": "Ctrl+Shift+Up / Ctrl+Shift+Down",
       "kapsam": "terminal",
-      "islev": "Çok satırlı komutta blok sınırlarına seçim"
+      "islev": "Birden fazla bölme açıkken üste veya alta odaklan. Tek bölmede çok satırlı komutun blok sınırlarına kadar seç."
     },
     {
       "tus": "Backspace / Delete / normal yazı / Ctrl+V",
@@ -506,6 +508,11 @@
       "tus": "Ctrl+Shift+D",
       "kapsam": "terminal",
       "islev": "Etkin bölümü üst üste iki bağımsız bölüme ayır"
+    },
+    {
+      "tus": "Ctrl+Shift+E",
+      "kapsam": "terminal",
+      "islev": "Yatay ayırıcıyla etkin bölümü üst ve alt bölmelere ayır"
     },
     {
       "tus": "Ctrl+Shift+B",
@@ -896,7 +903,7 @@
       "pasif_cerceve_isik_orani": 0.9
     }
   },
-  "yayin_surumu": "1.2.4",
+  "yayin_surumu": "1.2.5",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",

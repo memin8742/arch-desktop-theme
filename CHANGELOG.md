@@ -1,3 +1,9 @@
+# v1.2.5
+
+- Xfce pencere düğmelerinde yuvarlatılmış lacivert yüzeyler ve fare vurgusu. Büyütülmüş pencere için ayrı geri yükleme simgesi.
+- Arch Linux menüsünde lacivert arama ve liste zeminleri, mavi kategori ve seçim vurguları.
+- Ctrl+Shift+E terminali üst ve alt bölmelere ayırır. Ctrl+Shift+ok komşu bölmeye geçer ve tek bölmede komut satırı seçimini sürdürür.
+
 # v1.2.4
 
 - Plymouth açılışındaki “Sistem başlatılıyor” yazısı Türkçe karakterleri içeren saydam bir görselden yüklenir. Açılış imajı oluşturulurken bu dosyanın imaja eklendiği doğrulanır.

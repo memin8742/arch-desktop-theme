@@ -67,7 +67,7 @@ def inputs():
     text = (BUNDLE / INSTRUCTIONS).read_text(encoding='utf-8-sig')
     require('\ufffd' not in text + json.dumps(config, ensure_ascii=False), 'Bozuk UTF-8 karakteri var.')
     shortcuts = {row['tus'] for row in config['kisayollar']}
-    require(len(config['kisayollar']) == 28 and 'Ctrl+Shift+B' in shortcuts, '28 kısayol bulunmalı.')
+    require(len(config['kisayollar']) == 29 and {'Ctrl+Shift+B', 'Ctrl+Shift+E'} <= shortcuts, '29 kısayol bulunmalı.')
     require(len(shortcuts) == len(config['kisayollar']), 'Yinelenen kısayol var.')
     for name in config['guncel_gorseller'].values():
         require(name in EXPECTED and name.endswith('.png'), 'Geçersiz görsel referansı: ' + name)
@@ -120,7 +120,7 @@ def check():
     require(config['terminal']['bolmeler']['renk_ve_malzeme']['uc_ucgenleri'] is False, 'Üçgensiz bölücü kuralı değişti.')
     require(config['terminal']['istem']['git_bilgisi'] is False, 'Git istem modülü eklenmemeli.')
     require(config['terminal']['basarisiz_komut']['etkin'] is False, 'Hata rozeti eklenmemeli.')
-    print('Paket doğrulandı: v' + version() + ', 12 tasarım dosyası + Xfce kurulum aracı, 28 kısayol.')
+    print('Paket doğrulandı: v' + version() + ', 12 tasarım dosyası + Xfce kurulum aracı, 29 kısayol.')
     return config
 
 

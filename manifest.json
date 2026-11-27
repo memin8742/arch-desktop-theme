@@ -1,11 +1,11 @@
 {
-  "release_version": "1.2.4",
+  "release_version": "1.2.5",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
-      "bytes": 14129,
-      "sha256": "ed982b0ee4eecf62c632a2f4e40d8415f87b8942b55397ec5b69b68926cfac3a"
+      "bytes": 14264,
+      "sha256": "c6ae1da052bf1b3391f6bc2e95afeedd9a21d5b334243fda110bccb63fdcf6c5"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -20,8 +20,8 @@
       "sha256": "419f7d35ad3b1c0ae16c6a27a40156fa5ad3e9cc886a2176e6c5ecaf464d0b84"
     },
     "04-ayarlar-ve-ozellikler.json": {
-      "bytes": 68421,
-      "sha256": "a96b91aa4312490b3fd76741815c136634173f8981626d1268813c7c70122ae3"
+      "bytes": 68822,
+      "sha256": "6699eabe7d879b3556a58c2c0809f8fa2f03b9a07f424a0b858100d23bc1b86a"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,
@@ -55,35 +55,35 @@
   "installer_files": {
     "AGENTS.md": {
       "bytes": 4231,
-      "sha256": "83af7d672cf4f0d227d55cbe4c7ee9aae7dd06417f14f0761727006c14e568e6"
+      "sha256": "d0c1b42cd7a19318aa8381bfdbeef3852916d249f96f862a02ea346560acb1c2"
     },
     "CHANGELOG.md": {
-      "bytes": 6966,
-      "sha256": "8527112febd03e229ccf2362b69ee5e3914e8dcbf0152a463fbc5b6984725ac9"
+      "bytes": 7364,
+      "sha256": "f91a9a9f2e99368f93f3b45d8673d44914e071eab3d9d9d2cd1b5a4efe7b9402"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1679,
       "sha256": "b2fd92b7353858f98807be552caf16214cb5b15a00dc3ceb3f319ba1f7faf41c"
     },
     "KOLAY-KURULUM.txt": {
-      "bytes": 1182,
-      "sha256": "09678fc455b34810c709db6206c69c5cf6d1ff1177e683c33fbd540e707daac0"
+      "bytes": 1248,
+      "sha256": "9bb84c90284f62ffb85f7ea44d5ed409c64033c7c45e570474226e423497ecf0"
     },
     "KURULUM.md": {
       "bytes": 5732,
-      "sha256": "082962f7e8e5ff3fd3393257800f3294d389a91cf56cb2eb43b6cb8798feef26"
+      "sha256": "3f5880a8ff97724e35f90263d438c9ebf60825678cfcfce29268b4ddb5628f83"
     },
     "README.md": {
-      "bytes": 5056,
-      "sha256": "b23f2196a045b4dbfd260520abca706906b13b3a1521e212410060eaacb412fe"
+      "bytes": 5109,
+      "sha256": "4dd495adca009522ce6ba4335a6e1293c0c5b62a352095505816ef888752e5bc"
     },
     "VERSION": {
       "bytes": 6,
-      "sha256": "563a0b4eec3c77bbc34ac630d4fa5214f5c6726ae01468404fd704473110084e"
+      "sha256": "fe2b7c237b5a6e42818aa3e4f7fc5820f49c32289c32c96260ef89a8c8f6d3d7"
     },
     "installer/assets.py": {
-      "bytes": 8560,
-      "sha256": "bbfef632adbaa7312947bbc2f226c5b7f563a833d0a9af6a6d7f72c622e863b1"
+      "bytes": 10386,
+      "sha256": "15004274a4d6d3768f49cfb934e487bd1304a9903d0b822430c35f3043059013"
     },
     "installer/boot/arch-blue.plymouth": {
       "bytes": 216,
@@ -126,8 +126,8 @@
       "sha256": "80d8b674ea767dc262c81bae3553be5b0b9ef663fb9fb580eb3a0a620cdcfece"
     },
     "installer/linux_smoke.py": {
-      "bytes": 12927,
-      "sha256": "26a77a0d3025544c8915a6cc8524c852b67a3d3cc2cd0edcabc516a83df83424"
+      "bytes": 14066,
+      "sha256": "cc9776b72db6f9e854b2bb674534f71c4dc3b4bb6773c8558c416ab651f2c552"
     },
     "installer/root_terminal.py": {
       "bytes": 834,
@@ -154,20 +154,20 @@
       "sha256": "f4a61eb92f5b64b87d34fd1b57fa5fcc2107c8126aa98c0a4efa44e6b403697b"
     },
     "installer/runtime/theme.css": {
-      "bytes": 3523,
-      "sha256": "7399e86602abff5ce823798f3b917734532c099b6eefd3428467cea762d162a3"
+      "bytes": 4603,
+      "sha256": "e455a4dfe56b49bcd864dcab7625d4ef27695a875af08f1267fa0ccc08391312"
     },
     "installer/system.py": {
       "bytes": 12059,
       "sha256": "1497d598b7780401f8853fbdc755a8ad4e2df53c39bcfca0df0acbd7df0b0ddd"
     },
     "installer/terminal.py": {
-      "bytes": 18428,
-      "sha256": "4d9b61a246629074edbe948b9577980b02607f6ba6900dffe50ee35576a2e912"
+      "bytes": 19967,
+      "sha256": "5bb73b4c3eabe31677549e276a21ea1d29f351791bf8a9d9015a37d9143a040b"
     },
     "installer/test_installer.py": {
-      "bytes": 7479,
-      "sha256": "c53d0e40ead1402427bf41b4883d19b714f965eb9289b00471f55e1d132da8bf"
+      "bytes": 7778,
+      "sha256": "5ac791afea3d3b89aa9f4caad3cff0ab98da1d300de2b6e272c07def71f06a4f"
     },
     "installer/theme.zsh": {
       "bytes": 4419,
@@ -178,8 +178,8 @@
       "sha256": "3b1e58a8f2fde2b9d1461a5cc1a23d2c75a1440540c32c0daa2136b8235a1551"
     },
     "tools/package.py": {
-      "bytes": 8335,
-      "sha256": "f6d769308be8a9bb2db557053773b3a07ecb819ce788e36bfc8414dfd3821994"
+      "bytes": 8353,
+      "sha256": "36005b6945d27e43881773d693311a79796263e1c3bfc9381478b2f77d131761"
     }
   }
 }

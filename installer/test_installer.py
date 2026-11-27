@@ -127,6 +127,10 @@ class InstallerTests(unittest.TestCase):
                 self.assertEqual(assets.corner(left, y, 'left', False, stroke), '.')
                 self.assertEqual(assets.corner(assets.CORNER_SIZE - 1 - left, y, 'right', False, stroke), '.')
         self.assertIn(f'button_offset={assets.BUTTON_OFFSET}\n', frames['themerc'])
+        for state in ('active', 'inactive', 'prelight', 'pressed'):
+            self.assertNotEqual(frames[f'maximize-{state}.xpm'], frames[f'maximize-toggled-{state}.xpm'])
+        self.assertIn('#4CA4D5', frames['hide-prelight.xpm'])
+        self.assertIn('#AD647A', frames['close-prelight.xpm'])
 
     def test_panel_and_toolbar_icon_names_are_present(self):
         files = assets.icon_files()

@@ -172,16 +172,20 @@ class TerminalWindow(Gtk.ApplicationWindow):
         pane = Gtk.Paned(orientation=orientation)
         pane.connect('size-allocate', self.schedule_separators)
         if isinstance(parent, Gtk.Paned):
-            (parent.pack1 if is_first else parent.pack2)(pane, True, False)
+            (parent.pack1 if is_first else parent.pack2)(pane, True, True)
         else: parent.pack_start(pane, True, True, 0)
         new = self.make_term(cwd_for(old))
-        pane.pack1(old, True, False); pane.pack2(new, True, False)
+        pane.pack1(old, True, True)
+        pane.pack2(new, True, True)
+
+        def balance(widget, allocation):
+            size = allocation.width if orientation == Gtk.Orientation.HORIZONTAL else allocation.height
+            if size > 1:
+                widget.disconnect(balance_handler)
+                widget.set_position(size // 2)
+
+        balance_handler = pane.connect('size-allocate', balance)
         pane.show_all()
-        def balance():
-            if pane.get_parent() is None: return False
-            size = pane.get_allocated_width() if orientation == Gtk.Orientation.HORIZONTAL else pane.get_allocated_height()
-            pane.set_position(max(1, size//2)); return False
-        GLib.idle_add(balance)
         self.current = new; new.grab_focus()
 
     def schedule_separators(self, *unused):
@@ -224,6 +228,37 @@ class TerminalWindow(Gtk.ApplicationWindow):
         self.current = term
         self.title_changed(term)
         return False
+
+    def focus_neighbor(self, direction):
+        page = self.book.get_nth_page(self.book.get_current_page())
+        terms = self.descendants(page)
+        if len(terms) < 2 or self.current not in terms:
+            return False
+
+        def bounds(term):
+            x, y = term.translate_coordinates(page, 0, 0)
+            return (x, y), (x + term.get_allocated_width(), y + term.get_allocated_height())
+
+        axis = 0 if direction in ('left', 'right') else 1
+        cross = 1 - axis
+        forward = direction in ('right', 'down')
+        start, end = bounds(self.current)
+        neighbor, closest = None, None
+        for term in terms:
+            if term is self.current:
+                continue
+            other_start, other_end = bounds(term)
+            gap = other_start[axis] - end[axis] if forward else start[axis] - other_end[axis]
+            shared_edge = min(end[cross], other_end[cross]) - max(start[cross], other_start[cross])
+            if gap < 0 or shared_edge <= 0:
+                continue
+            center_distance = abs(start[cross] + end[cross] - other_start[cross] - other_end[cross])
+            score = (gap, center_distance)
+            if closest is None or score < closest:
+                neighbor, closest = term, score
+        if neighbor is not None:
+            neighbor.grab_focus()
+        return True
 
     def title_changed(self, term):
         if term == self.current:
@@ -298,7 +333,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
             is_first = isinstance(outer, Gtk.Paned) and outer.get_child1() == parent
             parent.remove(sibling); outer.remove(parent)
             parent.destroy()
-            if isinstance(outer, Gtk.Paned): (outer.pack1 if is_first else outer.pack2)(sibling, True, False)
+            if isinstance(outer, Gtk.Paned): (outer.pack1 if is_first else outer.pack2)(sibling, True, True)
             else: outer.pack_start(sibling, True, True, 0)
             sibling.show_all()
             candidates = self.descendants(sibling)
@@ -374,12 +409,14 @@ class TerminalWindow(Gtk.ApplicationWindow):
             else: term.paste_clipboard()
             return True
         if ctrl and shift and key == 'f': self.search.show_all(); self.entry.grab_focus(); return True
-        if ctrl and shift and key in ['r','d']:
+        if ctrl and shift and key in ('r', 'd', 'e'):
             GLib.idle_add(self.split, Gtk.Orientation.HORIZONTAL if key == 'r' else Gtk.Orientation.VERTICAL)
             return True
         if ctrl and shift and not alt and key == 'b':
             GLib.idle_add(self.close_last_split)
             return True
+        if ctrl and shift and not alt and key in ('left', 'right', 'up', 'down'):
+            if self.focus_neighbor(key): return True
         if shift and key in ['left','right','up','down'] and self.at_prompt(term):
             code = {'up':'A','down':'B','right':'C','left':'D'}[key]
             term.feed_child(('\x1b[1;'+('6' if ctrl else '2')+code).encode()); return True

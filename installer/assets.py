@@ -72,15 +72,56 @@ rules = (
 '''
 
 
-def xpm(width, height, pixel):
-    colours = {
-        ' ': 'None', '.': NAVY, 'w': '#F1F8FF', 's': '#214764',
-        'b': FRAME_BLUE, 'g': mix(HALO, NAVY, .42), 'j': mix(HALO, NAVY, .19),
-        'i': mix(FRAME_BLUE, NAVY, .9), 'h': mix(HALO, NAVY, .378), 'k': mix(HALO, NAVY, .171),
-    }
+def xpm(width, height, pixel, colours=None):
+    if colours is None:
+        colours = {
+            ' ': 'None', '.': NAVY, 'w': '#F1F8FF', 's': '#214764',
+            'b': FRAME_BLUE, 'g': mix(HALO, NAVY, .42), 'j': mix(HALO, NAVY, .19),
+            'i': mix(FRAME_BLUE, NAVY, .9), 'h': mix(HALO, NAVY, .378), 'k': mix(HALO, NAVY, .171),
+        }
     rows = [''.join(pixel(x, y) for x in range(width)) for y in range(height)]
     lines = [f'{width} {height} {len(colours)} 1'] + [f'{k} c {v}' for k, v in colours.items()] + rows
     return '/* XPM */\nstatic char * frame[] = {\n' + ',\n'.join(json.dumps(s) for s in lines) + '\n};\n'
+
+
+def title_button(name, state):
+    restore = name == 'maximize' and state.startswith('toggled-')
+    phase = state.removeprefix('toggled-')
+    styles = {
+        'active': ('#0B2032', '#255370', '#E9F6FF'),
+        'inactive': ('#081827', '#19364D', '#A6BCCE'),
+        'prelight': ('#10334D', '#4CA4D5', '#DCFAFF'),
+        'pressed': ('#1A4764', '#78C9F3', '#FFFFFF'),
+    }
+    if name == 'close':
+        styles.update(prelight=('#482335', '#AD647A', '#FFF0F4'),
+                      pressed=('#623047', '#E19DB0', '#FFFFFF'))
+    fill, edge, glyph = styles[phase]
+    colours = {'.': NAVY, 'f': fill, 'e': edge, 'w': glyph,
+               'r': mix(edge, NAVY, .45), 'a': mix(glyph, fill, .35)}
+    centre_x, centre_y = (BUTTON_WIDTH - 1) / 2, (BUTTON_HEIGHT - 1) / 2
+
+    def pixel(x, y):
+        # Draw the rounded face inside the original Xfwm hitbox.
+        distance = math.hypot(max(abs(x - centre_x) - 7.5, 0), max(abs(y - centre_y) - 4.5, 0))
+        if distance > 4.5: return '.'
+        if distance > 4: return 'r'
+        if distance > 3: return 'e'
+        if name == 'close' and 8 <= x <= 17:
+            diagonal = min(abs(y - (x - 1)), abs(y - (24 - x)))
+            if diagonal == 0: return 'w'
+            if diagonal == 1: return 'a'
+        elif name == 'hide' and y == 11 and 8 <= x <= 17:
+            return 'w'
+        elif restore:
+            front = 8 <= x <= 15 and 9 <= y <= 16 and (x in (8, 15) or y in (9, 16))
+            back = (y == 6 and 11 <= x <= 18) or (x == 18 and 6 <= y <= 13) or (x, y) in ((11, 7), (17, 13))
+            if front or back: return 'w'
+        elif name == 'maximize' and 8 <= x <= 17 and 7 <= y <= 15:
+            if x in (8, 17) or y in (7, 15): return 'w'
+        return 'f'
+
+    return xpm(BUTTON_WIDTH, BUTTON_HEIGHT, pixel, colours)
 
 
 def xfwm_files():
@@ -95,13 +136,15 @@ def xfwm_files():
             files[f'bottom-{side}-{state}.xpm'] = xpm(CORNER_SIZE, CORNER_SIZE, lambda x, y: corner(x, y, side, True, stroke))
         files[f'bottom-{state}.xpm'] = xpm(4, CORNER_SIZE, lambda x, y: edge_pixel(CORNER_SIZE-1-y, stroke))
     for name in ['hide', 'maximize', 'close', 'menu', 'stick', 'shade']:
-        for state in ['active', 'inactive', 'prelight', 'pressed', 'toggled-active', 'toggled-inactive']:
+        states = ['active', 'inactive', 'prelight', 'pressed', 'toggled-active', 'toggled-inactive']
+        if name == 'maximize': states += ['toggled-prelight', 'toggled-pressed']
+        for state in states:
+            if name in ('hide', 'maximize', 'close'):
+                files[f'{name}-{state}.xpm'] = title_button(name, state)
+                continue
             def pix(x, y, name=name):
                 x += (28 - BUTTON_WIDTH) // 2
                 y += (TITLE_HEIGHT - BUTTON_HEIGHT) // 2
-                if name == 'close' and 8 <= x <= 20 and (y == x-1 or y == 27-x): return 'w'
-                if name == 'hide' and 8 <= x <= 20 and y == 17: return 'w'
-                if name == 'maximize' and ((x in [8, 20] and 9 <= y <= 21) or (y in [9, 21] and 8 <= x <= 20)): return 'w'
                 if name == 'menu' and 10 <= x <= 18 and y == 13 + abs(x-14): return 'w'
                 return '.'
             files[f'{name}-{state}.xpm'] = xpm(BUTTON_WIDTH, BUTTON_HEIGHT, pix)

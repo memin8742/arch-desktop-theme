@@ -23,7 +23,7 @@
 - Kullanıcı her yeni sürümde tekrar söylemese de videoları repoya veya release dosyalarına ekleme.
 - Dosyaları sabit `paket/` yolunda güncelle; her sürüm için yeni bir kaynak klasörü veya eski tasarım kopyası ekleme. Geçmiş Git commit/tag kayıtlarında tutulur.
 - GitHub yayını `VERSION` dosyasındaki sürümü kullanır. İlk yayın `v1.0`dır; sonraki değişikliklerde uygun yeni sürüm, `CHANGELOG.md` ve gerektiğinde talimat/görsel kapsamlarını güncelle. JSON'daki `paket_surumu`, ilk GitHub yayınına taşınan yerel tanım sürümüdür; `yayin_surumu` GitHub sürümüdür.
-- `python3 tools/package.py sync`, ardından `check` ve `build` çalıştır. `sync` sonrası oluşan JSON/manifest değişikliklerini gözden geçir. Bütün 28 kısayolu ve önceki işlevleri kontrol et.
+- `python3 tools/package.py sync`, ardından `check` ve `build` çalıştır. `sync` sonrası oluşan JSON/manifest değişikliklerini gözden geçir. Bütün 29 kısayolu ve önceki işlevleri kontrol et.
 - Önce yalnız ilgili dosyaları stage et ve değişiklikleri incele. Parola/token/anahtar, kullanıcı dosyaları veya büyük arşiv/video bulunmadığını doğrula; anlaşılır commit mesajı yaz ve mevcut yetkili remote'a push et. Force push veya yayımlanmış tag'i taşıma yapma. Yeni çalışma dalı gerekiyorsa `codex/` öneki kullan.
 - Sürüm ZIP'i ve SHA256 dosyası `dist/` altında oluşturulur; Git'e ZIP eklemek yerine release asset olarak yüklenir. İlk v1.0 yayını kullanıcı tarafından istenmiştir; sonraki release yayımlarını ilgili kullanıcı isteğine göre yap.
 - Yükleme/yayın bitmeden tamamlandı deme. Kimlik doğrulama veya izin sorunu varsa yerel çalışmayı koru, tam olarak hangi adımın kaldığını bildir. Parola veya tokenı sohbete/repoya yazma.

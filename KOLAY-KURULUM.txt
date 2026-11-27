@@ -1,4 +1,4 @@
-ARCH BLUE — XFCE KURULUMU v1.2.4
+ARCH BLUE — XFCE KURULUMU v1.2.5
 
 1. Arch Linux'ta Xfce / X11 oturumu açın.
 2. Repo veya ZIP içindeki kur.sh dosyasının bulunduğu klasörde terminal açın.
@@ -7,7 +7,8 @@ ARCH BLUE — XFCE KURULUMU v1.2.4
    terminale girin. İşiniz bittiğinde oturumu kapatıp tekrar açın.
 
 Super tek başına Arch menüsünü, Super+T terminali, Super+E Thunar'ı açar.
-Terminalde Alt+T yeni sekme açar. Ctrl+Shift+R/D böler ve Ctrl+Shift+B son bölmeyi kapatır.
+Terminalde Alt+T yeni sekme açar. Ctrl+Shift+R yan yana, E veya D üst üste böler.
+Ctrl+Shift+ok komşu bölmeye geçer ve Ctrl+Shift+B son bölmeyi kapatır.
 sistem-ozeti komutu gerçek CPU, RAM ve ağ ölçümlerini gösterir.
 
 Root iken Shift+ok seçimi için 5 yapıp 1 seçin. Sonra Arch Terminal'de açık

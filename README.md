@@ -2,7 +2,7 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**v1.2.4** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
+**v1.2.5** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
@@ -38,7 +38,7 @@ bash kur.sh --check
 - Onaylı kısayollar, seçim/kopyalama/yapıştırma davranışları, ekran görüntüsü/kaydı, tema dışa aktarma ve uzun işlem bildirimi.
 - Donanım destekliyorsa Ev şarj sınırları %55/%80, Seyahat geçici %100. Açılış, giriş ve gerçek oturum kilidi korunur.
 
-Kesin fontlar, renkler, bütün **28 kısayol**, işlevler ve kabul kontrolleri [`04-ayarlar-ve-ozellikler.json`](paket/04-ayarlar-ve-ozellikler.json) içindedir. Görseller tasarım önizlemeleridir. `Ctrl+Shift+B` geçerli sekmede son açılan bölmeyi kapatır. Kısayolu güncellemeden sonra yeni açılan terminal pencerelerinde kullanabilirsiniz.
+Kesin fontlar, renkler, bütün **29 kısayol**, işlevler ve kabul kontrolleri [`04-ayarlar-ve-ozellikler.json`](paket/04-ayarlar-ve-ozellikler.json) içindedir. `Ctrl+Shift+R` yan yana, `Ctrl+Shift+E` veya `Ctrl+Shift+D` üst üste böler. `Ctrl+Shift+ok` komşu bölmeye geçer ve `Ctrl+Shift+B` son bölmeyi kapatır. Güncellemeden sonra yeni terminal pencerelerinde yeni kısayollar kullanılabilir.
 
 ## Güncelleme ve sürümler
 

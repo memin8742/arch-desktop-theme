@@ -55,13 +55,13 @@ try:
     app=module.Application(); app.register(None)
     app.activate()
     window=app.get_windows()[0]
-    def spin(predicate,timeout=8):
+    def spin(predicate,timeout=8,description=None):
         end=time.monotonic()+timeout
         while time.monotonic()<end:
             while Gtk.events_pending(): Gtk.main_iteration_do(False)
             if predicate(): return
             time.sleep(.02)
-        raise AssertionError('Timed out: '+str(predicate))
+        raise AssertionError('Timed out: '+(description or str(predicate)))
     first=window.current
     spin(lambda: bool(first.shell_pid))
     target=home/'same directory'; target.mkdir()
@@ -71,7 +71,8 @@ try:
     spin(lambda: bool(second.shell_pid))
     spin(lambda: module.cwd_for(second)==str(target))
     assert window.book.get_current_page()==1, 'New tab did not become active'
-    window.split(Gtk.Orientation.HORIZONTAL)
+    call('xdotool','key','ctrl+shift+r')
+    spin(lambda: len(window.terms)==3)
     third=window.current
     spin(lambda: bool(third.shell_pid))
     spin(lambda: bool(window.frame_separators.windows))
@@ -112,19 +113,28 @@ try:
     third.feed_child(b'printf abcde')
     time.sleep(.1)
     third.feed_child(b'\x1b[1;2D\x1b[1;2D\x1b[99;5u')
-    def copied():
+    def clipboard_contains(text):
         # GTK still owns the earlier paste until ZLE's xclip takes over.
         # Never synchronously wait for our own GTK clipboard while its loop is paused.
         try:
-            return subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True,timeout=.15).stdout==b'de'
+            return subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True,timeout=.15).stdout==text
         except subprocess.TimeoutExpired: return False
-    spin(copied)
+    spin(lambda: clipboard_contains(b'de'))
     third.feed_child(b'\x03')
-    window.split(Gtk.Orientation.VERTICAL)
+    call('xdotool','key','ctrl+shift+e')
+    spin(lambda: len(window.terms)==4)
     fourth=window.current
     spin(lambda: window.at_prompt(fourth))
-    second.grab_focus()
-    spin(lambda: window.current == second)
+    assert fourth.get_parent().get_orientation() == Gtk.Orientation.VERTICAL
+    spin(lambda: abs(second.get_allocated_width() - fourth.get_allocated_width()) <= 3
+         and abs(third.get_allocated_height() - fourth.get_allocated_height()) <= 3
+         and min(fourth.get_allocated_width(), fourth.get_allocated_height()) > 50,
+         description='nested panes did not receive balanced allocations')
+    for key, expected in [('Up', (third,)), ('Down', (fourth,)), ('Left', (second,)),
+                          ('Right', (third, fourth)), ('Left', (second,))]:
+        call('xdotool','key',f'ctrl+shift+{key}')
+        spin(lambda: window.current in expected and window.get_focus() == window.current,
+             description=f'Ctrl+Shift+{key} did not focus the neighboring pane')
     call('xdotool','key','ctrl+shift+b')
     spin(lambda: fourth not in window.terms)
     assert window.current == second and third in window.terms and first in window.terms
@@ -134,6 +144,13 @@ try:
     call('xdotool','key','ctrl+shift+b')  # One pane in this tab: do nothing.
     spin(lambda: window.current == second)
     assert len(window.terms)==2 and window.book.get_n_pages()==2
+    second.feed_child(b'printf alpha beta')
+    time.sleep(.1)
+    call('xdotool','key','ctrl+shift+Left')
+    while Gtk.events_pending(): Gtk.main_iteration_do(False)
+    window.copy(second)
+    spin(lambda: clipboard_contains(b'beta'))
+    second.feed_child(b'\x03')
     # Native Thunar process, composited RGBA visual and theme CSS loaded on new windows.
     wid=call('xdotool','getactivewindow')
     normal_geometry=call('xdotool','getwindowgeometry','--shell',wid)
