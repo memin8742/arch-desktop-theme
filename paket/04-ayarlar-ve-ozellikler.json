@@ -16,7 +16,7 @@
     "etkin_pasif_pencere_ornegi": "02-onayli-masaustu.png"
   },
   "terminal": {
-    "dis_gorunum": "03teki yuvarlak dört köşe, sade lacivert başlık ve normal düğmeler; yaklaşık 1 px ince mavi çerçeve ve 11deki Thunar gibi yumuşak/eşit ışık. Gerçek odakta referans etkin görünüm, pasifken aynı kontur/ışık yalnız yaklaşık %10 azalır. Kalın/cyan neon etkin kontur veya çok koyu pasif kontur yok. ortak_pencere_stili.odak_vurgusu uygulanır.",
+    "dis_gorunum": "Oval dört köşe, örneklenen ince mavi konturlar ve yumuşak parıltı. Başlıkta camgöbeği eğimli ayırıcı ve aynı renk paletinde üç eğimli düğme. Ortak pencere stilindeki etkin/pasif çerçeve uygulaması geçerlidir.",
     "varsayilan_konum": "02/03 gibi solda üst panelin altında; logo boyut/konumu korunur. 02de Thunar da açıktır; bu örnek yerleşim her açılışta zorunlu çift pencere veya bölünmüş terminal değildir. Gerçek DPI/ekrana uyarla. Yeni terminal, çalışma alanı genişliğinin yaklaşık %58ini kullanır.",
     "menu_ve_sekmeler": "Tek başlık; sabit menü satırı yok. Gerekirse açılır menü. Tek sekmede gizlenebilen, çok sekmede erişilebilir aynı temalı sekme çubuğu.",
     "font": {
@@ -259,7 +259,7 @@
       ],
       "uyarlama": "03teki sade/yuvarlak dış kabuk; 11deki son onaylı dış çerçeve tonu/ışığı ve ortak_pencere_stili.dis_kontur_ve_hale. 01deki logo ve 02deki yerleşim korunur. DPIye göre uyarla; başlık/içerik kesilmesin, yerel parlak noktalar oluşmasın.",
       "islev": "Gerçek sürükleme, kenar/köşeden boyutlandırma, küçültme, büyütme/geri yükleme, kapatma, sekmeler ve bölmeler çalışır; sabit resim bindirerek taklit edilmez.",
-      "ortak_mavi_ana_ton": "#3D98D7"
+      "ortak_mavi_ana_ton": "#30C4F6"
     },
     "zemin_saydamligi": {
       "renk": "#041223",
@@ -809,8 +809,8 @@
       "03-terminal-detayi.png",
       "11-thunar-dosya-yoneticisi.png"
     ],
-    "cerceve_ana_tonu": "#3D98D7",
-    "cerceve_isigi": "11deki Thunar gibi ince mavi kontur ve dar/yumuşak, dört kenar/köşede eşit ışık etkin pencerenin temelidir. Etkin pencere bu referansa göre ayrıca kalınlaştırılmaz/parlatılmaz. Pasif pencerenin çerçevesi aynı genişlik/tonda, yalnız yaklaşık %10 daha soluk olur; kesin iki durum odak_vurgusu içinde. Beyaz çekirdek/sıçrama, yerel parlak nokta ve aşırı neon yok.",
+    "cerceve_ana_tonu": "#30C4F6",
+    "cerceve_isigi": "Son terminal örneğindeki ince mavi kontur ve yumuşak mavi parıltı. Pasif pencere yaklaşık %10 daha soluktur.",
     "statik_isik": true,
     "zemin": {
       "renk": "#041321",
@@ -835,12 +835,12 @@
     },
     "dis_kontur_ve_hale": {
       "kesin_gorsel_referans": "11-thunar-dosya-yoneticisi.png",
-      "referans_kapsami": "Oval çerçeve ve yumuşak ışık için önceki Thunar örneği, dış konturun mavi tonu için son terminal görseli.",
-      "kontur_renk": "#3D98D7",
+      "referans_kapsami": "Oval çerçeve ve yumuşak ışık için önceki Thunar örneği. Üst, sol, sağ ve alt çizgiler son paylaşılan terminal görselinden örneklendi.",
+      "kontur_renk": "#30C4F6",
       "kontur_rgb": [
-        61,
-        152,
-        215
+        48,
+        196,
+        246
       ],
       "kontur_opaklik": 1.0,
       "kontur_yaklasik_px": 1,
@@ -858,7 +858,14 @@
       "beyaz_parlak_nokta": false,
       "animasyon": false,
       "kapsam": "Terminal ve Thunar dış kontur/hale katmanı. Üst panelin alt konturu #0AA6F0.",
-      "durum_kapsami": "Etkin pencerenin onaylı renk ve yumuşak ışık temeli. Etkin/pasif genişlik ve ışık şiddeti odak_vurgusu içindedir. 03/11 tek pencere etkin görünüm referansları; 02 iki durumun birlikte örneğidir."
+      "durum_kapsami": "Etkin pencerenin onaylı renk ve yumuşak ışık temeli. Etkin/pasif genişlik ve ışık şiddeti odak_vurgusu içindedir. 03/11 tek pencere etkin görünüm referansları; 02 iki durumun birlikte örneğidir.",
+      "kenar_ornekleri": {
+        "ust": "#23A5E0",
+        "sol": "#30C4F6",
+        "sag": "#47C7FB",
+        "alt": "#46BEFC",
+        "baslik_alt_cizgisi": "#147EC1"
+      }
     },
     "odak_vurgusu": {
       "etkin": true,
@@ -867,7 +874,7 @@
       "kapsam": "Terminal, Thunar ve temaya dahil diğer normal uygulama pencereleri; editör/tarayıcı gibi uygulamalarda gerçek WM/uygulama dekorasyonu yeteneklerine uyarla. Arayüzü veya uygulamanın işlevini değiştirme; desteklenmeyen dekorasyon ayrımını bildir.",
       "odak_kaynagi": "Pencere yöneticisinin gerçek klavye odağı/etkin pencere durumu. Sabit uygulama adı, son açılan pencere, hover veya son fare konumu ile tahmin etme. Var olan odak/öne getirme politikasını değiştirme.",
       "etkin_pencere": {
-        "kontur_renk": "#3D98D7",
+        "kontur_renk": "#30C4F6",
         "kontur_opaklik": 1.0,
         "kontur_yaklasik_px": 1,
         "hale_renk": "#0878D1",
@@ -877,7 +884,7 @@
         "kural": "Kullanıcının seçtiği Thunar gibi yaklaşık 1 px ince mavi kontur ve yumuşak/eşit ışık. Etkin pencereyi kalınlaştırarak veya fazladan parlatıp cyan/neon şeride dönüştürerek vurgulama; referans görünüm zaten etkin durumdur."
       },
       "pasif_pencere": {
-        "kontur_renk": "#3D98D7",
+        "kontur_renk": "#30C4F6",
         "kontur_opaklik": 0.9,
         "kontur_yaklasik_px": 1,
         "hale_renk": "#0878D1",
@@ -901,9 +908,15 @@
       "uygulama": "Gerçek odak olaylarını ve dekorasyon/compositor kurallarını kullan; yalnız örnek fotoğrafta terminali parlak göstererek bitirme. Sık pencere taraması veya ayrı sürekli yeniden çizim döngüsü kurma. Gerçek CSD/SSD, X11/Wayland ve ölçek desteğini doğrula; uygulanan sonucu ve sınırları raporla.",
       "panel_baglantisi": "Yalnız gerçek odaktaki uygulamanın simge düğmesi/grubu vurgulanır; 02de klasör simgesi etkin. Ad/başlık/yol yok. Panel alt çizgisi ve iki eğimli uç Thunarın ince mavi konturu/ışığı ile uyumludur; odak değişiminde panel dış konturu farklı renge veya ışık seviyesine geçmez.",
       "pasif_cerceve_isik_orani": 0.9
+    },
+    "baslik_dugmeleri": {
+      "kapsam": "Xfce pencere yöneticisinin Terminal ve Thunar dahil yerel başlıkları.",
+      "bicim": "Yumuşak köşeli eğimli düğmeler, dik beyaz simgeler ve büyütülmüş pencere için geri yükleme simgesi.",
+      "renkler": "Küçültme, büyütme ve kapatma her durumda aynı mavi paleti kullanır. Etkin kenar #01E9FE.",
+      "baslik_bolumu": "Sol bölümün sonunda #0EEBFC eğimli ayırıcı."
     }
   },
-  "yayin_surumu": "1.2.5",
+  "yayin_surumu": "1.2.6",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",

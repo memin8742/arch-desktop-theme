@@ -6,15 +6,20 @@ from pathlib import Path
 import icons
 
 BLUE = '#0AA6F0'
-FRAME_BLUE = '#3D98D7'
+FRAME_BLUE = '#30C4F6'
+FRAME_TOP_BLUE = '#23A5E0'
+FRAME_RIGHT_BLUE = '#47C7FB'
+FRAME_BOTTOM_BLUE = '#46BEFC'
+TITLE_DIVIDER = '#147EC1'
 NAVY = '#041321'
 HALO = '#0878D1'
 CORNER_SIZE = 20
 FRAME_DEPTH = 3
 TITLE_HEIGHT = 35
-BUTTON_WIDTH = 26
-BUTTON_HEIGHT = 23
-BUTTON_OFFSET = 8
+BUTTON_WIDTH = 50
+BUTTON_HEIGHT = 25
+BUTTON_OFFSET = 10
+MENU_WIDTH = 26
 
 
 def mix(foreground, background, amount):
@@ -72,13 +77,7 @@ rules = (
 '''
 
 
-def xpm(width, height, pixel, colours=None):
-    if colours is None:
-        colours = {
-            ' ': 'None', '.': NAVY, 'w': '#F1F8FF', 's': '#214764',
-            'b': FRAME_BLUE, 'g': mix(HALO, NAVY, .42), 'j': mix(HALO, NAVY, .19),
-            'i': mix(FRAME_BLUE, NAVY, .9), 'h': mix(HALO, NAVY, .378), 'k': mix(HALO, NAVY, .171),
-        }
+def xpm(width, height, pixel, colours):
     rows = [''.join(pixel(x, y) for x in range(width)) for y in range(height)]
     lines = [f'{width} {height} {len(colours)} 1'] + [f'{k} c {v}' for k, v in colours.items()] + rows
     return '/* XPM */\nstatic char * frame[] = {\n' + ',\n'.join(json.dumps(s) for s in lines) + '\n};\n'
@@ -88,53 +87,98 @@ def title_button(name, state):
     restore = name == 'maximize' and state.startswith('toggled-')
     phase = state.removeprefix('toggled-')
     styles = {
-        'active': ('#0B2032', '#255370', '#E9F6FF'),
-        'inactive': ('#081827', '#19364D', '#A6BCCE'),
-        'prelight': ('#10334D', '#4CA4D5', '#DCFAFF'),
-        'pressed': ('#1A4764', '#78C9F3', '#FFFFFF'),
+        'active': ('#041B30', '#01E9FE', '#EDF9FF'),
+        'inactive': ('#041827', '#1A98BF', '#BCD5E5'),
+        'prelight': ('#0B3049', '#5CEEFF', '#F5FCFF'),
+        'pressed': ('#124466', '#92F2FF', '#FFFFFF'),
     }
-    if name == 'close':
-        styles.update(prelight=('#482335', '#AD647A', '#FFF0F4'),
-                      pressed=('#623047', '#E19DB0', '#FFFFFF'))
     fill, edge, glyph = styles[phase]
-    colours = {'.': NAVY, 'f': fill, 'e': edge, 'w': glyph,
-               'r': mix(edge, NAVY, .45), 'a': mix(glyph, fill, .35)}
+    colours = {' ': 'None', 'f': fill, 'e': edge, 'w': glyph,
+               'r': mix(edge, NAVY, .5), 'a': mix('#239DEA', fill, .68)}
     centre_x, centre_y = (BUTTON_WIDTH - 1) / 2, (BUTTON_HEIGHT - 1) / 2
 
     def pixel(x, y):
-        # Draw the rounded face inside the original Xfwm hitbox.
-        distance = math.hypot(max(abs(x - centre_x) - 7.5, 0), max(abs(y - centre_y) - 4.5, 0))
-        if distance > 4.5: return '.'
-        if distance > 4: return 'r'
-        if distance > 3: return 'e'
-        if name == 'close' and 8 <= x <= 17:
-            diagonal = min(abs(y - (x - 1)), abs(y - (24 - x)))
-            if diagonal == 0: return 'w'
-            if diagonal == 1: return 'a'
-        elif name == 'hide' and y == 11 and 8 <= x <= 17:
-            return 'w'
+        # Shear the rounded face while keeping the glyph upright.
+        dx, dy = x - centre_x, y - centre_y
+        distance = math.hypot(max(abs(dx + .55 * dy) - 13.5, 0), max(abs(dy) - 6, 0))
+        if distance > 6: return ' '
+        if distance > 5.1: return 'r'
+        if distance > 4: return 'e'
+        if name == 'close' and max(abs(dx), abs(dy)) <= 5.5:
+            diagonal = abs(abs(dx) - abs(dy))
+            if diagonal <= .5: return 'w'
+            if diagonal <= 1.5: return 'a'
+        elif name == 'hide' and abs(dx) <= 5.5:
+            if dy == 0: return 'w'
+            if abs(dy) == 1: return 'a'
         elif restore:
-            front = 8 <= x <= 15 and 9 <= y <= 16 and (x in (8, 15) or y in (9, 16))
-            back = (y == 6 and 11 <= x <= 18) or (x == 18 and 6 <= y <= 13) or (x, y) in ((11, 7), (17, 13))
-            if front or back: return 'w'
-        elif name == 'maximize' and 8 <= x <= 17 and 7 <= y <= 15:
-            if x in (8, 17) or y in (7, 15): return 'w'
+            if 19 <= x <= 27 and 11 <= y <= 18 and (x in (19, 27) or y in (11, 18)):
+                return 'w'
+            if (y == 7 and 23 <= x <= 30) or (x == 30 and 7 <= y <= 14):
+                return 'w'
+        elif name == 'maximize':
+            edge_distance = max(abs(dx), abs(dy))
+            if 4 <= edge_distance <= 5: return 'w'
+            if 3.5 <= edge_distance <= 6: return 'a'
         return 'f'
 
     return xpm(BUTTON_WIDTH, BUTTON_HEIGHT, pixel, colours)
 
 
+def frame_stroke(contour, strength):
+    return {key: mix(colour, NAVY, amount * strength)
+            for key, colour, amount in [('b', contour, 1), ('g', HALO, .42), ('j', HALO, .19)]}
+
+
+def title_pixel(y, raised=False):
+    if y == TITLE_HEIGHT - 1:
+        return 's'
+    if y < FRAME_DEPTH:
+        return 'bgj'[y]
+    if raised:
+        if y <= 5: return 't'
+        if y <= 9: return 'u'
+        return 'n'
+    return '.'
+
+
+def title_accent_pixel(x, y):
+    if y < FRAME_DEPTH or y == TITLE_HEIGHT - 1:
+        return title_pixel(y)
+    offset = x - (49 + .61 * (TITLE_HEIGHT - 2 - y))
+    if abs(offset) <= .9: return 'm'
+    if abs(offset) <= 2.2: return 'a'
+    if abs(offset) <= 5: return 'q'
+    return title_pixel(y, raised=offset < 0)
+
+
 def xfwm_files():
     files = {}
-    for state in ['active', 'inactive']:
-        stroke = 'bgj' if state == 'active' else 'ihk'
+    base = {' ': 'None', '.': NAVY, 'w': '#F1F8FF'}
+    title_palettes = {}
+    for state, strength in [('active', 1), ('inactive', .9)]:
+        top_stroke = frame_stroke(FRAME_TOP_BLUE, strength)
+        bottom_stroke = frame_stroke(FRAME_BOTTOM_BLUE, strength)
+        title = {**base, **top_stroke, 's': mix(TITLE_DIVIDER, NAVY, strength)}
+        accents = {'t': '#063C60', 'u': '#062948', 'n': '#041B2E',
+                   'm': '#0EEBFC', 'a': '#087FAD', 'q': '#063452'}
+        title.update({key: mix(colour, NAVY, strength) for key, colour in accents.items()})
+        title_palettes[state] = title
         for n in range(1, 6):
-            files[f'title-{n}-{state}.xpm'] = xpm(4, TITLE_HEIGHT, lambda x, y: title_pixel(y, stroke))
-        for side in ['left', 'right']:
-            files[f'{side}-{state}.xpm'] = xpm(FRAME_DEPTH, 4, lambda x, y: stroke[x if side == 'left' else FRAME_DEPTH-1-x])
-            files[f'top-{side}-{state}.xpm'] = xpm(CORNER_SIZE, TITLE_HEIGHT, lambda x, y: corner(x, y, side, False, stroke))
-            files[f'bottom-{side}-{state}.xpm'] = xpm(CORNER_SIZE, CORNER_SIZE, lambda x, y: corner(x, y, side, True, stroke))
-        files[f'bottom-{state}.xpm'] = xpm(4, CORNER_SIZE, lambda x, y: edge_pixel(CORNER_SIZE-1-y, stroke))
+            pixel = title_accent_pixel if n == 4 else lambda x, y: title_pixel(y, raised=n < 4)
+            files[f'title-{n}-{state}.xpm'] = xpm(76 if n == 4 else 4, TITLE_HEIGHT, pixel, title)
+        for side, contour in [('left', FRAME_BLUE), ('right', FRAME_RIGHT_BLUE)]:
+            side_stroke = frame_stroke(contour, strength)
+            files[f'{side}-{state}.xpm'] = xpm(FRAME_DEPTH, 4, lambda x, y: 'bgj'[x if side == 'left' else FRAME_DEPTH-1-x],
+                                               {**base, **side_stroke})
+            caps = [(False, TITLE_HEIGHT, title), (True, CORNER_SIZE, {**base, **bottom_stroke})]
+            for bottom, height, palette in caps:
+                cap = 'bottom' if bottom else 'top'
+                palette = {**palette, **{key.upper(): colour for key, colour in side_stroke.items()}}
+                files[f'{cap}-{side}-{state}.xpm'] = xpm(
+                    CORNER_SIZE, height, lambda x, y: corner_pixel(x, y, side, bottom), palette)
+        files[f'bottom-{state}.xpm'] = xpm(4, CORNER_SIZE, lambda x, y: edge_pixel(CORNER_SIZE-1-y, 'bgj'),
+                                          {**base, **bottom_stroke})
     for name in ['hide', 'maximize', 'close', 'menu', 'stick', 'shade']:
         states = ['active', 'inactive', 'prelight', 'pressed', 'toggled-active', 'toggled-inactive']
         if name == 'maximize': states += ['toggled-prelight', 'toggled-pressed']
@@ -143,11 +187,15 @@ def xfwm_files():
                 files[f'{name}-{state}.xpm'] = title_button(name, state)
                 continue
             def pix(x, y, name=name):
-                x += (28 - BUTTON_WIDTH) // 2
+                x += (28 - MENU_WIDTH) // 2
                 y += (TITLE_HEIGHT - BUTTON_HEIGHT) // 2
-                if name == 'menu' and 10 <= x <= 18 and y == 13 + abs(x-14): return 'w'
-                return '.'
-            files[f'{name}-{state}.xpm'] = xpm(BUTTON_WIDTH, BUTTON_HEIGHT, pix)
+                if name == 'menu':
+                    if 10 <= x <= 18 and y == 13 + abs(x-14): return 'w'
+                    # Xfwm's application icon is clipped by the menu pixmap's mask.
+                    return title_pixel(y, raised=True)
+                return ' '
+            palette = title_palettes['inactive' if state.endswith('inactive') else 'active']
+            files[f'{name}-{state}.xpm'] = xpm(MENU_WIDTH, BUTTON_HEIGHT, pix, palette)
     files['themerc'] = f'''active_text_color=#FFFFFF
 inactive_text_color=#FFFFFF
 title_shadow_active=false
@@ -156,12 +204,12 @@ title_alignment=left
 title_horizontal_offset=9
 title_vertical_offset_active=0
 title_vertical_offset_inactive=0
-button_spacing=2
+button_spacing=3
 button_offset={BUTTON_OFFSET}
 maximized_offset={BUTTON_OFFSET}
 button_layout=O|HMC
 show_app_icon=true
-full_width_title=true
+full_width_title=false
 frame_border_top=1
 '''
     return files
@@ -173,10 +221,6 @@ def edge_pixel(depth, stroke):
     return stroke[int(depth)] if depth < len(stroke) else '.'
 
 
-def title_pixel(y, stroke):
-    return 's' if y == TITLE_HEIGHT-1 else edge_pixel(y, stroke)
-
-
 def corner(x, y, side, bottom, stroke):
     centre = CORNER_SIZE - 1
     x = x if side == 'left' else centre-x
@@ -185,6 +229,17 @@ def corner(x, y, side, bottom, stroke):
         return 's' if y == TITLE_HEIGHT-1 and x >= FRAME_DEPTH else edge_pixel(x, stroke)
     depth = centre + .5 - math.hypot(x-centre, y-centre)
     return edge_pixel(depth, stroke)
+
+
+def corner_pixel(x, y, side, bottom):
+    pixel = corner(x, y, side, bottom, 'bgj')
+    inset_x = x if side == 'left' else CORNER_SIZE - 1 - x
+    inset_y = CORNER_SIZE - 1 - y if bottom else y
+    if pixel in 'bgj' and inset_x < inset_y:
+        return pixel.upper()
+    if pixel == '.' and not bottom and side == 'left':
+        return title_pixel(y, raised=True)
+    return pixel
 
 
 def icon_files():

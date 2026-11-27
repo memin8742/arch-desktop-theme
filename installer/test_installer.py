@@ -110,27 +110,43 @@ class InstallerTests(unittest.TestCase):
 
     def test_frame_contour_and_inactive_halo_have_separate_colours(self):
         frames = assets.xfwm_files()
-        self.assertIn('"b c #3D98D7"', frames['title-1-active.xpm'])
-        for state, stroke in [('active', 'bgj'), ('inactive', 'ihk')]:
+        for part, colour in [('title-1', '#23A5E0'), ('left', '#30C4F6'),
+                             ('right', '#47C7FB'), ('bottom', '#46BEFC')]:
+            self.assertIn(f'"b c {colour}"', frames[f'{part}-active.xpm'])
+            self.assertIn(f'"b c {assets.mix(colour, assets.NAVY, .9)}"', frames[f'{part}-inactive.xpm'])
+        self.assertIn('"s c #147EC1"', frames['title-1-active.xpm'])
+        for state in ('active', 'inactive'):
             title = [json.loads(line.rstrip(',')) for line in frames[f'title-1-{state}.xpm'].splitlines()[2:-1]]
             width, _, palette, _ = map(int, title[0].split())
-            self.assertEqual(title[1+palette:4+palette], [pixel*width for pixel in stroke])
+            self.assertEqual(title[1+palette:4+palette], [pixel*width for pixel in 'bgj'])
+            accent = [json.loads(line.rstrip(',')) for line in frames[f'title-4-{state}.xpm'].splitlines()[2:-1]]
+            rows = accent[1+palette:]
+            self.assertGreater(rows[3].index('m'), rows[-4].index('m'))
         self.assertIn('shadow-color = "#0878D1"', assets.PICOM)
         self.assertIn('shadow-color = "#076CBC"', assets.PICOM)
 
     def test_title_buttons_fit_inside_corners(self):
         frames = assets.xfwm_files()
-        for state, stroke in [('active', 'bgj'), ('inactive', 'ihk')]:
+        for side in ('left', 'right'):
             left = assets.FRAME_DEPTH + assets.BUTTON_OFFSET
+            x = left if side == 'left' else assets.CORNER_SIZE - 1 - left
             top = (assets.TITLE_HEIGHT - assets.BUTTON_HEIGHT + 1) // 2
             for y in range(top, top + assets.BUTTON_HEIGHT):
-                self.assertEqual(assets.corner(left, y, 'left', False, stroke), '.')
-                self.assertEqual(assets.corner(assets.CORNER_SIZE - 1 - left, y, 'right', False, stroke), '.')
+                self.assertEqual(assets.corner(x, y, side, False, 'bgj'), '.')
         self.assertIn(f'button_offset={assets.BUTTON_OFFSET}\n', frames['themerc'])
+        for state in ('active', 'inactive'):
+            menu = [json.loads(line.rstrip(',')) for line in frames[f'menu-{state}.xpm'].splitlines()[2:-1]]
+            _, _, palette, _ = map(int, menu[0].split())
+            self.assertTrue(all(' ' not in row for row in menu[1+palette:]))
         for state in ('active', 'inactive', 'prelight', 'pressed'):
             self.assertNotEqual(frames[f'maximize-{state}.xpm'], frames[f'maximize-toggled-{state}.xpm'])
-        self.assertIn('#4CA4D5', frames['hide-prelight.xpm'])
-        self.assertIn('#AD647A', frames['close-prelight.xpm'])
+            face = [json.loads(line.rstrip(',')) for line in frames[f'hide-{state}.xpm'].splitlines()[2:-1]]
+            _, _, palette, _ = map(int, face[0].split())
+            for name in ('close', 'maximize'):
+                other = [json.loads(line.rstrip(',')) for line in frames[f'{name}-{state}.xpm'].splitlines()[2:-1]]
+                self.assertEqual(face[:1+palette], other[:1+palette])
+            rows = face[1+palette:]
+            self.assertGreater(rows[4].index('e'), rows[-5].index('e'))
 
     def test_panel_and_toolbar_icon_names_are_present(self):
         files = assets.icon_files()

@@ -1,3 +1,8 @@
+# v1.2.6
+
+- Terminal ve Thunar başlığında eğimli, aynı mavi paleti kullanan küçültme, büyütme/geri yükleme ve kapatma düğmeleri.
+- Çerçevenin üst, yan ve alt kenarları ile başlık alt çizgisi son terminal görselinden örneklendi. Başlığın sol bölümünü eğimli camgöbeği çizgi ayırır.
+
 # v1.2.5
 
 - Xfce pencere düğmelerinde yuvarlatılmış lacivert yüzeyler ve fare vurgusu. Büyütülmüş pencere için ayrı geri yükleme simgesi.
