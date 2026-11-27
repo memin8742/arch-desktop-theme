@@ -94,8 +94,8 @@
       "sha256": "2b975da0d7e8437660d977772c0cac473a7dbd097fc928c6419ce8b77e39c727"
     },
     "installer/linux_smoke.py": {
-      "bytes": 8685,
-      "sha256": "89f92604636fa45bb44fd52918f58773941aec0d88d177a3028a807b37cc1be6"
+      "bytes": 8961,
+      "sha256": "76d740be32dc4716eec0d95854e2f0cf9366d68af865d12ca972f6c393c0fb5b"
     },
     "installer/terminal.py": {
       "bytes": 13646,

@@ -106,7 +106,13 @@ try:
     third.feed_child(b'printf abcde')
     time.sleep(.1)
     third.feed_child(b'\x1b[1;2D\x1b[1;2D\x1b[99;5u')
-    spin(lambda: subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True).stdout==b'de')
+    def copied():
+        # GTK still owns the earlier paste until ZLE's xclip takes over.
+        # Never synchronously wait for our own GTK clipboard while its loop is paused.
+        try:
+            return subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True,timeout=.15).stdout==b'de'
+        except subprocess.TimeoutExpired: return False
+    spin(copied)
     third.feed_child(b'\x03')
     # Native Thunar process, composited RGBA visual and theme CSS loaded on new windows.
     wid=call('xdotool','getactivewindow')
