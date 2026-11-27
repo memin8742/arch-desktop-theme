@@ -1,9 +1,11 @@
-﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0.2
+﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0.3
 
 SON GÖRÜNÜM: Terminal ve Thunarda mevcut koyu lacivert renk korunur; zemin
 opaklığı %80, saydamlık %20dir. Yazı/ikon/grafik/düğmeleri soldurma. Dış çerçeve
 rengi/ışığı 11deki son seçilmiş mavi dış kontur ve dar/yumuşak hale gibi,
-tüm kenar/köşelerde eşit olsun. Bölücüler ince ve üçgensiz.
+her pencerenin kendi kenar/köşelerinde eşit olsun. Etkin pencere belirgin,
+pasif pencereler daha sakin çerçevelidir; gerçek odak değişince vurgu yer değiştirir.
+Bölücüler ince ve üçgensiz.
 02 birlikte masaüstünü, 03 terminali, 11 Thunarı gösterir. Kesin kurallar JSONda.
 
 ONAYLI RENKLER: 08/09 görsellerindeki renk düzeni ve JSON içindeki kesin renk
@@ -12,7 +14,7 @@ kuralları kullanıcı tarafından onaylandı; kurulumda uygulanacak son tercihl
 CODEXE GÖNDERİLECEK METİN
 ZIPi çıkardığın bu klasörü Codexte çalışma klasörü aç, aşağıdaki metni gönder:
 
-Bu klasördeki v1.0.2 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
+Bu klasördeki v1.0.3 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
 
 Önce 00-CODEXE-VERILECEK-ISTEK.txt ve 04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Bütün görselleri açıp dosyalarda belirtilen kapsamlarında incele: 01/02 duvar kâğıdı ve masaüstü, 03 terminalin dışı ve zemin rengi, 05/06 açılış ve giriş/kilit, 07 bölme çizgileri, 08/09 terminal yazıları, 10 batarya menüsü ve 11 Thunar görünümü.
 
@@ -57,9 +59,16 @@ GÖRÜNÜM
   onaylı istem mavisi #49AEE6 olarak kalsın. Dış kontur ışığı değişikliği
   yazılara veya #49AEE6/%40 iç bölücülere uygulanmasın. Dizin metni beyaz/kalın. Yazılar tam opak, parlamasız.
   Git bilgisi yok. Bilinmeyen komut beyaz/altı çizili; tanınmadığı için kırmızı değil.
+- Etkin/pasif pencere için JSONdaki ortak_pencere_stili.odak_vurgusu uygulanır:
+  gerçek klavye odağı olan pencerenin çerçevesi belirgin mavi, diğerleri sakin
+  koyu mavi olsun. 02de soldaki terminal etkin, sağdaki Thunar pasiftir; bunları
+  sabit uygulama kuralı yapma. Tıklama/Alt+Tab/panel/çalışma alanı/modal geçişinde
+  vurgu doğru pencereye ve yalnız ilgili panel simgesine taşınsın. Zemin %80 ve
+  yazı/ikon/grafik %100 kalır; pasif pencereye genel karartma/opacity uygulama.
+  Her durumun kendi çevresinde eşit ışık; sürekli animasyon/yanıp sönme yok.
 - Görev çubuğu üstte ve 02'nin son hali gibi: tam genişlik, kesik eğimli uçlar,
-  tek renk mavi #237DB5 alt çizgi. Alt kontur ve iki uç aynı renkte, ince/kesintisiz
-  ve parlamasız olsun; aqua/yeşil kayma, beyaz/gümüş uç veya parlak şerit yok.
+  okla gösterilen sağ eğimli ucun üst kısmındaki tek KOYU mavi #02258D alt çizgi. Alt kontur ve iki uç aynı renkte, ince/kesintisiz
+  ve parlamasız olsun. Çizgiye cam/gradient bindirme; aqua/yeşil kayma, beyaz/gümüş uç veya parlak şerit yok.
   Orta bölümde açık uygulamalar YALNIZ kendi simgeleriyle kompakt düğmelerde olsun.
   Uygulama adı, pencere başlığı ve dizin yolu panelde yazılmasın; ad yalnız fareyle
   üzerine gelince ipucunda görünsün. Tıklama, odak/alta alma/geri getirme ve aynı

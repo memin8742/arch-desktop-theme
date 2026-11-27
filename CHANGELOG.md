@@ -1,5 +1,11 @@
 # Değişiklikler
 
+## v1.0.3 — 2026-11-27
+
+- Gerçek klavye odağı olan pencere belirgin mavi çerçeve, pasif pencereler daha sakin kontur/ışık kullanır. Vurgu odakla yer değiştirir; içerik ve yazılar soldurulmaz.
+- Panelde yalnız odaktaki uygulamanın simgesi/grubu belirginleşir. Bütün alt çizgi ve eğimli uçlar, kullanıcının okla seçtiği koyu mavi `#02258D` olarak tek renge sabitlendi.
+- Birlikte masaüstü önizlemesi ve kurulum/kabul tarifleri güncellendi. Önceki 27 kısayol, %80 zemin, yazı/istem renkleri, iç bölücüler ve diğer işlevler korunur.
+
 ## v1.0.2 — 2026-11-27
 
 - Terminal ve Thunar dış çerçeve rengi/ışığı, kullanıcının seçtiği Thunar referansına bağlandı: doygun mavi ince kontur, dar/yumuşak ve eşit mavi hale. Sayısal uygulama başlangıç değerleri ve karşılaştırma kapsamı eklendi.
