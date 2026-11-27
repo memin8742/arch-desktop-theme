@@ -83,16 +83,18 @@ def xpm(width, height, pixel, colours):
     return '/* XPM */\nstatic char * frame[] = {\n' + ',\n'.join(json.dumps(s) for s in lines) + '\n};\n'
 
 
+def button_colours(state):
+    return {
+        'active': ('#041B30', FRAME_TOP_BLUE, '#EDF9FF'),
+        'inactive': ('#041827', mix(FRAME_TOP_BLUE, NAVY, .9), '#BCD5E5'),
+        'prelight': ('#0A2945', FRAME_RIGHT_BLUE, '#F5FCFF'),
+        'pressed': ('#103754', mix('#FFFFFF', FRAME_RIGHT_BLUE, .22), '#FFFFFF'),
+    }[state.removeprefix('toggled-')]
+
+
 def title_button(name, state):
     restore = name == 'maximize' and state.startswith('toggled-')
-    phase = state.removeprefix('toggled-')
-    styles = {
-        'active': ('#041B30', '#01E9FE', '#EDF9FF'),
-        'inactive': ('#041827', '#1A98BF', '#BCD5E5'),
-        'prelight': ('#0B3049', '#5CEEFF', '#F5FCFF'),
-        'pressed': ('#124466', '#92F2FF', '#FFFFFF'),
-    }
-    fill, edge, glyph = styles[phase]
+    fill, edge, glyph = button_colours(state)
     colours = {' ': 'None', 'f': fill, 'e': edge, 'w': glyph,
                'r': mix(edge, NAVY, .5), 'a': mix('#239DEA', fill, .68)}
     centre_x, centre_y = (BUTTON_WIDTH - 1) / 2, (BUTTON_HEIGHT - 1) / 2
@@ -123,6 +125,42 @@ def title_button(name, state):
         return 'f'
 
     return xpm(BUTTON_WIDTH, BUTTON_HEIGHT, pixel, colours)
+
+
+def title_button_svg(name, state):
+    fill, edge, glyph = button_colours(state)
+    restore = name == 'maximize' and state.startswith('toggled-')
+    symbol = {
+        'hide': 'M19.5 13h11',
+        'maximize': 'M20.6 8.1h8.8q.8 0 .8.8v7.2q0 .8-.8.8h-8.8q-.8 0-.8-.8V8.9q0-.8.8-.8Z',
+        'restore': 'M22.8 9V7.5h7.7v7h-1.7 M19.6 10.4h7.6v7h-7.6Z',
+        'close': 'M21.2 8.7l7.6 7.6m0-7.6-7.6 7.6',
+    }['restore' if restore else name]
+    face = ('M15.4 2.7H43.8Q48.1 2.7 46.1 6.5L38.8 20Q37.5 22.3 34.6 22.3'
+            'H6.2Q1.9 22.3 3.9 18.5L11.2 5Q12.5 2.7 15.4 2.7Z')
+    pressed = state.endswith('pressed')
+    face_top = mix(edge, fill, .09 if pressed else .17)
+    face_bottom = mix(NAVY, fill, .35)
+    rim_bottom = mix(edge, fill, .38)
+    # Xfwm composites this tile over its XPM fallback. Cover the fallback so the
+    # antialiased diagonal edges blend with the surrounding title bar only once.
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{BUTTON_WIDTH}" height="{BUTTON_HEIGHT}" viewBox="0 0 50 25">
+<defs>
+  <linearGradient id="face" x2="0" y2="1" gradientUnits="objectBoundingBox">
+    <stop stop-color="{face_top}"/><stop offset=".55" stop-color="{fill}"/><stop offset="1" stop-color="{face_bottom}"/>
+  </linearGradient>
+  <linearGradient id="rim" x1=".15" y1="0" x2=".85" y2="1" gradientUnits="objectBoundingBox">
+    <stop stop-color="{edge}"/><stop offset=".5" stop-color="{mix(edge, fill, .66)}"/><stop offset="1" stop-color="{rim_bottom}"/>
+  </linearGradient>
+</defs>
+<rect width="50" height="25" fill="{NAVY}"/>
+<path d="{face}" transform="translate(0 1)" fill="none" stroke="#010b18" stroke-width="2"/>
+<path d="{face}" fill="url(#face)" stroke="url(#rim)" stroke-width="1.15"/>
+<path d="M15.6 4.3h26.7" fill="none" stroke="{edge}" stroke-opacity=".20" stroke-linecap="round"/>
+<g transform="translate(0 {1 if pressed else 0})" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="{symbol}" transform="translate(0 .6)" stroke="#010c18" stroke-width="2.45"/>
+  <path d="{symbol}" stroke="{glyph}" stroke-width="1.6"/>
+</g></svg>'''
 
 
 def frame_stroke(contour, strength):
@@ -185,6 +223,7 @@ def xfwm_files():
         for state in states:
             if name in ('hide', 'maximize', 'close'):
                 files[f'{name}-{state}.xpm'] = title_button(name, state)
+                files[f'{name}-{state}.svg'] = title_button_svg(name, state)
                 continue
             def pix(x, y, name=name):
                 x += (28 - MENU_WIDTH) // 2

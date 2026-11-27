@@ -1,11 +1,11 @@
 {
-  "release_version": "1.2.7",
+  "release_version": "1.2.8",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 14424,
-      "sha256": "ed1296635f3f627442d0eac729bc83170273501d385df1bdb76f85d9f2ce3d4d"
+      "sha256": "bbe3edbf0d483a37e747dc358d006d49252ac1a97758ba7ef836a726f53320d4"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -20,8 +20,8 @@
       "sha256": "419f7d35ad3b1c0ae16c6a27a40156fa5ad3e9cc886a2176e6c5ecaf464d0b84"
     },
     "04-ayarlar-ve-ozellikler.json": {
-      "bytes": 69261,
-      "sha256": "c1511a441976d1bdf950ea541f5c5b038765d1394163441c62d8570f7ccdcf2e"
+      "bytes": 69401,
+      "sha256": "2903dba3227ba88ff2d1533cbf09b5a45f0e6a029c62ec3c7a3894a1a9fdb571"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,
@@ -58,8 +58,8 @@
       "sha256": "6ec31f60f22461cd62f7238b682729ca6db0c2173ccc548f655cdd7a128d3b74"
     },
     "CHANGELOG.md": {
-      "bytes": 7925,
-      "sha256": "0a38795c00b24695f3cbba34931dcd0db435fc6e3f05f7a18ad12a7da7fef85c"
+      "bytes": 8180,
+      "sha256": "43ddecc561b3cc295899288c9f87a7df5517b12984f0bcbdf7f2b08d249ed4a7"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1679,
@@ -67,7 +67,7 @@
     },
     "KOLAY-KURULUM.txt": {
       "bytes": 1248,
-      "sha256": "6c89cde1ad192b1ab49a908aae0d269e5f1c2839b59aae3e5a026cf5cae25e6b"
+      "sha256": "51e0e6de7825b10daadd0104d0052d762d381b34009fd0f73cbc76624fbdd97f"
     },
     "KURULUM.md": {
       "bytes": 5732,
@@ -75,15 +75,15 @@
     },
     "README.md": {
       "bytes": 5318,
-      "sha256": "a6375cf54c5b2c551580a653efb6a4ef4e3238e801f21f07c0e61db66f44c1f9"
+      "sha256": "a288afd2ca583125dbb5c0310be689826a07a6f332323508b9f371e3bd74106a"
     },
     "VERSION": {
       "bytes": 6,
-      "sha256": "d9e8e8429c6a7d0b965e4fac26a5efff7103f055faa98cceb5bd4731fd24603a"
+      "sha256": "d2d31534641da01801512a3ec793bc8d57132d4cefa19a5fb503e8995f39eb8f"
     },
     "installer/assets.py": {
-      "bytes": 12519,
-      "sha256": "7f39e5f92d1373901b13f01574e790bc07ea5477ab557c8719ed13d7d89c1206"
+      "bytes": 14785,
+      "sha256": "81806ee35aaf940dfb6323b0011a5826004b9ecfa24c977356549ba933ac077c"
     },
     "installer/boot/arch-blue.plymouth": {
       "bytes": 216,
@@ -166,8 +166,8 @@
       "sha256": "3dcd2a80d827ba98d8a8eaa917fc3b7ab668343ad04276a2939b323c1727dd23"
     },
     "installer/test_installer.py": {
-      "bytes": 8900,
-      "sha256": "ca4d84964fff5c2484a2d789a6d0ae1671975604b2179828250211d74ac9cc1e"
+      "bytes": 9593,
+      "sha256": "30c65cff1c8cbc0beb69ac6f782a7f28a12aa4aa3903e86fb8d3c91827e698ec"
     },
     "installer/theme.zsh": {
       "bytes": 4419,

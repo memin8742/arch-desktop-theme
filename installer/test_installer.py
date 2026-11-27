@@ -134,6 +134,8 @@ class InstallerTests(unittest.TestCase):
             for y in range(top, top + assets.BUTTON_HEIGHT):
                 self.assertEqual(assets.corner(x, y, side, False, 'bgj'), '.')
         self.assertIn(f'button_offset={assets.BUTTON_OFFSET}\n', frames['themerc'])
+        self.assertEqual(assets.button_colours('active')[1], assets.FRAME_TOP_BLUE)
+        self.assertEqual(assets.button_colours('prelight')[1], assets.FRAME_RIGHT_BLUE)
         for state in ('active', 'inactive'):
             menu = [json.loads(line.rstrip(',')) for line in frames[f'menu-{state}.xpm'].splitlines()[2:-1]]
             _, _, palette, _ = map(int, menu[0].split())
@@ -147,6 +149,16 @@ class InstallerTests(unittest.TestCase):
                 self.assertEqual(face[:1+palette], other[:1+palette])
             rows = face[1+palette:]
             self.assertGreater(rows[4].index('e'), rows[-5].index('e'))
+            faces, symbols = [], set()
+            for name in ('hide', 'maximize', 'maximize-toggled', 'close'):
+                svg = ET.fromstring(frames[f'{name}-{state}.svg'])
+                self.assertEqual(svg.get('viewBox'), '0 0 50 25')
+                symbol = svg[-1][-1]
+                symbols.add(symbol.attrib.pop('d'))
+                svg[-1][0].attrib.pop('d')
+                faces.append(ET.tostring(svg))
+            self.assertEqual(len(symbols), 4)
+            self.assertEqual(len(set(faces)), 1)
 
     def test_panel_and_toolbar_icon_names_are_present(self):
         files = assets.icon_files()

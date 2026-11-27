@@ -1,3 +1,7 @@
+# v1.2.8
+
+- Terminal ve Thunar başlık düğmelerinde eğimli kenarlar vektörel olarak çizilir. İnce ışık yansıması, lacivert yüzey geçişi ve yuvarlatılmış beyaz simgeler normal, odak dışı, fare üstü ve basılı durumlara uyarlanır.
+
 # v1.2.7
 
 - Başlat+Yukarı odaktaki uygulamayı büyütür. Odakta uygulama yoksa aynı çalışma alanındaki küçültülmüş bir pencereyi geri getirir.

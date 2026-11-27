@@ -916,12 +916,12 @@
     },
     "baslik_dugmeleri": {
       "kapsam": "Xfce pencere yöneticisinin Terminal ve Thunar dahil yerel başlıkları.",
-      "bicim": "Yumuşak köşeli eğimli düğmeler, dik beyaz simgeler ve büyütülmüş pencere için geri yükleme simgesi.",
-      "renkler": "Küçültme, büyütme ve kapatma her durumda aynı mavi paleti kullanır. Etkin kenar #01E9FE.",
+      "bicim": "Yumuşak köşeli eğimli düğmelerde ince mavi kenar, üstte hafif yansıma ve lacivert ton geçişi. Beyaz simgeler aynı çizgi kalınlığına sahiptir. Büyütülmüş pencerede geri yükleme simgesi görünür.",
+      "renkler": "Üç düğmenin kenarı etkin pencerede üst çerçeve mavisi #23A5E0, fare üzerindeyken sağ çerçeve mavisi #47C7FB kullanır.",
       "baslik_bolumu": "Sol bölümün sonunda #0EEBFC eğimli ayırıcı."
     }
   },
-  "yayin_surumu": "1.2.7",
+  "yayin_surumu": "1.2.8",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",
