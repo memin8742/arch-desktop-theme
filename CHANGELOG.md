@@ -1,5 +1,12 @@
 # Değişiklikler
 
+## v1.0.4 — 2026-11-27
+
+- Etkin pencere, seçilen Thunar referansındaki ince mavi çerçeve ve yumuşak ışığı kullanır; pasif pencere aynı yapı/tonda yalnız yaklaşık %10 daha soluktur. Kalın etkin ve çok koyu pasif çerçeve ayrımı kaldırıldı.
+- Üst panelin bütün alt çizgisi ve eğimli uçları da Thunar çerçevesi gibi tek mavi `#0AA6F0` ve hafif/eşit ışık kullanır. Beyaz/gümüş uç veya bölgesel renk geçişi yok.
+- Sağ üst panel ucunun tek konturla bağlanması ve farklı ölçeklerde kesinti/ton farkı kontrolü eklendi.
+- Birlikte önizlemede Thunar etkin, terminal pasif örnektir; gerçek odakta roller değişir. %80 zemin, tam opak içerik ve önceki diğer özellikler korunur.
+
 ## v1.0.3 — 2026-11-27
 
 - Gerçek klavye odağı olan pencere belirgin mavi çerçeve, pasif pencereler daha sakin kontur/ışık kullanır. Vurgu odakla yer değiştirir; içerik ve yazılar soldurulmaz.

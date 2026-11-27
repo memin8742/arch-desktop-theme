@@ -12,9 +12,9 @@
 - Terminal ve Thunarın mevcut lacivert zemin rengi, %80 zemin opaklığı ve tam opak metin/simgeleri korunur. Dış çerçeve tonu/ışığı `11` görselindeki gibi doygun mavi, dar/yumuşak ve eşit; kesin değerler `ortak_pencere_stili.dis_kontur_ve_hale` içindedir. Bu düzeltme istem/yazı ve iç bölücü renklerini değiştirmez; iç bölücüler yaklaşık 2 px, yarı saydam ve üçgensiz.
 - Zsh, Fira Code 10 pt, iki satırlı dinamik istem ve kesin renkler JSON'dadır. Git istem modülü veya başarısız komutta ek çarpı/sayı rozeti yok.
 - Üst panel, açılış/kilit, Thunar, bütün kısayollar, pano/kayıt/dışa aktarma, sistem sensörleri ve donanıma bağlı batarya kuralları korunur. Başka bir görünüm tercih edildiğini varsayma.
-- Üst panelin alt çizgisi/eğimli uçları tek renk `#02258D`, kesintisiz ve beyaz parlamasızdır. Açık uygulamalar yalnız simgeyle gösterilir; isim/başlık/yol etiketleri yok, adlar yalnız hover ipucundadır. Bu kural uygulamaların kendi pencere başlıklarını gizlemez.
+- Üst panelin alt çizgisi/eğimli uçları Thunarın çerçevesi gibi tek mavi `#0AA6F0`, ince ve kesintisiz; ışığı hafif/eşit, beyaz/gümüş uç yok. Açık uygulamalar yalnız simgeyle gösterilir; isim/başlık/yol etiketleri yok, adlar yalnız hover ipucundadır. Bu kural uygulamaların kendi pencere başlıklarını gizlemez. Alt çizgi ve uçlar tek konturdur; sağ üst eğimli uçta kesinti/ton değişimi özellikle kontrol edilir.
 
-- Gerçek odaktaki pencere mavi çerçevesiyle belirgin, pasif pencereler daha sakin olur; `ortak_pencere_stili.odak_vurgusu` uygulanır. Eşit ışık her pencerenin kendi çevresine aittir. %80 zemin/tam opak içerik korunur; yalnız gerçek odaktaki uygulama simgesi/grubu panelde vurgulanır.
+- Gerçek odaktaki pencere Thunar referansı gibi ince mavi çerçeveli; pasif pencereler aynı yapı ve tonda yalnız yaklaşık %10 daha soluk olur; `ortak_pencere_stili.odak_vurgusu` uygulanır. Eşit ışık her pencerenin kendi çevresine aittir. %80 zemin/tam opak içerik korunur; yalnız gerçek odaktaki uygulama simgesi/grubu panelde vurgulanır.
 
 ## Değişiklik ve yayın
 

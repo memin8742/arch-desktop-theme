@@ -2,7 +2,7 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**Güncel sürüm: v1.0.3.** Güncel kaynak her zaman [`paket/`](paket/) dizinidir. Kurulumu hedef Arch Linux bilgisayarındaki Codex, gerçek masaüstü ve donanımı inceleyerek uygular. Bu repo, kurulumun tamamlandığını gösteren bir sistem imajı veya tek komutluk otomatik yükleyici değildir.
+**Güncel sürüm: v1.0.4.** Güncel kaynak her zaman [`paket/`](paket/) dizinidir. Kurulumu hedef Arch Linux bilgisayarındaki Codex, gerçek masaüstü ve donanımı inceleyerek uygular. Bu repo, kurulumun tamamlandığını gösteren bir sistem imajı veya tek komutluk otomatik yükleyici değildir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
@@ -23,9 +23,9 @@ Ardından bu klasörde Codex'e [`KURULUM.md`](KURULUM.md) ve `paket/` içindeki 
 ## Tasarım ve özellikler
 
 - Terminal ve Thunar: mevcut koyu lacivert zemin, **%80 zemin opaklığı**, tam opak yazı/simgeler ve son seçilen Thunar görselindeki doygun mavi ince dış kontur ve dar/yumuşak, eşit ışık.
-- Etkin pencere belirgin mavi çerçeve, diğer pencereler sakin kontur kullanır; vurgu gerçek klavye odağıyla yer değiştirir ve panelde ilgili uygulama simgesiyle eşleşir.
+- Etkin pencere Thunar gibi ince mavi çerçeve, diğer pencereler aynı çerçeveyi yalnız yaklaşık %10 daha soluk kullanır; vurgu gerçek klavye odağıyla yer değiştirir ve panelde ilgili uygulama simgesiyle eşleşir.
 - Terminal: Fira Code 10 pt, Zsh, iki satırlı dinamik dizin istemi, Kali temelli yazı/çıktı renkleri, geçmiş önerileri ve arama. İnce, yarı saydam, **üçgensiz** bölücüler ve bağımsız bölümler.
-- Üst panel: kesintisiz, okla seçilen tek renk koyu mavi `#02258D` alt çizgi ve aynı mavi eğimli uçlar; beyaz kenar parlaması yok. Açık uygulamalar yalnız kendi simgeleriyle gösterilir, isim/başlık/yol yazılmaz. Dört çalışma alanı, pano geçmişi, bildirimler ve açılır sistem/batarya kutuları korunur. Donanım verileri gerçek ölçülür.
+- Üst panel: Thunar çerçevesi gibi ince, kesintisiz tek mavi `#0AA6F0` alt çizgi ve aynı mavi eğimli uçlar; hafif/eşit ışık, beyaz kenar parlaması yok. Açık uygulamalar yalnız kendi simgeleriyle gösterilir, isim/başlık/yol yazılmaz. Dört çalışma alanı, pano geçmişi, bildirimler ve açılır sistem/batarya kutuları korunur. Donanım verileri gerçek ölçülür.
 - Onaylı kısayollar, seçim/kopyalama/yapıştırma davranışları, ekran görüntüsü/kaydı, tema dışa aktarma ve uzun işlem bildirimi.
 - Donanım destekliyorsa Ev şarj sınırları %55/%80, Seyahat geçici %100. Açılış, giriş ve gerçek oturum kilidi korunur.
 

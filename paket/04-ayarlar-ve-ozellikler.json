@@ -16,7 +16,7 @@
     "etkin_pasif_pencere_ornegi": "02-onayli-masaustu.png"
   },
   "terminal": {
-    "dis_gorunum": "03teki yuvarlak dört köşe, sade lacivert başlık, normal pencere düğmeleri ve ince başlık ayırıcı korunur. Dış kontur ve dar/yumuşak mavi ışık için kullanıcının son seçtiği 11 referansı ve ortak_pencere_stili.dis_kontur_ve_hale uygulanır. Dört kenar/köşede eşit ışık; pahlı köşe, süs şeridi, çentik ve üçgen bölücü uçları yok. Gerçek odak alındığında belirgin, diğer pencereye geçilince sakin dış çerçeve; ortak_pencere_stili.odak_vurgusu uygulanır.",
+    "dis_gorunum": "03teki yuvarlak dört köşe, sade lacivert başlık ve normal düğmeler; yaklaşık 1 px ince mavi çerçeve ve 11deki Thunar gibi yumuşak/eşit ışık. Gerçek odakta referans etkin görünüm, pasifken aynı kontur/ışık yalnız yaklaşık %10 azalır. Kalın/cyan neon etkin kontur veya çok koyu pasif kontur yok. ortak_pencere_stili.odak_vurgusu uygulanır.",
     "varsayilan_konum": "02/03 gibi solda üst panelin altında; logo boyut/konumu korunur. 02de Thunar da açıktır; bu örnek yerleşim her açılışta zorunlu çift pencere veya bölünmüş terminal değildir. Gerçek DPI/ekrana uyarla.",
     "menu_ve_sekmeler": "Tek başlık; sabit menü satırı yok. Gerekirse açılır menü. Tek sekmede gizlenebilen, çok sekmede erişilebilir aynı temalı sekme çubuğu.",
     "font": {
@@ -283,21 +283,42 @@
   "ust_gorev_cubugu": {
     "referans": "02-onayli-masaustu.png",
     "konum": "üst",
-    "bicim": "Tam genişlik, ince koyu saydam lacivert ve iki uçta aşağı eğimli kesik köşe. Alt kontur ve eğimli uçlar kesintisiz, aynı tek renk mavi #02258D; beyaz/aqua parça veya parlama yok. Panelin geometrisi ve yüksekliği korunur.",
+    "bicim": "Tam genişlik, ince koyu saydam lacivert ve iki uçta aşağı eğimli kesik köşe. Bütün alt kontur ve iki eğimli uç Thunarın ince mavi çerçevesi gibi #0AA6F0; tek renk kesintisiz çizgi ve eşit/yumuşak mavi ışık. Beyaz/gümüş uç, farklı renkli parça veya kalın neon şerit yok. Panel geometrisi ve yüksekliği korunur.",
     "alt_cizgi": {
-      "renk": "#02258D",
+      "renk": "#0AA6F0",
       "rgb": [
-        2,
-        37,
-        141
+        10,
+        166,
+        240
       ],
       "opaklik": 1.0,
       "referans_ekranda_yaklasik_kalinlik_px": 1,
-      "parlama": false,
+      "parlama": true,
       "beyaz_uc_vurgusu": false,
       "tek_renk": true,
-      "uygulama": "Panelin bütün alt kenarı ve iki eğimli uç tek bir sabit #02258D konturla çizilir. Üstündeki cam/ışık/desen katmanı çizgiye renk geçişi bindirmesin. Aqua/cyan/yeşil kayma, beyaz/gümüş uç, yerel açık/koyu şerit, parlama, kesinti veya çift çizgi yok. Gerçek DPIye göre yaklaşık 1 px kalınlığı uyarla; odak ve hover bu dış konturun rengini değiştirmez. Pencere çerçevelerini veya panel simge/metin renklerini bununla topluca boyama.",
-      "renk_kaynagi": "27 Kasım 2026: Kullanıcının okla gösterdiği sağ eğimli ucun üst kısmındaki koyu mavi. Bu ton bütün yatay alt çizgide ve iki eğimli uçta aynı sabit #02258D olarak uygulanır; alttaki cyan bölüm örnek alınmaz."
+      "uygulama": "Bütün yatay alt çizgi ve iki eğimli uç aynı sabit #0AA6F0, yaklaşık 1 px kontur ve tanımlı hafif mavi ışıkla kesintisiz birleşir. Kontur üzerine gradient/cam katmanı bindirip yerel ton değişimi oluşturma. Işık çevreye yumuşak sönebilir; çizginin kendi rengi uçtan uca aynıdır. Beyaz çekirdek/uç, gümüş parlaklık, aqua/yeşil kayma, bölgesel parça, çift çizgi veya animasyon yok. Odak/hover panel dış çizgisini değiştirmez; simge/metin renklerini topluca boyama.",
+      "renk_kaynagi": "27 Kasım 2026 son istek: görev çubuğunun alt çizgisi de Thunarın ince mavi çerçevesi gibi olsun. Etkin Thunar konturu/ışığı esas alınır; önceki koyu mavi panel tonu son tercih değildir.",
+      "hafif_isik": {
+        "referans": "Etkin Thunar dış çerçevesi; ortak_pencere_stili.dis_kontur_ve_hale",
+        "renk": "#0878D1",
+        "opaklik": 0.65,
+        "yayilim_yaklasik_px": 12,
+        "blur_sigma_yaklasik_px": 4.5,
+        "esit_dagilim": true,
+        "animasyon": false,
+        "kural": "Yalnız ince çizginin çevresinde dar/yumuşak mavi ışık; aşırı geniş bloom veya beyaz parlama yok. Gerçek DPI/compositor başlangıç değerlerini Thunar çerçevesiyle görsel olarak eşleştir."
+      },
+      "tek_parca_kontur": {
+        "etkin": true,
+        "referans_ekran_px": [
+          1672,
+          941
+        ],
+        "panel_yuksekligi_yaklasik_px": 38,
+        "ornek_yol": "M 0 14 L 24 37 L 1647 37 L 1671 13",
+        "kural": "Sol eğimli uç, yatay alt çizgi ve SAĞ EĞİMLİ UCUN ÜSTTEKİ SON NOKTASINA KADAR tamamı aynı tek kesintisiz kontur/yoldur. Renk #0AA6F0, kalınlık yaklaşık 1 px ve ışık aynı katmandadır. Sağ uçta ayrı kısa renkli parça, içeri kırılma, karanlık çentik, uç kesilmesi veya ton geçişi yok.",
+        "uygulama": "Referans yolu gerçek panel genişliği/yüksekliği/DPIye göre ankrajlarla uyarla. Stroke ve yumuşak ışık aynı geometriden türetilir; sağ üst uç veya birleşim clip/mask/surface sınırında kesilmez. Yatay çizgiyi ve sağ eğimi farklı renk/gradientli parçalarla bindirerek yapma. Gerçek işlevli panel dekorasyonuna uygula; resim bindirmek kurulum yerine geçmez."
+      }
     },
     "sol": [
       "Arch simgesi/Arch Linux ile aramalı menü",
@@ -317,7 +338,7 @@
       "yaklasik_dugme_genisligi_px": 36,
       "yerlesim": "Orta bölümde, içerik metnine göre genişlemeyen kompakt simge düğmeleri; gerçek DPIye uyarla. Panel yüksekliğini veya sol başlatıcıları bu istekle değiştirme.",
       "ipucu": "Uygulama adı ve gerekirse pencere başlığı yalnız fare üzerine gelince açılan ipucunda; ekran okuyucusunda anlamlı erişilebilir ad korunur.",
-      "durum": "Gerçek odaktaki pencerenin uygulama simgesi/grubu ince #0AA6F0 kontur ve hafif lacivert #082940 dolgu ile belirginleşir. Diğer açık uygulama simgeleri daha sakin görünür. Bu yalnız simge düğmesinin yerel vurgu katmanıdır; panelin #02258D alt çizgisi/uçları sabit ve parlamasız kalır. İsim/başlık/yol etiketi eklenmez; bir uygulamanın çoklu pencerelerine erişim korunur.",
+      "durum": "Gerçek odaktaki uygulamanın simgesi/grubu ince mavi kontur ve hafif lacivert dolgu ile belirginleşir; 02de klasör simgesi etkindir. Diğer simge düğmeleri sakindir. Bu yerel vurgu panelin tek renk mavi/yumuşak eşit ışıklı alt çizgisini ve uçlarını değiştirmez. İsim/başlık/yol etiketi ekleme; çoklu pencere erişimi korunur.",
       "islev": "Tıklama odaklar/geri getirir, odaklı pencereyi alta alma ve sağ tık pencere işlemleri korunur. Aynı uygulamanın birden fazla penceresine simge grubu ve açılır pencere listesiyle erişilir; etiketi gizlemek pencere kaybetmez. Dar alanda mevcut taşma/gruplama çalışır.",
       "kapsam": "Yalnız görev çubuğunun açık uygulama bölümü. Uygulamaların kendi başlık çubuklarını, soldaki Arch menüsü/çalışma alanı numaralarını veya sağdaki saat/yüzdeleri gizleme."
     },
@@ -527,7 +548,7 @@
   },
   "gorsel_sha256": {
     "01-duvar-kagidi.png": "299b94d4cb4c4a535b3627f847033cfe055d879cf803ec6549d460485f8853ff",
-    "02-onayli-masaustu.png": "947cd21226daf12de349273f208c597c1844042510538539058d7699e14b73e9",
+    "02-onayli-masaustu.png": "13c4014d7a06d13a807ee3be49515d5cfc9b6684802f4533df20eb78d7b63568",
     "03-terminal-detayi.png": "419f7d35ad3b1c0ae16c6a27a40156fa5ad3e9cc886a2176e6c5ecaf464d0b84",
     "05-acilis-ekrani.png": "14fe8c68f1d8e7616f3ff8127c7f4c8f9d42e39139f7b86c4f47177f5e6f0287",
     "06-giris-kilit-ekrani.png": "b9f12da983c85d19bb53fb2ccc5c9584df1e702084f5b08323230b6a88e85091",
@@ -545,13 +566,13 @@
     "entegrasyon": "Kurulu açılış/giriş/oturum kilidi bileşenlerine uygula; ikinci kilitleyici veya yeni masaüstü ortamını resimdeki etiket yüzünden kurma."
   },
   "gorsel_kapsamlari": {
-    "02": "Güncel birlikte masaüstü/üst panel ve etkin-pasif pencere örneği. Soldaki terminal etkin ve belirgin, sağdaki Thunar pasif/sakin çerçevelidir. Odak değişince roller değişir; her iki zemin %80, yazı/ikonlar tam opak kalır. Kesin durumlar ortak_pencere_stili.odak_vurgusu içindedir. Üst panelin bütün alt çizgisi ve iki eğimli ucu, kullanıcının okla seçtiği tek koyu mavi #02258D; geçiş/beyazlık/parlama yok. Açık uygulamalar yalnız simge, gerçek odaktaki simge/grup vurgulu. Duvar kâğıdı/logo boyut/konumu için 01 asıldır; komut/dizin/durum örnektir.",
-    "03": "Son terminal dış kabuğu/başlık/düğme/yuvarlak köşe, 11deki son seçilmiş dış çerçeve tonu ve dar/yumuşak eşit ışık ve %80 opak lacivert zemin. Mevcut zemin rengi korunmuştur. İçerideki sistem özeti/kartlar/komutlar yerleşim örneği; gerçek veriler kullanılır. Duvar kâğıdı ve logo için 01 asıldır. Üst panel için 02 ve ust_gorev_cubugu kesin kuralları geçerlidir. Tek pencere etkin durum örneği; pasif çerçeve ve birlikte odak ayrımı için 02 ve ortak_pencere_stili.odak_vurgusu geçerlidir. Bu eski bağlamdaki panel çizgisinin tonu son tercih değildir; panel için güncel 02/#02258D uygulanır.",
+    "02": "Güncel birlikte masaüstü/üst panel ve hafif etkin-pasif ayrımı: sağdaki Thunar ETKİN ve kullanıcının seçtiği ince/yumuşak mavi çerçeveli; soldaki terminal aynı çerçevede yalnız yaklaşık %10 daha soluk PASİF örnektir. Gerçek odak değişince roller değişir; bu uygulama adı kuralı değildir. Her iki zemin %80 ve içerik tam opak kalır. Üst panelin bütün alt çizgisi ve iki eğimli ucu Thunarın çerçevesi gibi tek mavi #0AA6F0 ve eşit/hafif ışıklı. Açık uygulamalar yalnız simge; odaktaki uygulama simgesi vurgulu. Duvar kâğıdı/logo için 01; kesin değerler JSONda, komut/dizin/veriler örnektir.",
+    "03": "Son terminal dış kabuğu/başlık/düğme/yuvarlak köşe, 11deki son seçilmiş dış çerçeve tonu ve dar/yumuşak eşit ışık ve %80 opak lacivert zemin. Mevcut zemin rengi korunmuştur. İçerideki sistem özeti/kartlar/komutlar yerleşim örneği; gerçek veriler kullanılır. Duvar kâğıdı ve logo için 01 asıldır. Üst panel için 02 ve ust_gorev_cubugu kesin kuralları geçerlidir. Tek pencere etkin durum örneği; pasif çerçeve ve birlikte odak ayrımı için 02 ve ortak_pencere_stili.odak_vurgusu geçerlidir. Bu eski bağlamdaki panel çizgisinin tonu son tercih değildir; panel için güncel 02/#0AA6F0 uygulanır.",
     "05_06": "Korunan açılış ve giriş/kilit ekranı yerleşimi.",
     "07": "Son onaylı yaklaşık 2 px ince, %40 yerel opaklıklı çerçeve mavisi iç bölme çizgileri. Düz uçlar ve sade artı kesişimi; üçgen/ok uç yok. Yalnız çizgi geometrisi için; zemin saydamlığı 03/08/09 ve JSONa bağlı.",
     "08_09": "Yalnız terminal içi kullanım/renk referansı: 08de üçgensiz ince bölmeler, 09da dosya/log/tam opak yazı örnekleri. İki satırlı Zsh ve kesin font/RGB/gerçek işlev JSONda; örnek komut/veriler otomatik çalıştırılmaz. Lacivert zemin %80 kalır. Bu iki görselin eski dış kontur ışığı son tercih değildir; terminal/Thunar dış ışığı için 11, güncel 02/03 ve ortak_pencere_stili geçerlidir.",
     "10": "Yalnız kompakt batarya kutusu Ev %55/%80 ve Seyahat geçici %100 için. Arka taraftaki terminalin eski kompozit görünümü yeni terminal/Thunar çerçevesi veya opaklık kuralını değiştirmez; bunlarda 02/03/08/09/11 ve JSON geçerli. Bu görseldeki üst panel eski bağlamdır ve üst panel için referans alınmaz: görev çubuğunun son görünümü 02 ve ust_gorev_cubugu içindedir. Batarya kutusunun %55/%80 ve Seyahat geçici %100 kuralları korunur.",
-    "11": "Son Thunar: yuvarlak köşe, kullanıcının 27 Kasımda seçtiği doygun mavi dış kontur ve dar/yumuşak eşit ışık, mevcut lacivert zeminde %80 opaklık. Mavi klasörler, beyaz adlar, menü/araç/konum, Yerler/Aygıtlar ve seçim görünümü korunur. İçerik/yollar/sayaçlar örnektir; gerçek dosyalar gösterilir. Üst panel için 02 ve ust_gorev_cubugu kesin kuralları geçerlidir. Terminal ve Thunarın ortak dış kontur rengi/ışığı için kesin görsel referanstır; sayısal başlangıç değerleri ortak_pencere_stili.dis_kontur_ve_hale içindedir. Tek pencere etkin durum örneği; pasif çerçeve ve birlikte odak ayrımı için 02 ve ortak_pencere_stili.odak_vurgusu geçerlidir. Bu görseldeki panel çizgisinin eski tonu aktarılmaz; güncel panel 02/#02258D."
+    "11": "Son Thunar: yuvarlak köşe, kullanıcının 27 Kasımda seçtiği doygun mavi dış kontur ve dar/yumuşak eşit ışık, mevcut lacivert zeminde %80 opaklık. Mavi klasörler, beyaz adlar, menü/araç/konum, Yerler/Aygıtlar ve seçim görünümü korunur. İçerik/yollar/sayaçlar örnektir; gerçek dosyalar gösterilir. Üst panel için 02 ve ust_gorev_cubugu kesin kuralları geçerlidir. Terminal ve Thunarın ortak dış kontur rengi/ışığı için kesin görsel referanstır; sayısal başlangıç değerleri ortak_pencere_stili.dis_kontur_ve_hale içindedir. Tek pencere etkin durum örneği; pasif çerçeve ve birlikte odak ayrımı için 02 ve ortak_pencere_stili.odak_vurgusu geçerlidir. Bu görseldeki panel çizgisinin eski tonu aktarılmaz; güncel panel 02/#0AA6F0."
   },
   "gorsel_analizi": {
     "1": "Mevcut tek pencere tasarımına yeni bağımsız split görünümü ekleniyor; kaynak ayırıcı çizgileri ve üçgen uçlar doğrudan referans.",
@@ -573,9 +594,10 @@
     "Yanlış/başarısız komut sonrası istemde ek çarpı veya sayısal durum rozeti yok; programın hata çıktısı, gerçek çıkış kodu ve bilinmeyen komut beyaz/altı çizili stili korunur.",
     "Onaylı 11 Thunar görünümü, yerel dosya işlemleri/tuşlar, gerçek dizinler/yer imleri, DPI ve diğer uygulamalara etki kontrolü.",
     "Farklı koyu/açık arka planla terminal ve Thunarda %80 zemin opaklığını, net metin/simgeleri, kenar/köşe ışığının eşitliğini ve odak/yeniden boyutlandırmayı gerçek oturumda doğrula.",
-    "Üst panel alt çizgisi ve iki eğimli uç aynı #02258D, kesintisiz/beyaz parlamasız; açık uygulamalar yalnız kendi simgesi, ad/başlık/yol etiketi yok. Hover ipucu, odak/alta alma/geri getirme, çoklu pencere grubu ve dar alanda taşma gerçek oturumda doğrulanır. Pencere başlıkları ve sol/sağ panel içerikleri korunur.",
-    "Son dış çerçeve düzeltmesi yalnız terminal/Thunar kontur ve hale katmanında: 11 ile ton, ışık genişliği/şiddeti ve dört kenar/köşenin eşitliği karşılaştırılır. İstem #49AEE6, iç bölücüler #49AEE6/%40, panel #02258D/parlamasız ve yalnız uygulama simgeleri korunur.",
-    "Üç veya daha fazla terminal/Thunar/editör/tarayıcı penceresinde gerçek klavye odağı ile yalnız etkin pencerenin çerçevesi belirgin: tıklama, Alt+Tab, panel, çalışma alanları ve modal diyalog geçişleri. Küçültme/kapatma sonrası eski pencerede vurgu takılı kalmaz. Başlık/yazı/ikon okunurluğu ve içerik opaklığı değişmez; her pencerenin kendi çevresinde ışık eşit. Panelde doğru uygulama simgesi/grubu vurgulu ve dış alt çizgi/uçlar tek #02258D kalır. Gerçek hedef oturumda doğrula."
+    "Üst panel alt çizgisi ve iki eğimli uç tek #0AA6F0 kontur, hafif/eşit mavi ışık; beyaz/gümüş uç veya farklı tonlu parça yok. Açık uygulamalar yalnız simge; hover ipucu, odak/alta alma/geri getirme, çoklu pencere grubu ve dar alanda taşma gerçek oturumda doğrulanır.",
+    "Etkin pencerenin ince Thunar çerçevesi, pasifken aynı yapı/tonun yalnız yaklaşık %10 azalması; %80 zemin ve net içerik korunur. İstem #49AEE6, iç bölücüler #49AEE6/%40 ve yalnız uygulama simgeleri korunur; panel alt çizgisi Thunar çerçevesi gibi #0AA6F0/hafif eşit ışıklıdır.",
+    "Üç veya daha fazla pencerede odak/Alt+Tab/panel/çalışma alanı/modal geçişleri: etkin pencere Thunar referansı gibi ince mavi çerçeveli, pasifler aynı yapıda ve aynı tonda yalnız yaklaşık %10 daha soluk. Etkin kontur kalınlaşmaz; pasif ışık büyük ölçüde sönmez. İçerik/yazı/ikonlar ve %80 zemin değişmez. Doğru simge/grup vurgusu, kapatma/küçültme sonrası eski odak kalmaması ve panelin uçtan uca aynı #0AA6F0/hafif eşit mavi ışığı gerçek oturumda doğrulanır.",
+    "Panelin sağ üst eğimli ucu özellikle %100/%125/%150 ölçek ve farklı panel genişliklerinde yakından kontrol edilir. Sağ ucun üstteki son noktasından yatay alt çizgiye birleşimine kadar kesinti, renk/kalınlık değişimi, çentik veya beyaz uç yok; tek_parca_kontur uygulanır. PNG örneğinin üretken kenar yumuşatma farklarını gerçek panelde hata olarak kopyalama."
   ],
   "batarya_sarj_korumasi": {
     "onay": {
@@ -689,7 +711,7 @@
     "uygulama": "Gerçek Thunar dosya yöneticisi. Başlatıcı, klasör açma ve Super+E erişimleri bununla uyumlu olsun.",
     "dis_gorunum": {
       "referans": "11-thunar-dosya-yoneticisi.png",
-      "cerceve": "11deki son seçilmiş doygun mavi ince dış kontur ve dar/yumuşak ışık; terminal de aynı dış çerçeveyi kullanır. Dört kenar/köşede eşit dağılım; beyaz çekirdek veya yerel parlak nokta yok. Yuvarlak köşeler, sade lacivert başlık ve normal düğmeler korunur. Kesin dış kontur/ışık tanımı ortak_pencere_stili.dis_kontur_ve_hale içindedir. Gerçek odak alındığında belirgin, diğer pencereye geçilince sakin dış çerçeve; ortak_pencere_stili.odak_vurgusu uygulanır.",
+      "cerceve": "11deki Thunar gibi ince mavi kontur, yuvarlak dört köşe ve yumuşak/eşit ışık ETKİN pencerenin referansıdır. 02de sağdaki Thunar etkindir. Pasifken aynı yapı, kalınlık, mavi ve ışık genişliği korunur; yalnız çerçeve/ışık yaklaşık %10 daha soluk olur. Sade lacivert başlık/düğmeler korunur; ortak_pencere_stili.odak_vurgusu uygulanır.",
       "zemin": "Mevcut koyu lacivert renk korunur; ortak_pencere_stili.zemin ile %80 opaklık/%20 saydamlık. Dosya alanı/yan çubuk/menü/araç/durum zemininde alttaki gerçek masaüstü hafif görünür. Dosya adları, ikonlar, seçim ve düğmeler net/tam opak kalır. Terminalin yazı fontunu Thunara yayma.",
       "vurgu_mavisi": "#49AEE6",
       "normal_metin": "#FFFFFF",
@@ -768,14 +790,14 @@
     }
   },
   "ortak_pencere_stili": {
-    "onay": "27 Kasım 2026: Kullanıcının gönderdiği Thunar görselindeki doygun mavi dış kontur ve dar/yumuşak mavi ışık terminal ile Thunar için esas alındı. 11 bu çerçevenin paket içindeki referansıdır; 02/03 aynı dış ışıkla güncellendi. Dört kenar/köşede eşit ışık, %80 lacivert zemin ve önceki yazı/iç bölücü renkleri korunur. Aynı gün eklenen odak ayrımı: gerçek klavye odağı olan pencere belirgin, diğer pencereler sakin çerçevelidir. Eşit ışık, her pencerenin kendi çevresindeki dağılımı ifade eder; etkin ve pasif pencerelerin aynı parlaklıkta olması gerekmez.",
+    "onay": "27 Kasım 2026 son kullanıcı tercihi: etkin pencerenin dış çerçevesi seçilen Thunar gibi ince mavi ve yumuşak/eşit ışıklıdır. Pasif pencere aynı yapıda ve aynı tonda kalır; yalnız çerçeve/ışık yaklaşık %10 daha soluk. Kalın veya aşırı parlak etkin kontur ve çok koyu pasif kontur kullanılmaz. 02de Thunar etkin, terminal pasiftir; roller gerçek odakla değişir. %80 lacivert zemin, tam opak içerik ve önceki yazı/bölücü renkleri korunur.",
     "gorsel_referanslar": [
       "02-onayli-masaustu.png",
       "03-terminal-detayi.png",
       "11-thunar-dosya-yoneticisi.png"
     ],
     "cerceve_ana_tonu": "#0AA6F0",
-    "cerceve_isigi": "11deki Thunar dış çevresi gibi doygun mavi, ince kontur ve dar/yumuşak mavi hale. Kenarlarda ışık görünür olsun; aşırı neon veya neredeyse ışıksız çizgiye dönüştürme. Dört kenar ve yuvarlak köşelerde eşit dağılım, beyaz çekirdek/sıçrama ve yerel parlak nokta yok. 02/03 birlikte ve tek terminal görünümünü gösterir. Bu değişiklik yalnız terminal/Thunar dış çerçevesine aittir; üst panel, duvar kâğıdı, istem/yazı renkleri ve iç bölücüler korunur. Bu tarif etkin pencerenin temel ışığıdır; pasif pencere için odak_vurgusu uygulanır. Her durumun kendi dört kenar/köşesinde ışık eşit kalır.",
+    "cerceve_isigi": "11deki Thunar gibi ince mavi kontur ve dar/yumuşak, dört kenar/köşede eşit ışık etkin pencerenin temelidir. Etkin pencere bu referansa göre ayrıca kalınlaştırılmaz/parlatılmaz. Pasif pencerenin çerçevesi aynı genişlik/tonda, yalnız yaklaşık %10 daha soluk olur; kesin iki durum odak_vurgusu içinde. Beyaz çekirdek/sıçrama, yerel parlak nokta ve aşırı neon yok.",
     "statik_isik": true,
     "zemin": {
       "renk": "#041321",
@@ -822,34 +844,34 @@
       "esit_dagilim": true,
       "beyaz_parlak_nokta": false,
       "animasyon": false,
-      "kapsam": "Terminal ve Thunar dış kontur/hale katmanı. Tam opak istem #49AEE6, bölücü #49AEE6/%40, ANSI ve dosya/log renkleri aynen korunur. Panel alt çizgisi #02258D/parlamasız ve açık uygulama simge düzeni değişmez.",
+      "kapsam": "Terminal ve Thunar dış kontur/hale katmanı. Tam opak istem #49AEE6, bölücü #49AEE6/%40, ANSI ve dosya/log renkleri aynen korunur. Panel alt çizgisi #0AA6F0 ve tanımlı hafif/eşit mavi ışıklı ve açık uygulama simge düzeni değişmez.",
       "durum_kapsami": "Etkin pencerenin onaylı renk ve yumuşak ışık temeli. Etkin/pasif genişlik ve ışık şiddeti odak_vurgusu içindedir. 03/11 tek pencere etkin görünüm referansları; 02 iki durumun birlikte örneğidir."
     },
     "odak_vurgusu": {
       "etkin": true,
       "gorsel": "02-onayli-masaustu.png",
-      "ornek": "Soldaki terminal gerçek klavye odağına sahip etkin pencere; sağdaki Thunar pasif pencere. Roller sabit değildir, Thunar odak alınca vurgular yer değiştirir.",
+      "ornek": "02de sağdaki Thunar etkin, soldaki terminal pasiftir. Etkin pencere kullanıcının seçtiği Thunarın ince mavi çerçevesi/ışığı gibidir; pasif pencere aynı yapıda ve aynı tonda, yalnız yaklaşık %10 daha soluktur. Gerçek odak değişince roller değişir; uygulama adına göre sabitleme.",
       "kapsam": "Terminal, Thunar ve temaya dahil diğer normal uygulama pencereleri; editör/tarayıcı gibi uygulamalarda gerçek WM/uygulama dekorasyonu yeteneklerine uyarla. Arayüzü veya uygulamanın işlevini değiştirme; desteklenmeyen dekorasyon ayrımını bildir.",
       "odak_kaynagi": "Pencere yöneticisinin gerçek klavye odağı/etkin pencere durumu. Sabit uygulama adı, son açılan pencere, hover veya son fare konumu ile tahmin etme. Var olan odak/öne getirme politikasını değiştirme.",
       "etkin_pencere": {
         "kontur_renk": "#0AA6F0",
         "kontur_opaklik": 1.0,
-        "kontur_yaklasik_px": 1.5,
+        "kontur_yaklasik_px": 1,
         "hale_renk": "#0878D1",
         "hale_opaklik": 0.65,
         "hale_yayilim_yaklasik_px": 12,
         "hale_blur_sigma_yaklasik_px": 4.5,
-        "kural": "Onaylı mavi/yumuşak ışık; pasiflere göre netçe belirgin. Beyaz çekirdek, aşırı neon veya yerel parlak nokta ekleme. Referans DPIye göre yaklaşık 1.5 px görünür kontur; kalın neon şerit yapma."
+        "kural": "Kullanıcının seçtiği Thunar gibi yaklaşık 1 px ince mavi kontur ve yumuşak/eşit ışık. Etkin pencereyi kalınlaştırarak veya fazladan parlatıp cyan/neon şeride dönüştürerek vurgulama; referans görünüm zaten etkin durumdur."
       },
       "pasif_pencere": {
-        "kontur_renk": "#245C7A",
-        "kontur_opaklik": 1.0,
+        "kontur_renk": "#0AA6F0",
+        "kontur_opaklik": 0.9,
         "kontur_yaklasik_px": 1,
         "hale_renk": "#0878D1",
-        "hale_opaklik": 0.12,
-        "hale_yayilim_yaklasik_px": 6,
-        "hale_blur_sigma_yaklasik_px": 3,
-        "kural": "Daha koyu mavi ince kontur ve çok hafif ışık; pencere sınırı görünür kalır. Yazı, ikon, içerik ve başlıklar genel karartma katmanıyla soldurulmaz."
+        "hale_opaklik": 0.585,
+        "hale_yayilim_yaklasik_px": 12,
+        "hale_blur_sigma_yaklasik_px": 4.5,
+        "kural": "Etkin pencereyle aynı ince kontur, aynı mavi ve aynı ışık genişliği. Yalnız çerçeve/ışık katmanında yaklaşık %10 azalma: kontur alpha 0.90, hale 0.65×0.90=0.585. Pasif pencereyi koyu gri/lacivert kontura çevirme veya ışığını büyük ölçüde söndürme. İçerik/yazı/ikonlar ve genel pencere opaklığı değişmez."
       },
       "icerik_sabit": {
         "terminal_ve_thunar_zemin_opakligi": 0.8,
@@ -863,8 +885,9 @@
       "gecis": "Tıklama, Alt+Tab, panel simgesi, çalışma alanı ve modal pencere odak değişikliklerinde doğru pencereyi güncelle. Odak durumu değişince vurgu yer değiştirir; sürekli animasyon, yanıp sönme veya nabız efekti yok.",
       "modal_ve_menuler": "Klavye odağı olan dekore modal pencere belirginleşir; arkasındaki normal pencere pasif olur. Menü/tooltip gibi geçici yüzeyler için WMnin sahip pencere/odak semantiğini koru; iki bağımsız normal pencereyi aynı anda etkin gösterme.",
       "uygulama": "Gerçek odak olaylarını ve dekorasyon/compositor kurallarını kullan; yalnız örnek fotoğrafta terminali parlak göstererek bitirme. Sık pencere taraması veya ayrı sürekli yeniden çizim döngüsü kurma. Gerçek CSD/SSD, X11/Wayland ve ölçek desteğini doğrula; uygulanan sonucu ve sınırları raporla.",
-      "panel_baglantisi": "Yalnız gerçek odaktaki uygulamanın simge düğmesi/grubu vurgulanır. Panelde ad/başlık/yol yok; dış alt kontur #02258D sabit kalır."
+      "panel_baglantisi": "Yalnız gerçek odaktaki uygulamanın simge düğmesi/grubu vurgulanır; 02de klasör simgesi etkin. Ad/başlık/yol yok. Panel alt çizgisi ve iki eğimli uç Thunarın ince mavi konturu/ışığı ile uyumludur; odak değişiminde panel dış konturu farklı renge veya ışık seviyesine geçmez.",
+      "pasif_cerceve_isik_orani": 0.9
     }
   },
-  "yayin_surumu": "1.0.3"
+  "yayin_surumu": "1.0.4"
 }
