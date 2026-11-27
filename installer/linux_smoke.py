@@ -67,10 +67,12 @@ try:
     assert marker.read_text()=='okay'
     # Ctrl+C without selection must leave a foreground job running; shifted copy sends SIGINT.
     interrupted=home/'interrupted'
+    ready=home/'interrupt-ready'
     script=home/'interrupt.py'
-    script.write_text('import signal,time,pathlib\nsignal.signal(signal.SIGINT,lambda *a:(pathlib.Path('+repr(str(interrupted))+').write_text("yes"),exit(0)))\ntime.sleep(30)\n')
+    script.write_text('import signal,time,pathlib\nsignal.signal(signal.SIGINT,lambda *a:(pathlib.Path('+repr(str(interrupted))+').write_text("yes"),exit(0)))\npathlib.Path('+repr(str(ready))+').touch()\ntime.sleep(30)\n')
     third.feed_child(('python3 "'+str(script)+'"\n').encode())
     spin(lambda: not window.at_prompt(third))
+    spin(ready.exists)
     window.copy(third)
     assert not interrupted.exists()
     third.feed_child(b'\x03')

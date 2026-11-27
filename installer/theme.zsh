@@ -14,8 +14,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#57758A'
 [[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -r /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 typeset -gA ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[default]='fg=white'
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=white,underline'
+ZSH_HIGHLIGHT_STYLES[default]='fg=#FFFFFF'
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#FFFFFF,underline'
 for _arch_key in command builtin function alias hashed-command; do
   ZSH_HIGHLIGHT_STYLES[$_arch_key]='fg=#80CAEA,bold'
 done
@@ -89,13 +89,14 @@ _arch_replace() {
     [[ $WIDGET == arch-backspace || $WIDGET == arch-delete ]] && return
   fi
   case $WIDGET in
-    arch-insert) zle .self-insert;;
+    arch-insert|self-insert) zle .self-insert;;
     arch-backspace) zle .backward-delete-char;;
     arch-delete) zle .delete-char;;
     arch-paste) zle .bracketed-paste;;
   esac
 }
 zle -N arch-insert _arch_replace
+zle -N self-insert _arch_replace
 zle -N arch-backspace _arch_replace
 zle -N arch-delete _arch_replace
 zle -N arch-paste _arch_replace

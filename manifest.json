@@ -59,7 +59,7 @@
     },
     "CHANGELOG.md": {
       "bytes": 4766,
-      "sha256": "1852b2de562b86cf2de27eb6a3a015b52b3892fc0a3f247445a3db7f08a74f68"
+      "sha256": "12964220d5b492e922a61596b33f402192cc580f0cdfbac6c4135e0ddfc2b4e4"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1722,
@@ -90,12 +90,12 @@
       "sha256": "fd5da214a9a6734552fa53458b0265ec151e1f25ceb0ff713a4d024582ee9018"
     },
     "installer/install.py": {
-      "bytes": 22428,
-      "sha256": "0d32e653a9552be1989626cf125e60840385291b012384620af46d5135d1a3fc"
+      "bytes": 22504,
+      "sha256": "705217b76ff90768ad6bf5fac6c98db38b3fa241baaf71ba3708519d570518e8"
     },
     "installer/linux_smoke.py": {
-      "bytes": 4452,
-      "sha256": "1f029ac510c95eb07c8111becadb35b90d3880a362ca87bc9c774652b30687f3"
+      "bytes": 4552,
+      "sha256": "578c4c06c25d68697048bff51f9bee2c6a1a6f93746bfc19eeb6abd1b7fcc6da"
     },
     "installer/terminal.py": {
       "bytes": 13507,
@@ -106,8 +106,8 @@
       "sha256": "3b93703661a31f78865ce97dd7b4d0d0b9bbdd04bdec76cece14b47861601dc6"
     },
     "installer/theme.zsh": {
-      "bytes": 4008,
-      "sha256": "858f277195051b021d3802740544e946217a57dd9cee989b30f2a7cb67200267"
+      "bytes": 4057,
+      "sha256": "b8d494ebd6b855b8ea5e23bc253266a47429872e6ff2bc63dd5c1f47ca99a653"
     },
     "kur.sh": {
       "bytes": 1014,

@@ -180,10 +180,13 @@ def missing_packages():
     return [p for p in PACKAGES if run(['pacman', '-Q', p], False).returncode != 0]
 
 
-def desktop_file(name, command, icon):
+def desktop_file(name, command, icon, arguments=()):
     # Desktop Entry quoting differs from shell quoting. argv is never evaluated by a shell.
-    command = str(command).replace('\\', '\\\\').replace('"', '\\"').replace('`', '\\`').replace('$', '\\$').replace('%', '%%')
-    return f'[Desktop Entry]\nType=Application\nName={name}\nExec="{command}"\nIcon={icon}\nTerminal=false\nCategories=System;\n'
+    def quote(value):
+        value = str(value).replace('\\', '\\\\').replace('"', '\\"').replace('`', '\\`').replace('$', '\\$').replace('%', '%%')
+        return '"' + value + '"'
+    command = ' '.join(quote(a) for a in [command, *arguments])
+    return f'[Desktop Entry]\nType=Application\nName={name}\nExec={command}\nIcon={icon}\nTerminal=false\nCategories=System;\n'
 
 
 def install(home=None):
@@ -230,7 +233,7 @@ def install(home=None):
         helper = home / '.local/bin/arch-theme'
         tx.write(helper, '#!/usr/bin/env python3\nimport os, pathlib, sys\nos.execv(sys.executable, [sys.executable, str(pathlib.Path.home()/".local/share/arch-desktop-theme/helper.py"), *sys.argv[1:]])\n', 0o755)
         tx.write(home / '.local/share/applications/arch-terminal.desktop', desktop_file('Arch Terminal', launcher, 'utilities-terminal'))
-        tx.write(home / '.config/autostart/arch-theme-compositor.desktop', desktop_file('Arch Theme ışık', helper, 'preferences-desktop-theme').replace('Exec="'+str(helper)+'"', 'Exec="'+str(helper)+'" compositor'))
+        tx.write(home / '.config/autostart/arch-theme-compositor.desktop', desktop_file('Arch Theme ışık', helper, 'preferences-desktop-theme', ['compositor']))
         # Native clipboard manager supports text and image history; never export its private data.
         tx.write(home / '.config/autostart/arch-theme-clipboard.desktop', '[Desktop Entry]\nType=Application\nName=Pano geçmişi\nExec=copyq\nOnlyShowIn=XFCE;\n')
         for prop, kind, value in [('/general/theme','string','Arch-Blue'), ('/general/use_compositing','bool',False), ('/general/workspace_count','int',4)]: tx.xf('xfwm4',prop,kind,value)

@@ -32,5 +32,5 @@ jobs:
         run: |
           useradd -m tester
           chmod -R a+rX .
-          sudo -u tester env XDG_CURRENT_DESKTOP=XFCE XDG_SESSION_TYPE=x11 \
+          sudo -u tester env GITHUB_ACTIONS=true XDG_CURRENT_DESKTOP=XFCE XDG_SESSION_TYPE=x11 \
             dbus-run-session -- xvfb-run -a python installer/linux_smoke.py

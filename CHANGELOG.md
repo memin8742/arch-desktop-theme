@@ -1,3 +1,13 @@
+# v1.1.0 — Xfce kurulum aracı (deneme)
+
+- Codex gerektirmeyen Türkçe kurulum/kontrol/geri dönüş/dışa aktarma menüsü ve kısa kullanıcı rehberi.
+- Arch/Xfce/X11 denetimi; resmi paketler, değişiklik öncesi dosya ve xfconf yedeği; başarısız işlemde geri dönüş; sonradan düzenlenen dosyaları koruma.
+- Duvar kâğıdı, yerel Xfwm XPM çerçeveleri, tek mavi SVG panel çizgisi, simgeli pencere düğmeleri ve koyu Thunar ayarları.
+- Gerçek GTK/VTE terminal: %80 yalnız zemin alfa, Fira Code, Zsh renkli iki satır istem, bağımsız PTY bölmeleri, aynı dizinde sekme, geçmiş/çıktı araması, özel kopyalama/kesme ve ZLE komut seçimi.
+- CopyQ metin/görsel geçmişi, gerçek sensör bilgisi, güvenli tema ayarları dışa aktarma. Önceki 27 kısayol ve tüm tasarım istekleri korunur; uygulanmamış ayrıntılar ayrı raporlanır.
+- Tamamlanmamış kapsam README, kısa rehber ve kurulum raporunda açıkça gösterilir. Özellikle Thunar yalnız zemin alfa, birebir açılış/giriş/kilit, şarj modları ve diğer bekleyen özellikler bitmiş sayılmaz.
+- Geçici Arch/Xfwm/Xvfb bütünleştirme kontrolü eklendi; fiziksel donanım testi yerine geçmez.
+
 # Değişiklikler
 
 ## v1.0.4 — 2026-11-27
@@ -37,13 +47,3 @@
 - Repo bağlantısından Codex ile kurulum/güncelleme yönergesi; paket doğrulama ve tekrar üretilebilir ZIP aracı.
 
 Videolar ve önceki alternatif tasarımlar yayıma dahil edilmedi. Görseller referans önizlemeleridir; gerçek Arch kurulum testleri hedef bilgisayarda yapılır.
-# v1.1.0 — Xfce kurulum aracı (deneme)
-
-- Codex gerektirmeyen Türkçe kurulum/kontrol/geri dönüş/dışa aktarma menüsü ve kısa kullanıcı rehberi.
-- Arch/Xfce/X11 denetimi; resmi paketler, değişiklik öncesi dosya ve xfconf yedeği; başarısız işlemde geri dönüş; sonradan düzenlenen dosyaları koruma.
-- Duvar kâğıdı, yerel Xfwm XPM çerçeveleri, tek mavi SVG panel çizgisi, simgeli pencere düğmeleri ve koyu Thunar ayarları.
-- Gerçek GTK/VTE terminal: %80 yalnız zemin alfa, Fira Code, Zsh renkli iki satır istem, bağımsız PTY bölmeleri, aynı dizinde sekme, geçmiş/çıktı araması, özel kopyalama/kesme ve ZLE komut seçimi.
-- CopyQ metin/görsel geçmişi, gerçek sensör bilgisi, güvenli tema ayarları dışa aktarma. Önceki 27 kısayol ve tüm tasarım istekleri korunur; uygulanmamış ayrıntılar ayrı raporlanır.
-- Tamamlanmamış kapsam README, kısa rehber ve kurulum raporunda açıkça gösterilir. Özellikle Thunar yalnız zemin alfa, birebir açılış/giriş/kilit, şarj modları ve diğer bekleyen özellikler bitmiş sayılmaz.
-- Geçici Arch/Xfwm/Xvfb bütünleştirme kontrolü eklendi; fiziksel donanım testi yerine geçmez.
-
