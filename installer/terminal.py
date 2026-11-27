@@ -11,6 +11,7 @@ from urllib.parse import unquote, urlparse
 
 import gi
 gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
 gi.require_version('Vte', '2.91')
 from gi.repository import Gdk, Gio, GLib, Gtk, Pango, Vte
 
@@ -97,6 +98,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
         term.connect('child-exited', self.exited)
         term.connect('button-press-event', self.context_menu)
         env = dict(os.environ, ARCH_THEME_TERMINAL='1', ARCH_THEME_WINDOW_PID=str(os.getpid()), TERM='xterm-256color', COLORTERM='truecolor')
+        env['PATH'] = str(Path.home()/'.local/bin') + os.pathsep + env.get('PATH','/usr/bin:/bin')
         # Inherit environment (including DBus) but no commands from preview screenshots.
         term.spawn_async(Vte.PtyFlags.DEFAULT, cwd, ['/bin/zsh', '-i'],
             [k+'='+v for k,v in env.items()], GLib.SpawnFlags.DEFAULT,

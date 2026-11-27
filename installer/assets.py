@@ -23,10 +23,11 @@ def css(panel_path):
 .xfce4-panel button {{ color: #FFFFFF; background: transparent; border: 1px solid transparent; box-shadow: none; padding: 2px 6px; }}
 .xfce4-panel button:checked {{ background: #073154; border-color: {BLUE}; border-radius: 5px; }}
 .xfce4-panel .tasklist {{ -XfceTasklist-min-button-length: 32; -XfceTasklist-max-button-length: 36; }}
-.thunar, .thunar window, .thunar .standard-view, .thunar treeview, .thunar scrolledwindow, .thunar viewport {{ background-color: {NAVY}; color: #FFFFFF; }}
-.thunar menubar, .thunar toolbar, .thunar statusbar {{ background: {NAVY}; border-color: #125279; }}
+.thunar {{ background-color: rgba(4,19,33,0.8); color: #FFFFFF; }}
+.thunar * {{ background-color: transparent; background-image: none; color: #FFFFFF; }}
+.thunar menubar, .thunar toolbar, .thunar statusbar {{ border-color: #125279; }}
 .thunar :selected {{ background-color: #0A4166; color: #FFFFFF; }}
-.thunar entry {{ background: #061C2C; border: 1px solid #125279; color: #FFFFFF; }}
+.thunar entry {{ border: 1px solid #125279; color: #FFFFFF; }}
 '''
 
 

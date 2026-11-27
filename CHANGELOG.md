@@ -5,7 +5,7 @@
 - Duvar kâğıdı, yerel Xfwm XPM çerçeveleri, tek mavi SVG panel çizgisi, simgeli pencere düğmeleri ve koyu Thunar ayarları.
 - Gerçek GTK/VTE terminal: %80 yalnız zemin alfa, Fira Code, Zsh renkli iki satır istem, bağımsız PTY bölmeleri, aynı dizinde sekme, geçmiş/çıktı araması, özel kopyalama/kesme ve ZLE komut seçimi.
 - CopyQ metin/görsel geçmişi, gerçek sensör bilgisi, güvenli tema ayarları dışa aktarma. Önceki 27 kısayol ve tüm tasarım istekleri korunur; uygulanmamış ayrıntılar ayrı raporlanır.
-- Tamamlanmamış kapsam README, kısa rehber ve kurulum raporunda açıkça gösterilir. Özellikle Thunar yalnız zemin alfa, birebir açılış/giriş/kilit, şarj modları ve diğer bekleyen özellikler bitmiş sayılmaz.
+- Tamamlanmamış kapsam README, kısa rehber ve kurulum raporunda açıkça gösterilir. Özellikle birebir açılış/giriş/kilit, şarj modları ve diğer bekleyen özellikler bitmiş sayılmaz.
 - Geçici Arch/Xfwm/Xvfb bütünleştirme kontrolü eklendi; fiziksel donanım testi yerine geçmez.
 
 # Değişiklikler

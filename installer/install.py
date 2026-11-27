@@ -233,12 +233,14 @@ def install(home=None):
         helper = home / '.local/bin/arch-theme'
         tx.write(helper, '#!/usr/bin/env python3\nimport os, pathlib, sys\nos.execv(sys.executable, [sys.executable, str(pathlib.Path.home()/".local/share/arch-desktop-theme/helper.py"), *sys.argv[1:]])\n', 0o755)
         tx.write(home / '.local/share/applications/arch-terminal.desktop', desktop_file('Arch Terminal', launcher, 'utilities-terminal'))
+        tx.write(home / '.local/share/applications/arch-theme-sensors.desktop', desktop_file('Sistem bilgisi — Arch Theme', helper, 'utilities-system-monitor', ['sensors']))
         tx.write(home / '.config/autostart/arch-theme-compositor.desktop', desktop_file('Arch Theme ışık', helper, 'preferences-desktop-theme', ['compositor']))
         # Native clipboard manager supports text and image history; never export its private data.
         tx.write(home / '.config/autostart/arch-theme-clipboard.desktop', '[Desktop Entry]\nType=Application\nName=Pano geçmişi\nExec=copyq\nOnlyShowIn=XFCE;\n')
         for prop, kind, value in [('/general/theme','string','Arch-Blue'), ('/general/use_compositing','bool',False), ('/general/workspace_count','int',4)]: tx.xf('xfwm4',prop,kind,value)
         tx.xf('xsettings','/Net/ThemeName','string','Adwaita-dark')
         tx.xf('xsettings','/Net/IconThemeName','string','Papirus-Dark')
+        tx.xf('thunar','/misc-use-csd','bool',False)
         desktop_props = run(['xfconf-query','-c','xfce4-desktop','-l']).stdout.splitlines()
         wallpapers = [p for p in desktop_props if p.endswith('/last-image')]
         if not wallpapers: raise RuntimeError('Xfdesktop duvar kâğıdı alanı bulunamadı. Masaüstü ayarlarını bir kez açıp yeniden deneyin.')
@@ -300,7 +302,7 @@ def feature_report():
         {'feature':'Masaüstü, Xfwm çerçevesi, üst panel, Thunar koyu tema','status':'configured','detail':'Yerel Xfce/GTK ayarları; birebir görsel kabulü hedef ekranda yapılmalı.'},
         {'feature':'Terminal, Zsh renkleri, iki satır istem, bölmeler, arama, kopyalama','status':'configured','detail':'Gerçek VTE/PTTY; zemin alfa 0.8, yazı opak. Shift seçimi yalnız düzenlenen Zsh komut satırındadır.'},
         {'feature':'Metin ve görsel pano geçmişi','status':'configured','detail':'CopyQ, Başlat+V; geçmiş dışa aktarılmaz.'},
-        {'feature':'Thunar %80 yalnız zemin saydamlığı','status':'pending','detail':'Stok Thunar RGBA zemin sunmaz. Yazıları da solduran tüm-pencere opaklığı kullanılmadı; Thunar zemini şimdilik opak.'},
+        {'feature':'Thunar %80 yalnız zemin saydamlığı','status':'configured','detail':'Thunar 4.20+ RGBA görseli ve GTK zemin alfa; yazı ve simgelerde genel pencere opaklığı yok. Birleştirici açıkken yeni açılan pencerelerde uygulanır.'},
         {'feature':'Açılış ve giriş ekranının birebir tasarımı','status':'pending','detail':'Önyükleyici/initramfs/giriş yöneticisi otomatik değiştirilmez. 05/06 referansları korunur.'},
         {'feature':'Kilit ekranı','status':'partial','detail':'Başlat+L gerçek Xfce Screensaver kilidini açar; görsel 06 birebir uygulanmış değildir.'},
         {'feature':'Batarya Ev %55/%80 ve Seyahat %100','status':'pending','detail':'Donanım/power-manager incelenmeden şarj eşikleri değiştirilmez. Sistem kutusunda gerçek destek okunur.'},

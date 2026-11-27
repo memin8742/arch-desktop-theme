@@ -119,7 +119,7 @@ class InstallerTests(unittest.TestCase):
 
     def test_failed_feature_is_reported_not_marked_done(self):
         rows=install.feature_report()
-        self.assertTrue(any(r['status']=='pending' and 'Thunar' in r['feature'] for r in rows))
+        self.assertTrue(any(r['status']=='configured' and 'Thunar %80' in r['feature'] for r in rows))
         self.assertTrue(any(r['status']=='pending' and 'Batarya' in r['feature'] for r in rows))
 
 

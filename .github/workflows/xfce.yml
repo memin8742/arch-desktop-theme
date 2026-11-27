@@ -19,7 +19,7 @@ jobs:
           xorg-xprop xdotool libnotify xfce4-screensaver xfce4-screenshooter
           xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-power-manager
           copyq papirus-icon-theme fastfetch grc tree xfwm4 xfconf xfce4-panel
-          xfdesktop thunar xorg-server-xvfb xorg-xauth dbus sudo
+          xfdesktop thunar xorg-server-xvfb xorg-xauth xorg-xwininfo dbus sudo
       - uses: actions/checkout@v4
       - name: Source and package checks
         run: |
@@ -34,3 +34,8 @@ jobs:
           chmod -R a+rX .
           sudo -u tester env GITHUB_ACTIONS=true XDG_CURRENT_DESKTOP=XFCE XDG_SESSION_TYPE=x11 \
             dbus-run-session -- xvfb-run -a python installer/linux_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: xfce-test-desktop
+          path: /tmp/arch-theme-ci.png

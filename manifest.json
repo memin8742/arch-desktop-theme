@@ -58,52 +58,52 @@
       "sha256": "f75222487fe6b8868d0bf335d475ebcc2acd95a7507960b9bfd0bd5deb36df00"
     },
     "CHANGELOG.md": {
-      "bytes": 4766,
-      "sha256": "12964220d5b492e922a61596b33f402192cc580f0cdfbac6c4135e0ddfc2b4e4"
+      "bytes": 4739,
+      "sha256": "3b214b06a6bc68429c854832c70204ecc6c5e4fc93a51c5a09982911c07ef2c0"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1722,
       "sha256": "cb149bd824152521d51ec43d1e9bf87f525015a87f95eb930d03249b50eb4da4"
     },
     "KOLAY-KURULUM.txt": {
-      "bytes": 3218,
-      "sha256": "75b7897c6822ee0656ddf57064e27cd78b3fdb947347cdbe3b88c6e2c433845b"
+      "bytes": 3073,
+      "sha256": "6c2111708b51ed517e3e11a50cc7a0f06e552f466010284eea525fd2c276a946"
     },
     "KURULUM.md": {
-      "bytes": 5665,
-      "sha256": "b57ff16c988ca20faa5d57bdb0fa992e116cebc07d86d988d309757344f46cc7"
+      "bytes": 5646,
+      "sha256": "c498cd75133f82b82c6100b7295a7fee67b69a977c19f21e3eb162009d9ec7bd"
     },
     "README.md": {
-      "bytes": 6099,
-      "sha256": "c80770113cc6d63d3f7f1b75814bbb29d104d603a6e273ea248f4a6a2413bba9"
+      "bytes": 6063,
+      "sha256": "c5c1a4667c056dac5ba9986dc2ffe5a71d984805cb9cab10a360d0855763e1d9"
     },
     "VERSION": {
       "bytes": 6,
       "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
     },
     "installer/assets.py": {
-      "bytes": 5191,
-      "sha256": "fb95fe8430771f7e54bd34f93bf8ac473bd14deaacd94473ce3edcc2861abca2"
+      "bytes": 5148,
+      "sha256": "479d55d4dced1db3800aa76ba5ccaaffbaa4296ee45eb585b69b4626729c14ff"
     },
     "installer/helper.py": {
       "bytes": 6559,
       "sha256": "fd5da214a9a6734552fa53458b0265ec151e1f25ceb0ff713a4d024582ee9018"
     },
     "installer/install.py": {
-      "bytes": 22504,
-      "sha256": "705217b76ff90768ad6bf5fac6c98db38b3fa241baaf71ba3708519d570518e8"
+      "bytes": 22771,
+      "sha256": "140d168ebb8954f533ce15eb2ccebd3eb9f2a870e4f5131b5a93586af095b7c4"
     },
     "installer/linux_smoke.py": {
-      "bytes": 4552,
-      "sha256": "578c4c06c25d68697048bff51f9bee2c6a1a6f93746bfc19eeb6abd1b7fcc6da"
+      "bytes": 5384,
+      "sha256": "84ffbd2910c11ca33a6d729efc20f68c1e97e7f891a41985a21d9b3cb79372ac"
     },
     "installer/terminal.py": {
-      "bytes": 13507,
-      "sha256": "46a32517f459ad434892a3b20dba2b476aa28214b22e80a11174db13ff4e9460"
+      "bytes": 13639,
+      "sha256": "dee2c15070a92aa5485e662773db4d71fbd296834f3e5edde8047e88f3c25a05"
     },
     "installer/test_installer.py": {
-      "bytes": 5646,
-      "sha256": "3b93703661a31f78865ce97dd7b4d0d0b9bbdd04bdec76cece14b47861601dc6"
+      "bytes": 5653,
+      "sha256": "91996590285b807ca4038150920e8e5bc61476e57b3f60fe00117d23bed4fb23"
     },
     "installer/theme.zsh": {
       "bytes": 4057,

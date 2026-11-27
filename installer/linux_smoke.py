@@ -20,6 +20,7 @@ def xf(channel,prop,kind,value): call('xfconf-query','-c',channel,'-p',prop,'-n'
 children=[]
 home=Path.home()
 try:
+    call('dbus-update-activation-environment','DISPLAY','XAUTHORITY','XDG_CURRENT_DESKTOP','XDG_SESSION_TYPE')
     # A known, minimal panel fixture, not a user's existing live panel.
     call('xfconf-query','-c','xfce4-panel','-p','/panels','-n','-a','-t','int','-s','1')
     call('xfconf-query','-c','xfce4-panel','-p','/panels/panel-1/plugin-ids','-n','-a','-t','int','-s','1')
@@ -83,12 +84,22 @@ try:
     third.feed_child(b'\x1b[1;2D\x1b[1;2D\x1b[99;5u')
     spin(lambda: subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True).stdout==b'de')
     third.feed_child(b'\x03')
+    # Native Thunar process, composited RGBA visual and theme CSS loaded on new windows.
+    children.append(subprocess.Popen(['thunar',str(home)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
+    time.sleep(.8)
+    ids=call('xdotool','search','--onlyvisible','--class','Thunar').splitlines()
+    assert ids, 'Native Thunar did not map a window'
+    assert 'Depth: 32' in call('xwininfo','-id',ids[-1]), 'Thunar did not select an RGBA visual'
+    # Export only the disposable CI desktop, never a user screenshot.
+    capture=Path('/tmp/arch-theme-ci.png')
+    pixbuf=module.Gdk.pixbuf_get_from_window(module.Gdk.get_default_root_window(),0,0,1280,1024)
+    pixbuf.savev(str(capture),'png',[],[])
     window.destroy()
     while Gtk.events_pending(): Gtk.main_iteration_do(False)
     journal=json.loads((data/'installed.json').read_text())
     install.restore(journal['backup'])
     assert (home/'.zshrc').read_text()=='export ARCH_PRESERVED=yes\n'
-    print('PASS: Arch/Xfwm settings, backup/restore, GTK/VTE, real PTYs, independent split, same-CWD tab, Ctrl+C safety, SIGINT, ZLE selection, clipboard.')
+    print('PASS: Arch/Xfwm settings, backup/restore, GTK/VTE, real PTYs, independent split, same-CWD tab, Ctrl+C safety, SIGINT, ZLE selection, clipboard, native RGBA Thunar.')
 finally:
     for process in children:
         process.terminate()

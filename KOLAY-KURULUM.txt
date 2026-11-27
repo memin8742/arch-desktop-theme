@@ -27,14 +27,12 @@ Yeni bir güncellemede son ZIP'i açıp aynı işlemi tekrarlayabilirsiniz.
 BU SÜRÜMÜN KAPSAMI
 
 Duvar kâğıdı, mavi Xfwm çerçeveleri, üst panel, simgeli açık uygulamalar,
-koyu Thunar, Zsh / Fira Code terminal, saydam terminal zemini, gerçek
+%80 zeminli Thunar, Zsh / Fira Code terminal, saydam terminal zemini, gerçek
 bölmeler, sekmeler, geçmiş, çıktı araması ve özel kopyalama/yapıştırma
 bağlamaları uygulanır. Mevcut panel öğeleri silinmez; eksik özel öğeler
 kendiliğinden var sayılmaz. Sistem verileri arch-theme sensors ile açılır.
 
 Tamamlanmamış ayrıntılar:
-- Thunar'ın yalnız zemininde %80 opaklık bu sürümde uygulanmaz; yazıları
-  solduran genel pencere opaklığı yerine Thunar zemini opak tutulur.
 - Açılış ve giriş ekranları otomatik değiştirilmez. Gerçek ekran kilidi
   vardır; görseldeki kilit ekranı tasarımı birebir uygulanmış değildir.
 - Batarya %55/%80 ve Seyahat ayarları otomatik değiştirilmez.

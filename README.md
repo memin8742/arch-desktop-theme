@@ -23,9 +23,9 @@ bash kur.sh --plan   # Değişiklik yapmadan kapsam
 bash kur.sh --check  # Kurulan bileşenlerin kontrolü
 ```
 
-**Kapsam:** Duvar kâğıdı, Xfwm mavi çerçeve, üst panel, simgeli pencere düğmeleri, koyu Thunar, gerçek VTE/Zsh terminali, Fira Code, %80 terminal zemini, sekme/bölme/çıktı arama, kopyalama ve pano uygulanır. Mevcut panel eklentileri korunur; bu sürüm eksik özel eklentileri otomatik eklemez.
+**Kapsam:** Duvar kâğıdı, Xfwm mavi çerçeve, üst panel, simgeli pencere düğmeleri, %80 zeminli Thunar, gerçek VTE/Zsh terminali, Fira Code, %80 terminal zemini, sekme/bölme/çıktı arama, kopyalama ve pano uygulanır. Mevcut panel eklentileri korunur; bu sürüm eksik özel eklentileri otomatik eklemez.
 
-**Henüz otomatik uygulanmayanlar:** Thunar'ın yalnız zemininde %80 opaklık, birebir açılış/giriş/kilit tasarımı, batarya modları, özel CPU/MEM/NET kartları, ekran kaydı, tek Başlat ile menü ve pasif ışığın ayrıca azaltılması. Shift seçimi Zsh komut satırını kapsar; eski çıktı fareyle seçilir. Kurulum bunları bitmiş gibi göstermez. Onaylı istekler/görseller korunur; gerçek bilgisayarda görsel, ölçek, kilit ve donanım kabulü gerekir.
+**Henüz otomatik uygulanmayanlar:** Birebir açılış/giriş/kilit tasarımı, batarya modları, özel CPU/MEM/NET kartları, ekran kaydı, tek Başlat ile menü ve pasif ışığın ayrıca azaltılması. Shift seçimi Zsh komut satırını kapsar; eski çıktı fareyle seçilir. Kurulum bunları bitmiş gibi göstermez. Onaylı istekler/görseller korunur; gerçek bilgisayarda görsel, ölçek, kilit ve donanım kabulü gerekir.
 
 ## Codex ile kurulum / kalan ayrıntılar
 
