@@ -2,7 +2,7 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**v1.2.0** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
+**v1.2.1** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
@@ -25,7 +25,7 @@ bash kur.sh --check
 
 [Sistem gereksinimleri ve geri dönüş](KURULUM.md) · [Kısa rehber](KOLAY-KURULUM.txt) · [Codex ile uygulama](CODEXE-VERILECEK-ISTEK.txt)
 
-Yerel Xfce eklentileri ve LightDM kontrolleri nedeniyle bazı ayrıntılar referans görsellerinden farklı çizilebilir. Pil şarj modları ve etkin/pasif Picom ışığı farkı kurulum kapsamı dışındadır. Shift+ok ile seçim düzenlenen Zsh komut satırında çalışır. Önceki terminal çıktısını fareyle seçebilirsiniz.
+Üst panel ve Thunar araç çubuğu Arch Blue simgelerini kullanır. Ekran Kaydı Arch menüsünden açılır ve kayıt sırasında panel göstergesi belirir. Pil şarj modları kurulum kapsamı dışındadır. Shift+ok ile seçim düzenlenen Zsh komut satırında çalışır. Önceki terminal çıktısını fareyle seçebilirsiniz.
 
 ## Tasarım ve özellikler
 

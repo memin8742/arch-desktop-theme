@@ -889,7 +889,7 @@
       "pasif_cerceve_isik_orani": 0.9
     }
   },
-  "yayin_surumu": "1.2.0",
+  "yayin_surumu": "1.2.1",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",

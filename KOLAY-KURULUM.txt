@@ -1,4 +1,4 @@
-ARCH BLUE — XFCE KURULUMU v1.2.0
+ARCH BLUE — XFCE KURULUMU v1.2.1
 
 1. Arch Linux'ta Xfce / X11 oturumu açın.
 2. Repo veya ZIP içindeki kur.sh dosyasının bulunduğu klasörde terminal açın.

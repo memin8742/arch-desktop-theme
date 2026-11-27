@@ -1,6 +1,7 @@
 """The Arch Blue layout on the native Xfce panel and GTK file manager."""
 
 from pathlib import Path
+import os
 import re
 import shutil
 import subprocess
@@ -66,6 +67,7 @@ def configure_desktop(tx, home):
         tx.xf('xfwm4', '/general/workspace_names', 'string', ['1', '2', '3', '4'], array=True)
     tx.xf('xfce4-desktop', '/desktop-icons/style', 'int', 0)
     tx.xf('thunar', '/last-icon-view-zoom-level', 'string', 'THUNAR_ZOOM_LEVEL_75_PERCENT')
+    tx.xf('thunar', '/misc-change-window-icon', 'bool', False)
     tx.xf('thunar', '/last-separator-position', 'int', 160)
     tx.xf('thunar', '/shortcuts-icon-size', 'string', 'THUNAR_ICON_SIZE_24')
     startup = '/sessions/Failsafe/Client3_Command'
@@ -167,7 +169,8 @@ def configure_panel(tx, home, desktop_file):
     tx.xf(PANEL, path + '/grouping', 'uint', 1)
     clock, path = plugin('clock', 'clock')
     tx.xf(PANEL, path + '/mode', 'uint', 2)
-    tx.xf(PANEL, path + '/digital-format', 'string', '%a, %e %b  %H:%M')
+    for setting in ['digital-format', 'digital-time-format']:
+        tx.xf(PANEL, path + '/' + setting, 'string', '%a, %b %e %H:%M')
 
     ids = [separator('left-edge'), separator('left-edge-2'), separator('left-edge-3'),
            menu, separator('menu-separator'), pager,
@@ -179,20 +182,27 @@ def configure_panel(tx, home, desktop_file):
         if executable:
             ids.append(launcher(role, label, Path(executable).name, executable))
     ids += [separator('left-space', True), task, separator('right-space', True),
-            launcher('sensors', 'Sistem bilgisi', 'utilities-system-monitor', bin_dir / 'arch-theme', ('sensors',)),
-            launcher('clipboard', 'Pano geçmişi', 'edit-paste', 'copyq', ('toggle',)),
-            launcher('record', 'Ekran Kaydı', 'media-record', bin_dir / 'arch-record'),
+            launcher('sensors', 'Sistem bilgisi', 'arch-blue-system', bin_dir / 'arch-theme', ('sensors',)),
+            launcher('clipboard', 'Pano geçmişi', 'arch-blue-clipboard', 'copyq', ('toggle',)),
             plugin('notification-plugin', 'notifications')[0], plugin('pulseaudio', 'sound')[0]]
     if shutil.which('nmcli'):
-        ids.append(launcher('network', 'Ağ bağlantıları', 'network-wired', bin_dir / 'arch-network'))
-    ids.append(plugin('systray', 'tray')[0])
+        devices = subprocess.run(['nmcli', '-t', '-f', 'TYPE,STATE', 'device', 'status'],
+                                 env=dict(os.environ, LC_ALL='C'), capture_output=True, text=True, check=False)
+        network_icon = 'arch-blue-wifi' if 'wifi:connected' in devices.stdout.splitlines() else 'arch-blue-wired'
+        ids.append(launcher('network', 'Ağ bağlantıları', network_icon, bin_dir / 'arch-network'))
+    tray, path = plugin('systray', 'tray')
+    hidden = array_items(PANEL, path + '/hidden-items')
+    if 'CopyQ_copyq' not in hidden:
+        tx.xf(PANEL, path + '/hidden-items', 'string', [*hidden, 'CopyQ_copyq'], array=True)
+    ids.append(tray)
     default_plugins = {'applicationsmenu', 'separator', 'actions', 'screenshooter'}
     for i in plugins:
-        if i not in used and names[i] not in default_plugins:
+        if (i not in used and names[i] not in default_plugins
+                and xfconf(PANEL, f'/plugins/plugin-{i}/arch-blue-role') != 'record'):
             ids.append(i)
     ids += [clock, separator('right-edge-3'), separator('right-edge-2'), separator('right-edge')]
     for key, kind, value in [('position', 'string', 'p=6;x=0;y=0'), ('position-locked', 'bool', True),
-                             ('size', 'uint', 38), ('icon-size', 'uint', 22), ('length', 'uint', 100),
+                             ('size', 'uint', 38), ('icon-size', 'uint', 24), ('length', 'uint', 100),
                              ('mode', 'uint', 0), ('background-style', 'uint', 0)]:
         tx.xf(PANEL, base + '/' + key, kind, value)
     tx.xf(PANEL, base + '/plugin-ids', 'int', ids, array=True)

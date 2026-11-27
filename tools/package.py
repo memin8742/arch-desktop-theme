@@ -26,7 +26,7 @@ INSTALLER_FILES = {
     'installer/install.py', 'installer/assets.py', 'installer/terminal.py',
     'installer/helper.py', 'installer/theme.zsh', 'installer/test_installer.py',
     'installer/linux_smoke.py', 'installer/desktop.py', 'installer/system.py',
-    'installer/root_terminal.py',
+    'installer/root_terminal.py', 'installer/icons.py',
     'installer/runtime/arch-network.py', 'installer/runtime/arch-record.py',
     'installer/runtime/arch-terminal-mark.svg', 'installer/runtime/system-summary.py',
     'installer/runtime/terminal.css', 'installer/runtime/theme.css',

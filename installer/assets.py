@@ -3,9 +3,22 @@ import json
 import math
 from pathlib import Path
 
+import icons
+
 BLUE = '#0AA6F0'
 NAVY = '#041321'
 PROMPT = '#49AEE6'
+HALO = '#0878D1'
+CORNER_SIZE = 20
+FRAME_DEPTH = 3
+TITLE_HEIGHT = 35
+
+
+def mix(foreground, background, amount):
+    foreground = bytes.fromhex(foreground[1:])
+    background = bytes.fromhex(background[1:])
+    result = bytes(round(a * amount + b * (1 - amount)) for a, b in zip(foreground, background))
+    return '#' + result.hex().upper()
 
 
 def panel_svg(width):
@@ -25,8 +38,11 @@ def panel_svg(width):
 
 def css(panel_path, roles):
     stylesheet = (Path(__file__).with_name('runtime') / 'theme.css').read_text(encoding='utf-8')
+    location_icon = panel_path.parents[1] / 'icons/Arch-Blue/scalable/actions/arch-blue-location.svg'
     for key, value in {'PANEL_SVG': panel_path.as_uri(), 'LEFT': roles['left-edge'],
-                       'RIGHT': roles['right-edge'], 'MENU_SEPARATOR': roles['menu-separator']}.items():
+                       'RIGHT': roles['right-edge'], 'MENU_SEPARATOR': roles['menu-separator'],
+                       'PAGER': roles['workspaces'], 'CLOCK': roles['clock'],
+                       'LOCATION_ICON': location_icon.as_uri()}.items():
         stylesheet = stylesheet.replace(f'@{key}@', str(value))
     return stylesheet
 
@@ -34,25 +50,31 @@ def css(panel_path, roles):
 TERMINAL_CSS = (Path(__file__).with_name('runtime') / 'terminal.css').read_bytes()
 
 
-PICOM = '''backend = "xrender";
+PICOM = f'''backend = "xrender";
 vsync = false;
 shadow = true;
 shadow-radius = 12;
-shadow-opacity = 0.65;
+shadow-opacity = 0.80;
 shadow-offset-x = -12;
 shadow-offset-y = -12;
-shadow-color = "#0878D1";
+shadow-color = "{HALO}";
 fading = false;
 rules = (
-  { match = "window_type = 'normal' || window_type = 'dialog'"; corner-radius = 20; opacity = 1.0; blur-background = false; },
-  { match = "window_type = 'dock' || window_type = 'desktop' || window_type *= 'menu'"; shadow = false; corner-radius = 0; },
-  { match = "fullscreen"; shadow = false; corner-radius = 0; }
+  {{ match = "window_type = 'normal' || window_type = 'dialog'"; corner-radius = 20; opacity = 1.0; blur-background = false; full-shadow = false; }},
+  {{ match = "class_g = 'ArchTerminal' || class_g = 'Thunar'"; corner-radius = 0; }},
+  {{ match = "!focused && (window_type = 'normal' || window_type = 'dialog')"; shadow-color = "{mix(HALO, '#000000', .9)}"; }},
+  {{ match = "window_type = 'dock' || window_type = 'desktop' || window_type *= 'menu'"; shadow = false; corner-radius = 0; }},
+  {{ match = "fullscreen"; shadow = false; corner-radius = 0; }}
 );
 '''
 
 
 def xpm(width, height, pixel):
-    colours = {' ': 'None', '.': NAVY, 'b': BLUE, 'i': '#0997DC', 'w': '#FFFFFF', 's': '#123653'}
+    colours = {
+        ' ': 'None', '.': NAVY, 'w': '#F1F8FF', 's': '#214764',
+        'b': BLUE, 'g': mix(HALO, NAVY, .42), 'j': mix(HALO, NAVY, .19),
+        'i': mix(BLUE, NAVY, .9), 'h': mix(HALO, NAVY, .378), 'k': mix(HALO, NAVY, .171),
+    }
     rows = [''.join(pixel(x, y) for x in range(width)) for y in range(height)]
     lines = [f'{width} {height} {len(colours)} 1'] + [f'{k} c {v}' for k, v in colours.items()] + rows
     return '/* XPM */\nstatic char * frame[] = {\n' + ',\n'.join(json.dumps(s) for s in lines) + '\n};\n'
@@ -61,14 +83,14 @@ def xpm(width, height, pixel):
 def xfwm_files():
     files = {}
     for state in ['active', 'inactive']:
-        ink = 'b' if state == 'active' else 'i'
+        stroke = 'bgj' if state == 'active' else 'ihk'
         for n in range(1, 6):
-            files[f'title-{n}-{state}.xpm'] = xpm(4, 32, lambda x, y: ink if y == 0 else ('s' if y == 31 else '.'))
+            files[f'title-{n}-{state}.xpm'] = xpm(4, TITLE_HEIGHT, lambda x, y: title_pixel(y, stroke))
         for side in ['left', 'right']:
-            files[f'{side}-{state}.xpm'] = xpm(1, 4, lambda x, y: ink)
-            files[f'top-{side}-{state}.xpm'] = xpm(20, 32, lambda x, y, side=side: corner(x, y, side, False, ink))
-            files[f'bottom-{side}-{state}.xpm'] = xpm(20, 20, lambda x, y, side=side: corner(x, y, side, True, ink))
-        files[f'bottom-{state}.xpm'] = xpm(4, 20, lambda x, y: ink if y == 19 else '.')
+            files[f'{side}-{state}.xpm'] = xpm(FRAME_DEPTH, 4, lambda x, y: stroke[x if side == 'left' else FRAME_DEPTH-1-x])
+            files[f'top-{side}-{state}.xpm'] = xpm(CORNER_SIZE, TITLE_HEIGHT, lambda x, y: corner(x, y, side, False, stroke))
+            files[f'bottom-{side}-{state}.xpm'] = xpm(CORNER_SIZE, CORNER_SIZE, lambda x, y: corner(x, y, side, True, stroke))
+        files[f'bottom-{state}.xpm'] = xpm(4, CORNER_SIZE, lambda x, y: edge_pixel(CORNER_SIZE-1-y, stroke))
     for name in ['hide', 'maximize', 'close', 'menu', 'stick', 'shade']:
         for state in ['active', 'inactive', 'prelight', 'pressed', 'toggled-active', 'toggled-inactive']:
             def pix(x, y, name=name, state=state):
@@ -76,15 +98,14 @@ def xfwm_files():
                 if name == 'hide' and 8 <= x <= 20 and y == 17: return 'w'
                 if name == 'maximize' and ((x in [8, 20] and 9 <= y <= 21) or (y in [9, 21] and 8 <= x <= 20)): return 'w'
                 if name == 'menu' and 10 <= x <= 18 and y == 13 + abs(x-14): return 'w'
-                if y == 0: return 'i' if 'inactive' in state else 'b'
-                return 's' if y == 31 else '.'
-            files[f'{name}-{state}.xpm'] = xpm(28, 32, pix)
+                return title_pixel(y, 'ihk' if 'inactive' in state else 'bgj')
+            files[f'{name}-{state}.xpm'] = xpm(28, TITLE_HEIGHT, pix)
     files['themerc'] = '''active_text_color=#FFFFFF
 inactive_text_color=#FFFFFF
 title_shadow_active=false
 title_shadow_inactive=false
 title_alignment=left
-title_horizontal_offset=8
+title_horizontal_offset=9
 title_vertical_offset_active=0
 title_vertical_offset_inactive=0
 button_spacing=2
@@ -97,13 +118,24 @@ frame_border_top=1
     return files
 
 
-def corner(x, y, side, bottom, ink):
-    x = x if side == 'left' else 19-x
-    y = 19-y if bottom else y
-    if y >= 20: return ink if x == 0 else ('s' if y == 31 else '.')
-    distance = math.hypot(x-19, y-19)
-    if distance > 20: return ' '
-    return ink if distance >= 19 else '.'
+def edge_pixel(depth, stroke):
+    if depth < 0:
+        return ' '
+    return stroke[int(depth)] if depth < len(stroke) else '.'
+
+
+def title_pixel(y, stroke):
+    return 's' if y == TITLE_HEIGHT-1 else edge_pixel(y, stroke)
+
+
+def corner(x, y, side, bottom, stroke):
+    centre = CORNER_SIZE - 1
+    x = x if side == 'left' else centre-x
+    y = centre-y if bottom else y
+    if y >= CORNER_SIZE:
+        return 's' if y == TITLE_HEIGHT-1 and x >= FRAME_DEPTH else edge_pixel(x, stroke)
+    depth = centre + .5 - math.hypot(x-centre, y-centre)
+    return edge_pixel(depth, stroke)
 
 
 def icon_files():
@@ -111,7 +143,7 @@ def icon_files():
 Name=Arch Blue
 Comment=Arch Blue directory icons
 Inherits=Papirus-Dark,hicolor
-Directories=scalable/places
+Directories=scalable/places,scalable/apps,scalable/status,scalable/actions
 
 [scalable/places]
 Size=48
@@ -119,6 +151,27 @@ MinSize=8
 MaxSize=512
 Type=Scalable
 Context=Places
+
+[scalable/apps]
+Size=24
+MinSize=8
+MaxSize=512
+Type=Scalable
+Context=Applications
+
+[scalable/status]
+Size=24
+MinSize=8
+MaxSize=512
+Type=Scalable
+Context=Status
+
+[scalable/actions]
+Size=24
+MinSize=8
+MaxSize=512
+Type=Scalable
+Context=Actions
 """
     folder = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 <defs><linearGradient id="body" x1="0" x2="0" y1="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#00b6fa"/><stop offset="1" stop-color="#0066c8"/></linearGradient></defs>
@@ -142,5 +195,5 @@ Context=Places
     aliases = {'folder-downloads': 'folder-download', 'folder-video': 'folder-videos',
                'folder-desktop': 'user-desktop', 'folder-projects': 'folder-development'}
     glyphs.update({name: glyphs[target] for name, target in aliases.items()})
-    return {'index.theme': base, **{
+    return {'index.theme': base, **icons.files(folder.replace('GLYPH', '')), **{
         f'scalable/places/{name}.svg': folder.replace('GLYPH', shape) for name, shape in glyphs.items()}}

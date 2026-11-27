@@ -1,3 +1,9 @@
+# v1.2.1
+
+- Üst panel için çizgisel sistem, pano, bildirim, ses ve ağ simgeleri. Kayıt göstergesi kayıt sırasında görünür ve Ekran Kaydı Arch menüsünden açılır.
+- Thunar araç çubuğu için ince gezinme okları, ana dizin, arama ve konum simgeleri. Dosya yöneticisi penceresi mavi klasör simgesi kullanır.
+- Terminal ve Thunar çerçevelerinde onaylı bir piksellik mavi kontur, içe doğru yumuşayan ince ışık ve odakla değişen Picom halesi.
+
 # v1.2.0
 
 - VMware'de uygulanan Xfce düzeni kurulum menüsüne taşındı. Aramalı Arch menüsü, numaralı çalışma alanları, simgeli pencere grupları, bildirimler, pano, ses ve X11 kayıt başlatıcısı kurulabiliyor.

@@ -383,11 +383,11 @@ def feature_report():
         {'feature':'Açılış ve giriş ekranı','status':'optional','detail':'Sistem menüsü, desteklenen systemd-boot/mkinitcpio ve LightDM kurulumuna ayrı Arch Blue açılışı ve greeter teması ekler.'},
         {'feature':'Kilit ekranı','status':'configured','detail':'Başlat+L gerçek Xfce Screensaver kilidini açar; yerel kimlik doğrulama penceresi Arch Blue stilini kullanır.'},
         {'feature':'Batarya Ev %55/%80 ve Seyahat %100','status':'pending','detail':'Donanım/power-manager incelenmeden şarj eşikleri değiştirilmez. Sistem kutusunda gerçek destek okunur.'},
-        {'feature':'Bölge ve pencere ekran kaydı','status':'configured','detail':'Panelden açılan X11 kaydı ve durdurma göstergesi, ses varsayılan olarak kapalı.'},
+        {'feature':'Bölge ve pencere ekran kaydı','status':'configured','detail':'Arch menüsünden açılan X11 kaydı ve kayıt sırasında panel göstergesi; ses varsayılan olarak kapalı.'},
         {'feature':'Terminal içi CPU/MEM/NET kartları','status':'configured','detail':'sistem-ozeti komutu gerçek ölçümleri gösterir.'},
         {'feature':'Tek başına Başlat ile menü','status':'configured','detail':'Xcape, tek Super basışında aramalı Whisker Menu açar.'},
         {'feature':'Root terminalinde Shift+ok','status':'optional','detail':'Sistem menüsündeki root Zsh profili, mevcut Bash giriş kabuğu ayarını değiştirmeden normal seçim sağlar.'},
-        {'feature':'Pasif çerçeve ve ışık','status':'partial','detail':'Kontur yaklaşık %10 soluk; Picom gölgesinin aktif/pasif alfa farkı bu sürümde yok. İçerik soldurulmaz.'},
+        {'feature':'Pasif çerçeve ve ışık','status':'configured','detail':'Xfwm ve Picom gerçek pencere odağına göre mavi konturu ve ışık katkısını yaklaşık %10 azaltır.'},
     ]
 
 

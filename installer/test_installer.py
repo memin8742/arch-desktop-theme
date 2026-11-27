@@ -103,10 +103,27 @@ class InstallerTests(unittest.TestCase):
 
     def test_transparency_is_local_not_whole_window(self):
         self.assertNotIn('inactive-opacity',assets.PICOM)
-        self.assertNotIn('opacity = 0.8',assets.PICOM)
+        self.assertNotRegex(assets.PICOM, r'(?<![\w-])opacity\s*=\s*0\.8')
         self.assertIn('opacity = 1.0',assets.PICOM)
         self.assertIn('rgba(73,174,230,0.4)',assets.TERMINAL_CSS.decode())
         self.assertNotIn('triangle',assets.TERMINAL_CSS.decode())
+
+    def test_frame_contour_and_inactive_halo_have_separate_colours(self):
+        frames = assets.xfwm_files()
+        for state, stroke in [('active', 'bgj'), ('inactive', 'ihk')]:
+            title = [json.loads(line.rstrip(',')) for line in frames[f'title-1-{state}.xpm'].splitlines()[2:-1]]
+            width, _, palette, _ = map(int, title[0].split())
+            self.assertEqual(title[1+palette:4+palette], [pixel*width for pixel in stroke])
+        self.assertIn('shadow-color = "#0878D1"', assets.PICOM)
+        self.assertIn('shadow-color = "#076CBC"', assets.PICOM)
+
+    def test_panel_and_toolbar_icon_names_are_present(self):
+        files = assets.icon_files()
+        for name in ['apps/arch-blue-system', 'apps/arch-blue-clipboard', 'apps/org.xfce.thunar',
+                     'status/audio-volume-high-symbolic', 'status/notification-symbolic',
+                     'actions/go-previous', 'actions/go-home', 'actions/arch-blue-location']:
+            self.assertEqual(ET.fromstring(files[f'scalable/{name}.svg']).tag,
+                             '{http://www.w3.org/2000/svg}svg')
 
     def test_missing_sensor_is_not_fabricated_zero(self):
         root=self.home/'sys'; (root/'class').mkdir(parents=True)
