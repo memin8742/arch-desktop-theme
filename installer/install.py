@@ -382,7 +382,7 @@ def feature_report():
         {'feature':'Terminal, Zsh renkleri, iki satır istem, bölmeler, arama, kopyalama','status':'configured','detail':'VTE ve bağımsız PTY. Zemin alfa 0.9 ve yazı tam opak. Shift seçimi düzenlenen Zsh komut satırında çalışır.'},
         {'feature':'Metin ve görsel pano geçmişi','status':'configured','detail':'CopyQ, Başlat+V; geçmiş dışa aktarılmaz.'},
         {'feature':'Thunar %80 yalnız zemin saydamlığı','status':'configured','detail':'Thunar 4.20+ RGBA görseli ve GTK zemin alfa; yazı ve simgelerde genel pencere opaklığı yok. Birleştirici açıkken yeni açılan pencerelerde uygulanır.'},
-        {'feature':'Açılış ve giriş ekranı','status':'optional','detail':'Sistem menüsü, desteklenen systemd-boot/mkinitcpio ve LightDM kurulumuna ayrı Arch Blue açılışı ve greeter teması ekler.'},
+        {'feature':'Açılış ve giriş ekranı','status':'optional','detail':'Sistem menüsünden LightDM giriş ekranı tek başına uygulanabilir. Plymouth açılış teması ayrıca systemd-boot ve mkinitcpio gerektirir.'},
         {'feature':'Kilit ekranı','status':'configured','detail':'Başlat+L gerçek Xfce Screensaver kilidini açar; yerel kimlik doğrulama penceresi Arch Blue stilini kullanır.'},
         {'feature':'Batarya Ev %55/%80 ve Seyahat %100','status':'pending','detail':'Donanım/power-manager incelenmeden şarj eşikleri değiştirilmez. Sistem kutusunda gerçek destek okunur.'},
         {'feature':'Bölge ve pencere ekran kaydı','status':'configured','detail':'Arch menüsünden açılan X11 kaydı ve kayıt sırasında panel göstergesi; ses varsayılan olarak kapalı.'},

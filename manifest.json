@@ -1,11 +1,11 @@
 {
-  "release_version": "1.2.8",
+  "release_version": "1.2.9",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 14424,
-      "sha256": "bbe3edbf0d483a37e747dc358d006d49252ac1a97758ba7ef836a726f53320d4"
+      "sha256": "0949a9f77c3fc58adb21ee934d3b457ab95b5c157472f1827ba84f3d29e4d90f"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -21,7 +21,7 @@
     },
     "04-ayarlar-ve-ozellikler.json": {
       "bytes": 69401,
-      "sha256": "2903dba3227ba88ff2d1533cbf09b5a45f0e6a029c62ec3c7a3894a1a9fdb571"
+      "sha256": "6cb221d18a1f5a765aeb308448dcaab97f125dc9b3e6db16ec7963278726b717"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,
@@ -58,28 +58,28 @@
       "sha256": "6ec31f60f22461cd62f7238b682729ca6db0c2173ccc548f655cdd7a128d3b74"
     },
     "CHANGELOG.md": {
-      "bytes": 8180,
-      "sha256": "43ddecc561b3cc295899288c9f87a7df5517b12984f0bcbdf7f2b08d249ed4a7"
+      "bytes": 8384,
+      "sha256": "d1900071b3feb15db060b8342f27198ac813ae241ec3c31875bde229be8f83c2"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1679,
       "sha256": "b2fd92b7353858f98807be552caf16214cb5b15a00dc3ceb3f319ba1f7faf41c"
     },
     "KOLAY-KURULUM.txt": {
-      "bytes": 1248,
-      "sha256": "51e0e6de7825b10daadd0104d0052d762d381b34009fd0f73cbc76624fbdd97f"
+      "bytes": 1395,
+      "sha256": "e6699e059703d5cc8fd6c95c1a12feacadb45f585fb12e8274766a9825287e71"
     },
     "KURULUM.md": {
       "bytes": 5732,
       "sha256": "1d72168a44248c9017fbfdae198b06a7503c8cac394ba00ff386e245928bc07d"
     },
     "README.md": {
-      "bytes": 5318,
-      "sha256": "a288afd2ca583125dbb5c0310be689826a07a6f332323508b9f371e3bd74106a"
+      "bytes": 5622,
+      "sha256": "39d5c6bd9fa6dd8be5617c45dab6886c41e5b62091c9bb27b0f25173a1e0b0b3"
     },
     "VERSION": {
       "bytes": 6,
-      "sha256": "d2d31534641da01801512a3ec793bc8d57132d4cefa19a5fb503e8995f39eb8f"
+      "sha256": "c8d83c2672c5e397ce16a2ee275ac45917002b9b36765f77d99f31bdf81ee828"
     },
     "installer/assets.py": {
       "bytes": 14785,
@@ -101,6 +101,10 @@
       "bytes": 2102,
       "sha256": "d54bedea07b5ea4dbb95130d23269f8a526a43722fc9c875e94af91d6d793457"
     },
+    "installer/boot/greeter-entry.svg": {
+      "bytes": 613,
+      "sha256": "97e98d41b3161dbf6f2d107b557f7d153dc6bb84fc13f5822d31dc433b600a4a"
+    },
     "installer/boot/refresh.sh": {
       "bytes": 1400,
       "sha256": "d487afc3f035e5d42c601269cc041b06bc0854b442da2ec04967c643dc42f6fa"
@@ -113,6 +117,10 @@
       "bytes": 4397,
       "sha256": "36003bef65eedcb5de1f02ac981e92b34aabbe00715c198a50849e42c743c8ff"
     },
+    "installer/greeter.py": {
+      "bytes": 17336,
+      "sha256": "a09b167ec45ee3ea7dbf0f2190a3a81faba1bbef48db2070c2c1364f8c17d379"
+    },
     "installer/helper.py": {
       "bytes": 8951,
       "sha256": "31971a10ce6eb99ecde17735ac24d2f474438871ef115736ccb5e9e96a7e42ba"
@@ -122,8 +130,8 @@
       "sha256": "f298b1a9934b145c6c3660b006478450b6ae30fb6b60760fa88f59257da71d16"
     },
     "installer/install.py": {
-      "bytes": 26761,
-      "sha256": "80d8b674ea767dc262c81bae3553be5b0b9ef663fb9fb580eb3a0a620cdcfece"
+      "bytes": 26777,
+      "sha256": "ab9aefe91725ee16a3bdbbf6b05b4b3abab852e54f4a42548877d9cf2641a0be"
     },
     "installer/linux_smoke.py": {
       "bytes": 15564,
@@ -158,8 +166,8 @@
       "sha256": "e455a4dfe56b49bcd864dcab7625d4ef27695a875af08f1267fa0ccc08391312"
     },
     "installer/system.py": {
-      "bytes": 12059,
-      "sha256": "1497d598b7780401f8853fbdc755a8ad4e2df53c39bcfca0df0acbd7df0b0ddd"
+      "bytes": 12493,
+      "sha256": "32f7c30a8651d2a51a8b025b840e15d7dc5caf4f2a059fc1defb0ef33c29e285"
     },
     "installer/terminal.py": {
       "bytes": 19898,
@@ -178,8 +186,8 @@
       "sha256": "3b1e58a8f2fde2b9d1461a5cc1a23d2c75a1440540c32c0daa2136b8235a1551"
     },
     "tools/package.py": {
-      "bytes": 8363,
-      "sha256": "21ab87b7bd929872a185da88e5375665475318bd6d1ae9507f2289ab61a2a213"
+      "bytes": 8423,
+      "sha256": "25aa89358bc80d34b2e49facb066f974e4ec8166b0d91e296ccac08dc5b8dbaa"
     }
   }
 }

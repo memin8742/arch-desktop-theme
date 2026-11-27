@@ -21,8 +21,8 @@ ENTRY = Path('/boot/loader/entries/arch-blue-splash.conf')
 KERNEL = Path('/boot/vmlinuz-arch-blue')
 INITRAMFS = Path('/boot/initramfs-arch-blue.img')
 REFRESH = Path('/usr/local/sbin/arch-blue-refresh-boot')
-GREETER = Path('/etc/lightdm/lightdm-gtk-greeter.conf')
 GREETER_OPTION = Path('/etc/lightdm/lightdm.conf.d/90-arch-blue-greeter.conf')
+LOGIN_OPTION = Path('/etc/lightdm/lightdm.conf.d/95-arch-blue-login.conf')
 BEGIN, END = '# BEGIN ARCH BLUE', '# END ARCH BLUE'
 
 
@@ -161,6 +161,32 @@ def pixel_strip(rgba):
             + chunk(b'IDAT', zlib.compress((b'\x00' + bytes(rgba)) * 2)) + chunk(b'IEND', b''))
 
 
+def configure_login(backup):
+    if not shutil.which('lightdm'):
+        raise RuntimeError('Bu giriş teması için LightDM gerekiyor.')
+    check = ("import gi, sys; gi.require_version('Gtk','3.0'); gi.require_version('LightDM','1'); "
+             "from gi.repository import GdkPixbuf, Gtk, LightDM; "
+             "[GdkPixbuf.Pixbuf.new_from_file_at_scale(path, 16, 16, True) for path in sys.argv[1:]]")
+    probe = (sys.executable, '-I', '-c', check, str(ROOT / 'paket/01-duvar-kagidi.png'),
+             str(SOURCE / 'boot/greeter-entry.svg'))
+    try:
+        run(*probe, capture=True)
+    except subprocess.CalledProcessError:
+        run('pacman', '-Syu', '--needed', 'python-gobject', 'gtk3', 'lightdm', 'librsvg')
+        run(*probe)
+    greeter = FILES / 'greeter'
+    # These assets must be traversable by the unprivileged LightDM account,
+    # including when sudo inherits a restrictive installation umask.
+    run('install', '-d', '-m', '0755', str(FILES), str(greeter), '/usr/share/backgrounds/arch-blue')
+    backup.write(Path('/usr/share/backgrounds/arch-blue/wallpaper.png'),
+                 (ROOT / 'paket/01-duvar-kagidi.png').read_bytes())
+    backup.write(greeter / 'greeter.py', (SOURCE / 'greeter.py').read_bytes())
+    backup.write(greeter / 'entry.svg', (SOURCE / 'boot/greeter-entry.svg').read_bytes())
+    backup.write(Path('/usr/share/xgreeters/arch-blue.desktop'),
+                 f'[Desktop Entry]\nType=Application\nName=Arch Blue\nExec=/usr/bin/python3 -I {greeter}/greeter.py\n')
+    backup.write(LOGIN_OPTION, '[Seat:*]\ngreeter-session=arch-blue\n')
+
+
 def configure_boot(backup, default):
     stock, contents = boot_entry()
     if not Path('/usr/bin/plymouth-set-default-theme').exists():
@@ -194,33 +220,12 @@ When = PostTransaction
 Exec = /usr/local/sbin/arch-blue-refresh-boot
 """
     backup.write(Path('/etc/pacman.d/hooks/99-arch-blue-initramfs.hook'), hook)
-    if GREETER.is_file():
-        backup.write(Path('/usr/share/backgrounds/arch-blue/wallpaper.png'), wallpaper)
-        backup.write(Path('/usr/share/themes/Arch-Blue-Greeter/gtk-3.0/gtk.css'),
-                     (SOURCE / 'boot/arch-greeter.css').read_bytes())
-        settings = {
-            'background': '/usr/share/backgrounds/arch-blue/wallpaper.png',
-            'user-background': 'false',
-            'theme-name': 'Arch-Blue-Greeter',
-            'icon-theme-name': 'Papirus-Dark',
-            'font-name': 'Adwaita Sans 11',
-            'position': '50%,center 84%,center',
-            'clock-format': '%a, %e %b  %H:%M',
-            'indicators': '~spacer;~clock;~spacer;~session;~language;~power',
-            'transition-duration': '140',
-        }
-        original = GREETER.read_text()
-        # The greeter INI has a single section on Arch. Keep non-theme user options.
-        clean = re.sub(r'(?ms)^' + re.escape(BEGIN) + r'\n.*?^' + re.escape(END) + r'\n?', '', original)
-        if re.findall(r'(?m)^\[([^]]+)\]', clean) != ['greeter']:
-            raise RuntimeError('LightDM greeter ayarlarının yapısı desteklenmiyor.')
-        managed = '\n'.join(f'{key}={value}' for key, value in settings.items())
-        selected = r'(?m)^[ \t]*(?:' + '|'.join(settings) + r')[ \t]*=.*\n?'
-        backup.write(GREETER, append_block(re.sub(selected, '', clean), managed))
+    if shutil.which('lightdm'):
+        configure_login(backup)
         if default:
             backup.write(GREETER_OPTION, '[Seat:*]\nautologin-user=\n')
     else:
-        print('LightDM GTK Greeter bulunamadı; yalnız açılış teması uygulandı.')
+        print('LightDM bulunamadı; yalnız açılış teması uygulandı.')
     if default:
         information = json.loads(run('bootctl', 'list', '--json=short', capture=True))
         previous = next((item['id'] for item in information if item.get('isDefault')), stock.name)
@@ -231,7 +236,8 @@ Exec = /usr/local/sbin/arch-blue-refresh-boot
 
 def menu():
     print('1  Root terminali için Shift+ok seçimi\n2  Açılış ve LightDM teması ekle\n'
-          '3  Açılış ve LightDM temasını varsayılan yap\n4  Sistem yedeğine dön\n0  Dön')
+          '3  Açılış ve LightDM temasını varsayılan yap\n4  Sistem yedeğine dön\n'
+          '5  Yalnız LightDM giriş ekranını uygula\n0  Dön')
     choice = input('Seçiminiz: ').strip()
     if choice == '0':
         return
@@ -241,11 +247,11 @@ def menu():
         if not re.fullmatch(r'\d{8}-[a-zA-Z0-9_]+', name):
             raise RuntimeError('Geçersiz sistem yedek adı.')
         run('sudo', sys.executable, __file__, 'restore', name)
-    elif choice in ('1', '2', '3'):
+    elif choice in ('1', '2', '3', '5'):
         if choice == '3':
             print('Arch Blue varsayılan açılış olur. LightDM açılışta parola ister.')
         if input('Uygulamak için e yazın: ').strip().lower() == 'e':
-            actions = {'1': 'root', '2': 'boot', '3': 'default'}
+            actions = {'1': 'root', '2': 'boot', '3': 'default', '5': 'login'}
             run('sudo', sys.executable, __file__, actions[choice])
 
 
@@ -258,11 +264,13 @@ def main():
         raise RuntimeError('Sistem bileşenleri Arch Linux ve sudo gerektirir.')
     if len(args) == 2 and args[0] == 'restore':
         restore(BACKUPS / args[1])
-    elif len(args) == 1 and args[0] in ('root', 'boot', 'default'):
+    elif len(args) == 1 and args[0] in ('root', 'boot', 'default', 'login'):
         backup = Backup()
         try:
             if args[0] == 'root':
                 configure_root(backup)
+            elif args[0] == 'login':
+                configure_login(backup)
             else:
                 configure_boot(backup, args[0] == 'default')
         except Exception:

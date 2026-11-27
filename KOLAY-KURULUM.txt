@@ -1,4 +1,4 @@
-ARCH BLUE — XFCE KURULUMU v1.2.8
+ARCH BLUE — XFCE KURULUMU v1.2.9
 
 1. Arch Linux'ta Xfce / X11 oturumu açın.
 2. Repo veya ZIP içindeki kur.sh dosyasının bulunduğu klasörde terminal açın.
@@ -14,6 +14,8 @@ sistem-ozeti komutu gerçek CPU, RAM ve ağ ölçümlerini gösterir.
 Root iken Shift+ok seçimi için 5 yapıp 1 seçin. Sonra Arch Terminal'de açık
 root kabuğunu exit ile kapatın ve sudo -i ile yeniden açın.
 Açılış ve LightDM temaları için aynı sistem menüsünde 2'yi kullanın.
+Yalnız giriş ekranı için ana menüde 5, ardından sistem menüsünde 5 seçin.
+Yeni ekran LightDM bir sonraki kez başladığında görünür.
 3 seçeneği Arch Blue açılışını varsayılan yapar ve parola ekranını açar.
 
 Kullanıcı ayarlarının tarihli yedeği ana menü 3, sistem yedeği sistem menüsü

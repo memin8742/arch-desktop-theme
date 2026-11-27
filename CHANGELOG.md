@@ -1,3 +1,7 @@
+# v1.2.9
+
+- LightDM giriş ekranı 06 numaralı görseldeki saat, Türkçe tarih, kullanıcı ve açılı parola alanını kullanır. Giriş ekranı sistem menüsünden bağımsız olarak uygulanabilir.
+
 # v1.2.8
 
 - Terminal ve Thunar başlık düğmelerinde eğimli kenarlar vektörel olarak çizilir. İnce ışık yansıması, lacivert yüzey geçişi ve yuvarlatılmış beyaz simgeler normal, odak dışı, fare üstü ve basılı durumlara uyarlanır.

@@ -2,7 +2,7 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**v1.2.8** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
+**v1.2.9** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
@@ -15,7 +15,7 @@ bash kur.sh
 ```
 
 - **1 Kur / güncelle** masaüstünü, numaralı çalışma alanları ve simgeli görev listesini, terminali, Thunar'ı, ekran kaydını ve kilit stilini kurar. Gereken resmi paketler `pacman -Syu` ile kurulur.
-- **5 Açılış, giriş ve root terminali** root kabuğundaki Shift+ok seçimini ve desteklenen systemd-boot makinelerde Plymouth ile LightDM temalarını yönetir. Root profili ayrıca seçilebilir.
+- **5 Açılış, giriş ve root terminali** menüsünde LightDM giriş ekranı, Plymouth açılış teması ve root terminalinde Shift+ok seçimi ayrı ayrı uygulanabilir. Plymouth seçeneği desteklenen bir systemd-boot kurulumu gerektirir.
 - **2 Kontrol et**, **3 Yedeğe dön** ve **4 Tema ayarlarını dışa aktar** aynı menüdedir. Yeni GTK ayarları için masaüstü oturumunu kapatıp açın.
 
 ```sh
@@ -30,6 +30,8 @@ bash kur.sh --check
 `Super+↑` odaktaki uygulamayı büyütür. Odakta uygulama yoksa aynı çalışma alanında küçültülmüş bir pencereyi geri getirir. Öncelik `Super+↓` ile en son küçültülen pencerededir. `Super+↓` büyütülmüş pencereyi önce eski boyutuna döndürür, normal pencereyi küçültür.
 
 `Ctrl+W`, `Alt+F4` ve kapatma düğmesi terminal penceresini tüm sekme ve bölmeleriyle birlikte onay sormadan kapatır.
+
+**Giriş ekranı** için `bash kur.sh` sistem menüsünde **5 — Yalnız LightDM giriş ekranını uygula** seçilir. Sonraki LightDM başlangıcında saat, Türkçe tarih, kullanıcı seçimi ve parola girişi Arch duvar kâğıdının üzerinde görünür.
 
 ## Tasarım ve özellikler
 

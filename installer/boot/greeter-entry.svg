@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="51" viewBox="0 0 340 51">
+  <defs>
+    <linearGradient id="field" x2="0" y2="1"><stop stop-color="#051729"/><stop offset="1" stop-color="#020e1b"/></linearGradient>
+    <linearGradient id="action" x2="1" y2="1"><stop stop-color="#05305a"/><stop offset="1" stop-color="#075091"/></linearGradient>
+  </defs>
+  <path d="M13 1H327L339 13V38L327 50H13L1 38V13Z" fill="url(#field)"/>
+  <path d="M280 1H327L339 13V38L327 50H267Z" fill="url(#action)"/>
+  <path d="M13 1H327L339 13V38L327 50H13L1 38V13Z" fill="none" stroke="#299de3" stroke-width="1.2"/>
+</svg>
