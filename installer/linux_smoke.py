@@ -189,13 +189,26 @@ try:
     assert call('xdotool','getwindowgeometry','--shell',wid)==normal_geometry
     call('xdotool','key','super+Down')
     spin(lambda: '_NET_WM_STATE_HIDDEN' in call('xprop','-id',wid,'_NET_WM_STATE'))
-    call('xdotool','key','super+Up')
-    spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
-    spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
     children.append(subprocess.Popen(['thunar',str(home)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
     time.sleep(.8)
     ids=call('xdotool','search','--onlyvisible','--class','Thunar').splitlines()
     assert ids, 'Native Thunar did not map a window'
+    thunar_id = ids[-1]
+    call('wmctrl','-ia',hex(int(thunar_id)))
+    spin(lambda: helper.active_application()[0] == thunar_id)
+    call('xdotool','key','super+Up')
+    spin(lambda: '_NET_WM_STATE_MAXIMIZED_VERT' in call('xprop','-id',thunar_id,'_NET_WM_STATE'),
+         description='Super+Up did not maximize the focused Thunar window')
+    assert '_NET_WM_STATE_HIDDEN' in call('xprop','-id',wid,'_NET_WM_STATE')
+    call('xdotool','key','super+Down')
+    spin(lambda: '_NET_WM_STATE_MAXIMIZED_' not in call('xprop','-id',thunar_id,'_NET_WM_STATE'))
+    call('xdotool','windowminimize',thunar_id)
+    spin(lambda: helper.active_application()[0] is None)
+    call('xdotool','key','super+Up')
+    spin(lambda: helper.active_application()[0] == wid)
+    assert call('xdotool','getwindowgeometry','--shell',wid)==normal_geometry
+    call('wmctrl','-ia',hex(int(thunar_id)))
+    spin(lambda: helper.active_application()[0] == thunar_id)
     assert 'Depth: 32' in call('xwininfo','-id',ids[-1]), 'Thunar did not select an RGBA visual'
     geometry=dict(line.split('=',1) for line in call('xdotool','getwindowgeometry','--shell',ids[-1]).splitlines())
     x=ctypes.CDLL('libX11.so.6')
@@ -240,7 +253,22 @@ try:
     pixbuf=module.Gdk.pixbuf_get_from_window(foreign,0,0,width,height)
     pixbuf.savev('/tmp/arch-theme-ci.png','png',[],[])
     comp.XCompositeReleaseOverlayWindow(display,root); x.XCloseDisplay(display)
-    window.destroy()
+    for action in ('ctrl+w', 'alt+F4', 'close-button', 'last-tab'):
+        if action != 'ctrl+w':
+            app.activate()
+            window = app.get_windows()[0]
+        xid = window.get_window().get_xid()
+        call('wmctrl','-ia',hex(xid))
+        spin(lambda: helper.active_application()[0] == str(xid))
+        with patch.object(window, 'confirm', return_value=False) as confirm:
+            if action == 'last-tab':
+                window.close_page(window.book.get_nth_page(0))
+            elif action == 'close-button':
+                call('wmctrl','-ic',hex(xid))
+            else:
+                call('xdotool','key',action)
+            spin(lambda: window not in app.get_windows(), description=f'Terminal stayed open after {action}')
+            confirm.assert_not_called()
     while Gtk.events_pending(): Gtk.main_iteration_do(False)
     journal=json.loads((data/'installed.json').read_text())
     install.restore(journal['backup'])

@@ -79,7 +79,6 @@ class TerminalWindow(Gtk.ApplicationWindow):
         self.connect('window-state-event', self.schedule_separators)
         self.connect('size-allocate', self.schedule_separators)
         self.connect('key-press-event', self.key)
-        self.connect('delete-event', self.close_requested)
         self.connect('destroy', self.stop)
         self.new_tab(str(Path.cwd()))
         self.show_all()
@@ -290,11 +289,8 @@ class TerminalWindow(Gtk.ApplicationWindow):
         response = dialog.run(); dialog.destroy()
         return response == Gtk.ResponseType.OK
 
-    def close_requested(self, *unused):
-        return not self.confirm('Terminal penceresi kapatılsın mı? İçindeki açık işler sonlanır.')
-
     def close_page(self, page):
-        if not self.confirm('Bu sekme ve içindeki işler kapatılsın mı?'): return
+        if self.book.get_n_pages() > 1 and not self.confirm('Bu sekme ve içindeki işler kapatılsın mı?'): return
         for term in self.descendants(page): self.stop_term(term)
         self.book.remove_page(self.book.page_num(page))
         self.book.set_show_tabs(self.book.get_n_pages() > 1)
@@ -395,6 +391,9 @@ class TerminalWindow(Gtk.ApplicationWindow):
         alt = bool(state & Gdk.ModifierType.MOD1_MASK)
         key = Gdk.keyval_name(event.keyval).lower()
         term = self.current
+        if ctrl and not shift and not alt and key == 'w':
+            self.close()
+            return True
         if key == 'escape' and self.search.get_visible(): self.hide_search(); return True
         # Do not steal entry editing shortcuts from the search box.
         if self.entry.has_focus(): return False

@@ -1,11 +1,11 @@
 {
-  "release_version": "1.2.6",
+  "release_version": "1.2.7",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
-      "bytes": 14264,
-      "sha256": "b8158a48f9066a65b610559c52b821aa8ed2a275a53475531b27b45cfee34865"
+      "bytes": 14424,
+      "sha256": "ed1296635f3f627442d0eac729bc83170273501d385df1bdb76f85d9f2ce3d4d"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -20,8 +20,8 @@
       "sha256": "419f7d35ad3b1c0ae16c6a27a40156fa5ad3e9cc886a2176e6c5ecaf464d0b84"
     },
     "04-ayarlar-ve-ozellikler.json": {
-      "bytes": 69073,
-      "sha256": "5bcc65e1b7de8a8ab3b6d18c9926efe973cef569a90ed1af085460d2ab0acddd"
+      "bytes": 69261,
+      "sha256": "c1511a441976d1bdf950ea541f5c5b038765d1394163441c62d8570f7ccdcf2e"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,
@@ -55,11 +55,11 @@
   "installer_files": {
     "AGENTS.md": {
       "bytes": 4231,
-      "sha256": "d0c1b42cd7a19318aa8381bfdbeef3852916d249f96f862a02ea346560acb1c2"
+      "sha256": "6ec31f60f22461cd62f7238b682729ca6db0c2173ccc548f655cdd7a128d3b74"
     },
     "CHANGELOG.md": {
-      "bytes": 7683,
-      "sha256": "f80b192b217a995aa8cfd22ebae1c525ea08bae18f05226c2e45da85efc69fd0"
+      "bytes": 7925,
+      "sha256": "0a38795c00b24695f3cbba34931dcd0db435fc6e3f05f7a18ad12a7da7fef85c"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1679,
@@ -67,19 +67,19 @@
     },
     "KOLAY-KURULUM.txt": {
       "bytes": 1248,
-      "sha256": "ce9f3f86b66b98bf044b26a0858a2caa46085b5ed16c0203f140e0a0c143b876"
+      "sha256": "6c89cde1ad192b1ab49a908aae0d269e5f1c2839b59aae3e5a026cf5cae25e6b"
     },
     "KURULUM.md": {
       "bytes": 5732,
-      "sha256": "3f5880a8ff97724e35f90263d438c9ebf60825678cfcfce29268b4ddb5628f83"
+      "sha256": "1d72168a44248c9017fbfdae198b06a7503c8cac394ba00ff386e245928bc07d"
     },
     "README.md": {
-      "bytes": 5109,
-      "sha256": "fc555571894984020abf09f94b38fcf93dd19cbed274c3f6aa0f66eae815cf52"
+      "bytes": 5318,
+      "sha256": "a6375cf54c5b2c551580a653efb6a4ef4e3238e801f21f07c0e61db66f44c1f9"
     },
     "VERSION": {
       "bytes": 6,
-      "sha256": "5844ffcc346f89c07b13ba7596bfb3788ed73f4755e541182d7822d43b7c7a24"
+      "sha256": "d9e8e8429c6a7d0b965e4fac26a5efff7103f055faa98cceb5bd4731fd24603a"
     },
     "installer/assets.py": {
       "bytes": 12519,
@@ -114,8 +114,8 @@
       "sha256": "36003bef65eedcb5de1f02ac981e92b34aabbe00715c198a50849e42c743c8ff"
     },
     "installer/helper.py": {
-      "bytes": 8963,
-      "sha256": "93096d5762e7ac04bd0b5d11e5033bba43c9bf4750ca6b19e785acc22e3d453b"
+      "bytes": 8951,
+      "sha256": "31971a10ce6eb99ecde17735ac24d2f474438871ef115736ccb5e9e96a7e42ba"
     },
     "installer/icons.py": {
       "bytes": 4046,
@@ -126,8 +126,8 @@
       "sha256": "80d8b674ea767dc262c81bae3553be5b0b9ef663fb9fb580eb3a0a620cdcfece"
     },
     "installer/linux_smoke.py": {
-      "bytes": 14066,
-      "sha256": "cc9776b72db6f9e854b2bb674534f71c4dc3b4bb6773c8558c416ab651f2c552"
+      "bytes": 15564,
+      "sha256": "afb268ea0336b8e5f196ecd43d002a003cb35c24b102da7437aaa4ee37811674"
     },
     "installer/root_terminal.py": {
       "bytes": 834,
@@ -162,8 +162,8 @@
       "sha256": "1497d598b7780401f8853fbdc755a8ad4e2df53c39bcfca0df0acbd7df0b0ddd"
     },
     "installer/terminal.py": {
-      "bytes": 19967,
-      "sha256": "5bb73b4c3eabe31677549e276a21ea1d29f351791bf8a9d9015a37d9143a040b"
+      "bytes": 19898,
+      "sha256": "3dcd2a80d827ba98d8a8eaa917fc3b7ab668343ad04276a2939b323c1727dd23"
     },
     "installer/test_installer.py": {
       "bytes": 8900,
@@ -178,8 +178,8 @@
       "sha256": "3b1e58a8f2fde2b9d1461a5cc1a23d2c75a1440540c32c0daa2136b8235a1551"
     },
     "tools/package.py": {
-      "bytes": 8353,
-      "sha256": "36005b6945d27e43881773d693311a79796263e1c3bfc9381478b2f77d131761"
+      "bytes": 8363,
+      "sha256": "21ab87b7bd929872a185da88e5375665475318bd6d1ae9507f2289ab61a2a213"
     }
   }
 }

@@ -1,3 +1,8 @@
+# v1.2.7
+
+- Başlat+Yukarı odaktaki uygulamayı büyütür. Odakta uygulama yoksa aynı çalışma alanındaki küçültülmüş bir pencereyi geri getirir.
+- Ctrl+W, Alt+F4 ve kapatma düğmesi terminal penceresini onay sormadan kapatır.
+
 # v1.2.6
 
 - Terminal ve Thunar başlığında eğimli, aynı mavi paleti kullanan küçültme, büyütme/geri yükleme ve kapatma düğmeleri.

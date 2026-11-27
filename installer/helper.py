@@ -19,14 +19,16 @@ def output(args):
 
 def active_application():
     window = output(['xdotool', 'getactivewindow'])
-    if not window.isdigit(): return None, ''
+    if not window.isdigit() or int(window) == 0: return None, ''
     properties = output(['xprop', '-id', window, '_NET_WM_WINDOW_TYPE', '_NET_WM_STATE'])
+    if not properties or '_NET_WM_STATE_HIDDEN' in properties:
+        return None, ''
     if any(f'_NET_WM_WINDOW_TYPE_{kind}' in properties for kind in ('DESKTOP', 'DOCK')):
         return None, ''
     return window, properties
 
 
-def restore_minimized(include_unmarked):
+def restore_minimized():
     workspace = output(['xprop', '-root', '-notype', '_NET_CURRENT_DESKTOP']).rsplit(' ', 1)[-1]
     stacking = output(['xprop', '-root', '-notype', '_NET_CLIENT_LIST_STACKING'])
     order = {int(window, 16): index for index, window in enumerate(re.findall(r'0x[\da-f]+', stacking))}
@@ -39,13 +41,11 @@ def restore_minimized(include_unmarked):
         if '_NET_WM_STATE_HIDDEN' not in properties: continue
         if any(f'_NET_WM_WINDOW_TYPE_{kind}' in properties for kind in ('DESKTOP', 'DOCK')): continue
         marker = properties.partition('\n')[0].partition(' = ')[2].strip('"')
-        if marker.isdigit() or include_unmarked:
-            candidates.append((int(marker) if marker.isdigit() else 0, order.get(int(window, 16), -1), window))
-    if not candidates: return False
+        candidates.append((int(marker) if marker.isdigit() else 0, order.get(int(window, 16), -1), window))
+    if not candidates: return
     window = max(candidates)[2]
     subprocess.run(['wmctrl', '-ia', window], check=True)
     subprocess.run(['xprop', '-id', window, '-remove', MINIMIZED_AT], check=False)
-    return True
 
 
 def window_shortcut(direction):
@@ -58,8 +58,9 @@ def window_shortcut(direction):
         except BlockingIOError: return
         window, properties = active_application()
         if direction == 'up':
-            if not restore_minimized(include_unmarked=window is None):
-                if window is None: return
+            if window is None:
+                restore_minimized()
+            else:
                 subprocess.run(['wmctrl', '-ir', hex(int(window)), '-b',
                                 'add,maximized_vert,maximized_horz'], check=True)
         elif window is None:

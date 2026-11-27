@@ -402,7 +402,7 @@
     {
       "tus": "Super+Up",
       "kapsam": "genel",
-      "islev": "Aynı çalışma alanında Super+Down ile küçültülen son pencereyi eski boyutunda geri getir. Geri getirilecek pencere yoksa odaktaki uygulamayı büyüt."
+      "islev": "Odaktaki uygulamayı büyüt. Odakta uygulama yoksa aynı çalışma alanında küçültülmüş bir pencereyi geri getir. Öncelik Super+Down ile en son küçültülen pencerededir."
     },
     {
       "tus": "Super+Down",
@@ -518,6 +518,11 @@
       "tus": "Ctrl+Shift+B",
       "kapsam": "terminal",
       "islev": "Geçerli sekmede son açılan bölmeyi kapat. Ön planda çalışan iş varsa onay iste."
+    },
+    {
+      "tus": "Ctrl+W",
+      "kapsam": "terminal",
+      "islev": "Geçerli terminal penceresini tüm sekmeleri ve bölmeleriyle onay sormadan kapat."
     }
   ],
   "tus_uygulama_kurallari": [
@@ -916,7 +921,7 @@
       "baslik_bolumu": "Sol bölümün sonunda #0EEBFC eğimli ayırıcı."
     }
   },
-  "yayin_surumu": "1.2.6",
+  "yayin_surumu": "1.2.7",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",
