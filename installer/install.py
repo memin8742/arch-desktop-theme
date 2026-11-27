@@ -191,12 +191,17 @@ def desktop_file(name, command, icon, arguments=()):
 
 def install(home=None):
     preflight()
+    run([sys.executable, str(ROOT/'tools/package.py'), 'check'])
     missing = missing_packages()
     if missing:
         print('Gereken paketler: ' + ', '.join(missing))
         print('Arch paket uyumu için sistem de güncellenir. Parolayı yalnız sudo sorar.')
         if input('Paketleri kurmak için e yazın: ').strip().lower() != 'e': return
         subprocess.run(['sudo', 'pacman', '-Syu', '--needed', *missing], check=True)
+    run(['zsh', '-n', str(ROOT/'installer/theme.zsh')])
+    run([sys.executable, '-c', "import gi; gi.require_version('Gtk','3.0'); gi.require_version('Vte','2.91'); from gi.repository import Gtk,Vte"])
+    if 'Fira Code' not in run(['fc-match','--format=%{family}','Fira Code']).stdout:
+        raise RuntimeError('Fira Code fontu bulunamadı; farklı bir fontla sessizce değiştirilmedi.')
     home, data, state = paths(home)
     tx = Transaction(home)
     print('Geri dönüş yedeği: ' + str(tx.backup))

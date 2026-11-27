@@ -223,8 +223,8 @@ class TerminalWindow(Gtk.ApplicationWindow):
     def search_changed(self, *unused):
         if not self.current: return
         text = self.entry.get_text()
-        regex = GLib.Regex.new(re.escape(text), GLib.RegexCompileFlags.MULTILINE, 0) if text else None
-        self.current.search_set_gregex(regex, 0)
+        regex = Vte.Regex.new_for_search(re.escape(text), -1, 0x00000400) if text else None  # PCRE2_MULTILINE
+        self.current.search_set_regex(regex, 0)
 
     def next(self):
         if self.current: self.search_changed(); self.current.search_find_next()
