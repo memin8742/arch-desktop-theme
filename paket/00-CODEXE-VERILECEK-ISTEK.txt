@@ -1,4 +1,4 @@
-﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0
+﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0.1
 
 SON GÖRÜNÜM: Terminal ve Thunarda mevcut koyu lacivert renk korunur; zemin
 opaklığı %80, saydamlık %20dir. Yazı/ikon/grafik/düğmeleri soldurma. Dış çerçeve
@@ -11,7 +11,7 @@ kuralları kullanıcı tarafından onaylandı; kurulumda uygulanacak son tercihl
 CODEXE GÖNDERİLECEK METİN
 ZIPi çıkardığın bu klasörü Codexte çalışma klasörü aç, aşağıdaki metni gönder:
 
-Bu klasördeki v1.0 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
+Bu klasördeki v1.0.1 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
 
 Önce 00-CODEXE-VERILECEK-ISTEK.txt ve 04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Bütün görselleri açıp dosyalarda belirtilen kapsamlarında incele: 01/02 duvar kâğıdı ve masaüstü, 03 terminalin dışı ve zemin rengi, 05/06 açılış ve giriş/kilit, 07 bölme çizgileri, 08/09 terminal yazıları, 10 batarya menüsü ve 11 Thunar görünümü.
 
@@ -53,9 +53,15 @@ GÖRÜNÜM
   user@makine metni @ dahil kalın; parantezler, bağlantılar ve $ ile aynı
   çerçeve mavisi #49AEE6 olsun. Dizin metni beyaz/kalın. Yazılar tam opak, parlamasız.
   Git bilgisi yok. Bilinmeyen komut beyaz/altı çizili; tanınmadığı için kırmızı değil.
-- Görev çubuğu üstte ve 02'nin aynısı: tam genişlik, kesik eğimli uçlar, ince mavi
-  alt çizgi, aktif alan kutusu. Aramalı menü, dört çalışma alanı, başlatıcılar,
-  açık uygulama düğmeleri, sistem/pano/bildirim simgeleri ve tepsi işlevleri korunur.
+- Görev çubuğu üstte ve 02'nin son hali gibi: tam genişlik, kesik eğimli uçlar,
+  tek renk mavi #237DB5 alt çizgi. Alt kontur ve iki uç aynı renkte, ince/kesintisiz
+  ve parlamasız olsun; aqua/yeşil kayma, beyaz/gümüş uç veya parlak şerit yok.
+  Orta bölümde açık uygulamalar YALNIZ kendi simgeleriyle kompakt düğmelerde olsun.
+  Uygulama adı, pencere başlığı ve dizin yolu panelde yazılmasın; ad yalnız fareyle
+  üzerine gelince ipucunda görünsün. Tıklama, odak/alta alma/geri getirme ve aynı
+  uygulamanın çoklu pencerelerine simge grubundan erişim korunsun. Uygulamanın
+  kendi pencere başlığını bu istekle gizleme. Aramalı menü, dört çalışma alanı,
+  başlatıcılar, sistem/pano/bildirim simgeleri ve tepsi işlevleri korunur.
   Çok uygulamada taşma/gruplama çalışsın; açılır kutular aşağıya açılsın.
 - Thunar 11-thunar-dosya-yoneticisi.png gibi açılsın: terminalle aynı yuvarlak
   köşe/ince mavi çerçeve/sade başlık, hafif EŞİT ışık ve %80 opak lacivert zemin. Mavi

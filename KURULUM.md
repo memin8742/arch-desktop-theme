@@ -21,6 +21,7 @@ Gerekli bileşenleri gerçek Arch paket kaynakları ve kurulu sürümlerle doğr
 Şu ayrıntılar özellikle korunmalı:
 
 - Duvar kâğıdı `01`; logo boyutu/konumu ve yansımalar korunur. Üst panel ve açık pencere yerleşimi `02`.
+- Üst panelin alt çizgisi ve eğimli uçları aynı tek renk mavi `#237DB5` olsun; aqua/yeşil renk kayması, kesinti, beyaz uç veya parlama ekleme. Orta bölümde açık uygulamalar yalnız kendi logolarını gösterir; uygulama adı, pencere başlığı veya dizin yolu yazılmaz. Adlar fareyle üzerine gelince ipucunda gösterilir; odak/alta alma/geri getirme ve çoklu pencere erişimi korunur.
 - Terminal dışı `03`, ince ve üçgensiz bölücüler `07/08`, dosya/log ve istem renkleri `08/09`. Fira Code 10 pt ve JSON'daki kesin RGB değerleri uygulanır.
 - Terminal ve Thunar zeminleri %80 opak; metin/simge/grafikler tam opak. Genel pencere soldurması veya içerikte sabit logo resmiyle taklit yok. Çerçeve ışığı kenar/köşelerde hafif ve eşit.
 - Thunar `11` gibi gerçek dosyalarla çalışır. Açılış ve giriş/kilit `05/06`; batarya kutusu `10`.

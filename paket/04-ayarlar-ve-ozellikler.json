@@ -281,7 +281,21 @@
   "ust_gorev_cubugu": {
     "referans": "02-onayli-masaustu.png",
     "konum": "üst",
-    "bicim": "Tam genişlik, ince koyu saydam lacivert, iki uçta aşağı eğimli kesik köşe, ince camgöbeği alt kontur ve kısa açık vurgular; yuvarlak dock değil.",
+    "bicim": "Tam genişlik, ince koyu saydam lacivert ve iki uçta aşağı eğimli kesik köşe. Alt kontur ve eğimli uçlar kesintisiz, aynı tek renk mavi #237DB5; beyaz/aqua parça veya parlama yok. Panelin geometrisi ve yüksekliği korunur.",
+    "alt_cizgi": {
+      "renk": "#237DB5",
+      "rgb": [
+        35,
+        125,
+        181
+      ],
+      "opaklik": 1.0,
+      "referans_ekranda_yaklasik_kalinlik_px": 1,
+      "parlama": false,
+      "beyaz_uc_vurgusu": false,
+      "tek_renk": true,
+      "uygulama": "Panelin bütün alt kenarı ve iki eğimli uç aynı düz mavi konturla çizilir. Renk geçişi, aqua/yeşil kayma, beyaz/gümüş uç, kısa parlak şerit, kesinti veya çift çizgi yok. Gerçek DPIye göre ince kalınlığı uyarla; aktif/hover durumunda kontur beyazlaşmasın. Duvar kâğıdını, pencere çerçevelerini veya simge/metin renklerini bu düzeltmeyle değiştirme."
+    },
     "sol": [
       "Arch simgesi/Arch Linux ile aramalı menü",
       "1–4 çalışma alanı; aktif alan mavi kutu",
@@ -290,7 +304,20 @@
       "Tarayıcı",
       "VS Code"
     ],
-    "orta": "Açık uygulama düğmeleri; odak/geri getirme/alta alma; birden çok uygulama ve taşma/gruplama desteği.",
+    "orta": "Açık uygulamalar yalnız kendi simgeleriyle kompakt düğmelerde; uygulama adı, pencere başlığı veya dizin yolu gösterilmez. Odak/geri getirme/alta alma, birden çok uygulama ve taşma/gruplama desteği korunur.",
+    "acik_uygulamalar": {
+      "yalniz_simge": true,
+      "uygulama_adi_goster": false,
+      "pencere_basligi_goster": false,
+      "dizin_yolu_goster": false,
+      "yaklasik_simge_px": 24,
+      "yaklasik_dugme_genisligi_px": 36,
+      "yerlesim": "Orta bölümde, içerik metnine göre genişlemeyen kompakt simge düğmeleri; gerçek DPIye uyarla. Panel yüksekliğini veya sol başlatıcıları bu istekle değiştirme.",
+      "ipucu": "Uygulama adı ve gerekirse pencere başlığı yalnız fare üzerine gelince açılan ipucunda; ekran okuyucusunda anlamlı erişilebilir ad korunur.",
+      "durum": "Açık/odaklı uygulama sade mavi çerçeve veya küçük mavi işaretle ayırt edilir; konturun uçlarında beyaz parlama oluşturma.",
+      "islev": "Tıklama odaklar/geri getirir, odaklı pencereyi alta alma ve sağ tık pencere işlemleri korunur. Aynı uygulamanın birden fazla penceresine simge grubu ve açılır pencere listesiyle erişilir; etiketi gizlemek pencere kaybetmez. Dar alanda mevcut taşma/gruplama çalışır.",
+      "kapsam": "Yalnız görev çubuğunun açık uygulama bölümü. Uygulamaların kendi başlık çubuklarını, soldaki Arch menüsü/çalışma alanı numaralarını veya sağdaki saat/yüzdeleri gizleme."
+    },
     "sag": [
       "Sistem simgesi",
       "Pano geçmişi",
@@ -497,15 +524,15 @@
   },
   "gorsel_sha256": {
     "01-duvar-kagidi.png": "299b94d4cb4c4a535b3627f847033cfe055d879cf803ec6549d460485f8853ff",
-    "02-onayli-masaustu.png": "3a0ce8a3a8063745ef52f40fe9138b166e742b5e0a589844d726770d187c4143",
-    "03-terminal-detayi.png": "19315510baa29f1d4af2b991319bb07de3f3b2e1958b0c08cc5c6c0c27d848d1",
+    "02-onayli-masaustu.png": "2aa9c6345b1f4974983252f2b67f516362595f6186a4e3007438e8bbc1d2432f",
+    "03-terminal-detayi.png": "49b81c6c6f0ccbd1ee0c07c50d968787b95cd41364ad892def03de2d96470045",
     "05-acilis-ekrani.png": "14fe8c68f1d8e7616f3ff8127c7f4c8f9d42e39139f7b86c4f47177f5e6f0287",
     "06-giris-kilit-ekrani.png": "b9f12da983c85d19bb53fb2ccc5c9584df1e702084f5b08323230b6a88e85091",
     "07-bolme-cizgileri-referansi.png": "43f36aa1508c09edcf46c72efba161341ae065e484c3a3d90ac7f9d4006e32e6",
     "08-bolmeli-terminal-ornek.png": "971b5ea0c7464517862aaff161ac65f2c4b31cd85dff363fe6f6c6cd9ce324bd",
     "09-dosya-log-renk-ornekleri.png": "8e03ad504a6ba648f989f75e8a33a9c00bde330162a1d4336003d6c4d2736921",
     "10-batarya-modu.png": "758e4d1e6e376f12b40d475bd15da9e1210a45e052a1d1b901640a15b03bc31e",
-    "11-thunar-dosya-yoneticisi.png": "b8ee362554223ed33cc6e065b5b5984e7a45edd5dce6b539b7b297e98d33f62c"
+    "11-thunar-dosya-yoneticisi.png": "7b275dbedfe616eeb367fc3baad2a55cb3e5d7b8dbe00a8826dfe1d45b683b71"
   },
   "acilis_giris_kilit": {
     "acilis": "05 gibi Arch logosu, ince mavi gerçek açılış göstergesi ve Sistem başlatılıyor metni. Zeminde 01; çalışan açılış altyapısına uygun tema.",
@@ -515,13 +542,13 @@
     "entegrasyon": "Kurulu açılış/giriş/oturum kilidi bileşenlerine uygula; ikinci kilitleyici veya yeni masaüstü ortamını resimdeki etiket yüzünden kurma."
   },
   "gorsel_kapsamlari": {
-    "02": "Terminal ve Thunarın masaüstünde birlikte açılmış son önizlemesi; üst panel ve merkezdeki Arch logosunun konum/boyutu. Her iki zemin %80 opak, yazı/simgeler net; hafif eşit çerçeve ışığı. Komut/klasör/durumlar örnektir; kesin font/RGB/davranış JSONda.",
-    "03": "Son terminal dış kabuğu/başlık/düğme/yuvarlak köşe, hafif kısılmış eşit çerçeve ışığı ve %80 opak lacivert zemin. Mevcut zemin rengi korunmuştur. İçerideki sistem özeti/kartlar/komutlar yerleşim örneği; gerçek veriler kullanılır. Duvar kâğıdı ve logo için 01 asıldır.",
+    "02": "Terminal ve Thunarın masaüstünde birlikte açılmış son önizlemesi; üst panel ve merkezdeki Arch logosunun konum/boyutu. Her iki zemin %80 opak, yazı/simgeler net; hafif eşit çerçeve ışığı. Komut/klasör/durumlar örnektir; kesin font/RGB/davranış JSONda. Üst panelin son referansı: açık uygulamalar yalnız simge, alt çizgi ve eğimli uçlar tek mavi #237DB5 ve beyaz parlamasız. Diğer görsellerdeki üst panel ayrıntıları bu son kuralı değiştirmez.",
+    "03": "Son terminal dış kabuğu/başlık/düğme/yuvarlak köşe, hafif kısılmış eşit çerçeve ışığı ve %80 opak lacivert zemin. Mevcut zemin rengi korunmuştur. İçerideki sistem özeti/kartlar/komutlar yerleşim örneği; gerçek veriler kullanılır. Duvar kâğıdı ve logo için 01 asıldır. Üst panel için 02 ve ust_gorev_cubugu kesin kuralları geçerlidir.",
     "05_06": "Korunan açılış ve giriş/kilit ekranı yerleşimi.",
     "07": "Son onaylı yaklaşık 2 px ince, %40 yerel opaklıklı çerçeve mavisi iç bölme çizgileri. Düz uçlar ve sade artı kesişimi; üçgen/ok uç yok. Yalnız çizgi geometrisi için; zemin saydamlığı 03/08/09 ve JSONa bağlı.",
     "08_09": "Aynı son yuvarlak/hafif ve eşit aydınlık çerçeve, mevcut lacivert %80 zemin opaklığı. 08de üçgensiz ince bölmeler; 09da dosya/log/tam opak yazı örnekleri. İki satırlı Zsh, kesin font/RGB ve gerçek işlev JSONda; örnek komut/veriler otomatik çalıştırılmaz.",
-    "10": "Yalnız kompakt batarya kutusu Ev %55/%80 ve Seyahat geçici %100 için. Arka taraftaki terminalin eski kompozit görünümü yeni terminal/Thunar çerçevesi veya opaklık kuralını değiştirmez; bunlarda 02/03/08/09/11 ve JSON geçerli.",
-    "11": "Son Thunar: yuvarlak köşe, hafif kısılmış/eşit mavi çerçeve ışığı, mevcut lacivert zeminde %80 opaklık. Mavi klasörler, beyaz adlar, menü/araç/konum, Yerler/Aygıtlar ve seçim görünümü korunur. İçerik/yollar/sayaçlar örnektir; gerçek dosyalar gösterilir."
+    "10": "Yalnız kompakt batarya kutusu Ev %55/%80 ve Seyahat geçici %100 için. Arka taraftaki terminalin eski kompozit görünümü yeni terminal/Thunar çerçevesi veya opaklık kuralını değiştirmez; bunlarda 02/03/08/09/11 ve JSON geçerli. Bu görseldeki üst panel eski bağlamdır ve üst panel için referans alınmaz: görev çubuğunun son görünümü 02 ve ust_gorev_cubugu içindedir. Batarya kutusunun %55/%80 ve Seyahat geçici %100 kuralları korunur.",
+    "11": "Son Thunar: yuvarlak köşe, hafif kısılmış/eşit mavi çerçeve ışığı, mevcut lacivert zeminde %80 opaklık. Mavi klasörler, beyaz adlar, menü/araç/konum, Yerler/Aygıtlar ve seçim görünümü korunur. İçerik/yollar/sayaçlar örnektir; gerçek dosyalar gösterilir. Üst panel için 02 ve ust_gorev_cubugu kesin kuralları geçerlidir."
   },
   "gorsel_analizi": {
     "1": "Mevcut tek pencere tasarımına yeni bağımsız split görünümü ekleniyor; kaynak ayırıcı çizgileri ve üçgen uçlar doğrudan referans.",
@@ -542,7 +569,8 @@
     "07/08 bölücüler yaklaşık 2 px, #49AEE6/%40 yerel opaklık/parlamasız; düz uç ve sade artı. Hiçbir uçta üçgen/ok/dekorasyon yok; yazı/font/renkler ve zemin %80 ayrı korunur.",
     "Yanlış/başarısız komut sonrası istemde ek çarpı veya sayısal durum rozeti yok; programın hata çıktısı, gerçek çıkış kodu ve bilinmeyen komut beyaz/altı çizili stili korunur.",
     "Onaylı 11 Thunar görünümü, yerel dosya işlemleri/tuşlar, gerçek dizinler/yer imleri, DPI ve diğer uygulamalara etki kontrolü.",
-    "Farklı koyu/açık arka planla terminal ve Thunarda %80 zemin opaklığını, net metin/simgeleri, kenar/köşe ışığının eşitliğini ve odak/yeniden boyutlandırmayı gerçek oturumda doğrula."
+    "Farklı koyu/açık arka planla terminal ve Thunarda %80 zemin opaklığını, net metin/simgeleri, kenar/köşe ışığının eşitliğini ve odak/yeniden boyutlandırmayı gerçek oturumda doğrula.",
+    "Üst panel alt çizgisi ve iki eğimli uç aynı #237DB5, kesintisiz/beyaz parlamasız; açık uygulamalar yalnız kendi simgesi, ad/başlık/yol etiketi yok. Hover ipucu, odak/alta alma/geri getirme, çoklu pencere grubu ve dar alanda taşma gerçek oturumda doğrulanır. Pencere başlıkları ve sol/sağ panel içerikleri korunur."
   ],
   "batarya_sarj_korumasi": {
     "onay": {
@@ -766,5 +794,5 @@
       "uygulama": "Gerçek terminal/GTK/WM ve X11/Wayland yeteneklerini keşfet. Yalnız zemin için alpha desteğini kullan; zemin ve metin katmanlarını ayıramayan bir uygulamada körlemesine tüm pencereyi soldurma. Destek yoksa elde edilen görünümü ve sınırlamayı bildir; uygulanmadığı halde %80 yapıldı deme."
     }
   },
-  "yayin_surumu": "1.0"
+  "yayin_surumu": "1.0.1"
 }
