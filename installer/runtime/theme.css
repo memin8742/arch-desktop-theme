@@ -1,0 +1,81 @@
+window#XfcePanelWindow {
+  background-color: transparent;
+  background-image: url("@PANEL_SVG@");
+  background-origin: border-box;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: 0;
+  box-shadow: none;
+}
+#XfcePanelWindowWrapper,
+#XfcePanelWindowWrapper > box,
+#whiskermenu-button { background: transparent; }
+.xfce4-panel button {
+  color: #fff;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  padding: 1px 5px;
+  margin: 3px 1px;
+}
+.xfce4-panel button:hover { background-color: #0b263d; }
+.xfce4-panel button:checked {
+  background: #082840;
+  border-color: #0aa6f0;
+  border-radius: 5px;
+}
+.xfce4-panel .tasklist { -XfceTasklist-min-button-length: 34; -XfceTasklist-max-button-length: 36; }
+#separator-@LEFT@, #separator-@RIGHT@ { min-width: 23px; }
+#separator-@MENU_SEPARATOR@ { margin: 8px 7px; min-width: 1px; background-color: #157aa7; }
+#whiskermenu-button { font-weight: normal; }
+#whiskermenu-window { background-color: #041321; color: #fff; }
+#whiskermenu-window entry { border: 1px solid #125279; }
+.thunar { background-color: rgba(4,19,33,0.8); color: #fff; font-size: 11pt; }
+.thunar * { background-color: transparent; background-image: none; color: #fff; }
+.thunar menubar { padding: 2px 7px; border-bottom: 1px solid #10344f; }
+.thunar menubar > menuitem { padding: 4px 7px; }
+.thunar toolbar { padding: 5px 9px; border-bottom: 1px solid #1c4e69; }
+.thunar toolbar button { padding: 3px 4px; }
+.thunar toolbar button:hover,
+.thunar menu menuitem:hover { background-color: #0a3150; }
+.thunar toolbar button:first-child image,
+.thunar toolbar entry image { color: #49aee6; }
+.thunar entry {
+  padding: 2px 7px;
+  border: 1px solid #125279;
+  border-radius: 6px;
+  color: #fff;
+}
+.thunar paned > separator { background: linear-gradient(to right, transparent 44%, #194b65 45%, #194b65 57%, transparent 58%); }
+.thunar .sidebar { padding: 5px 6px; }
+.thunar .sidebar treeview { -GtkTreeView-vertical-separator: 6; }
+.thunar .sidebar treeview image { color: #49aee6; }
+.thunar .sidebar treeview.dnd { color: #49aee6; }
+.thunar :selected { background-color: #0a4166; border-radius: 6px; color: #fff; }
+.thunar statusbar { padding: 4px 6px; border-top: 1px solid #194b65; }
+
+#screen.lightdm-gtk-greeter #panel_window {
+  background: rgba(4,19,33,.75);
+  color: #eef8ff;
+  border-bottom: 1px solid #0aa6f0;
+}
+#screen.lightdm-gtk-greeter #panel_window label { font-size: 13pt; }
+#screen.lightdm-gtk-greeter #login_window {
+  background: rgba(4,19,33,.9);
+  color: #f1faff;
+  border: 1px solid #0aa6f0;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(8,120,209,.65);
+}
+#screen.lightdm-gtk-greeter #prompt_entry {
+  background: #071b2d;
+  color: #fff;
+  border: 1px solid #49aee6;
+  border-radius: 7px;
+}
+#screen.lightdm-gtk-greeter #login_window button { border-radius: 7px; }
+#screen.lightdm-gtk-greeter #login_button {
+  color: #f3fbff;
+  background: #0a4067;
+  border-color: #0aa6f0;
+}

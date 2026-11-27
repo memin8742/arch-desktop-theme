@@ -1,6 +1,6 @@
 ﻿{
   "paket_surumu": 29,
-  "durum": "Onaylı tasarım ve özellik tanımları; ek olarak Xfce/X11 için kısmi otomatik kurulum aracı. Kurulmuş ve bekleyen ayrıntılar installer/install.py feature_report içinde ayrıdır.",
+  "durum": "Onaylı tasarım ve özellik tanımları ile Xfce/X11 kurulum aracı.",
   "guncel_gorseller": {
     "duvar_kagidi": "01-duvar-kagidi.png",
     "masaustu_ve_ust_panel": "02-onayli-masaustu.png",
@@ -889,12 +889,12 @@
       "pasif_cerceve_isik_orani": 0.9
     }
   },
-  "yayin_surumu": "1.1.0",
+  "yayin_surumu": "1.2.0",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",
     "hedef": "Mevcut Arch Linux + Xfce + X11",
-    "surum_niteligi": "Deneme; bütün görsel ve donanım ayrıntılarının tamamı otomatik uygulanmış değildir.",
+    "surum_niteligi": "Masaüstü kurulumu ve isteğe bağlı Plymouth, LightDM ve root terminali profili.",
     "tasarim_istekleri_korunur": true,
     "durum_raporu": "installer/install.py: feature_report()"
   }

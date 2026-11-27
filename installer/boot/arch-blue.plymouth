@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Arch Blue
+Description=Arch Desktop Theme boot progress
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/arch-blue
+ScriptFile=/usr/share/plymouth/themes/arch-blue/arch-blue.script

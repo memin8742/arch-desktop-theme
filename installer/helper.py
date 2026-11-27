@@ -50,8 +50,16 @@ def down():
 
 
 def compositor():
-    # Never starts a second Picom instance. Repeated installs leave the running one alone.
-    if subprocess.run(['pgrep','-x','picom'],stdout=subprocess.DEVNULL).returncode == 0: return
+    # A separate X display or another user's compositor does not own this display.
+    display = os.environ.get('DISPLAY', '').split('.', 1)[0]
+    for pid in output(['pgrep', '-u', str(os.getuid()), '-x', 'picom']).split():
+        try:
+            environment = Path(f'/proc/{pid}/environ').read_bytes().split(b'\0')
+        except OSError:
+            continue
+        if any(value.startswith(b'DISPLAY=') and value[8:].split(b'.', 1)[0] == os.fsencode(display)
+               for value in environment):
+            return
     state=Path.home()/'.local/state/arch-desktop-theme'
     state.mkdir(parents=True,exist_ok=True)
     with (state/'picom.log').open('a') as log:

@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Reversible, user-level Arch/Xfce installer. No shell=True, no sudo config writes."""
+"""Reversible desktop setup and entry points for optional system integration."""
 import argparse
 import datetime
 import hashlib
+import importlib.util
 import json
 import os
 import re
+import signal
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tarfile
 import tempfile
+import time
 import uuid
 
 import assets
+import desktop
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = 'arch-desktop-theme'
@@ -22,7 +26,21 @@ PACKAGES = ['python-gobject', 'vte3', 'zsh', 'zsh-syntax-highlighting',
             'zsh-autosuggestions', 'ttf-fira-code', 'picom', 'xclip', 'wmctrl',
             'xorg-xprop', 'xorg-xrandr', 'xdotool', 'libnotify', 'xfce4-screensaver',
             'xfce4-screenshooter', 'xfce4-whiskermenu-plugin', 'xfce4-pulseaudio-plugin',
-            'xfce4-power-manager', 'copyq', 'papirus-icon-theme', 'fastfetch', 'grc', 'tree']
+            'xfce4-power-manager', 'copyq', 'papirus-icon-theme', 'fastfetch', 'grc', 'tree',
+            'ffmpeg', 'xfce4-notifyd', 'xcape', 'xdg-user-dirs']
+PACKAGE_COMMANDS = {
+    'xorg-xprop': 'xprop', 'xorg-xrandr': 'xrandr', 'libnotify': 'notify-send',
+    'xfce4-notifyd': 'xfce4-notifyd-config', 'xdg-user-dirs': 'xdg-user-dir',
+}
+PACKAGE_FILES = {
+    'vte3': '/usr/lib/girepository-1.0/Vte-2.91.typelib',
+    'zsh-syntax-highlighting': '/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh',
+    'zsh-autosuggestions': '/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh',
+    'ttf-fira-code': '/usr/share/fonts/TTF/FiraCode-Regular.ttf',
+    'xfce4-whiskermenu-plugin': '/usr/share/xfce4/panel/plugins/whiskermenu.desktop',
+    'xfce4-pulseaudio-plugin': '/usr/share/xfce4/panel/plugins/pulseaudio.desktop',
+    'papirus-icon-theme': '/usr/share/icons/Papirus-Dark/index.theme',
+}
 BEGIN, END = '# BEGIN ARCH-DESKTOP-THEME', '# END ARCH-DESKTOP-THEME'
 
 
@@ -171,14 +189,70 @@ def preflight():
     for cmd in ['xfconf-query', 'xfce4-panel', 'xfwm4', 'thunar', 'xfdesktop']:
         if not shutil.which(cmd): raise RuntimeError('Xfce bileşeni eksik: ' + cmd)
     # Never take over an independently configured compositor.
-    if run(['pgrep', '-x', 'picom'], False).returncode == 0:
-        _, data, _ = paths()
-        if not (data / 'installed.json').exists():
-            raise RuntimeError('Mevcut Picom çalışıyor. Ayarları birleştirmek için önce mevcut Picom başlangıcını inceleyin; otomatik ezilmedi.')
+    home, data, _ = paths()
+    for pid in own_processes('picom'):
+        cmdline = Path(f'/proc/{pid}/cmdline')
+        args = cmdline.read_bytes().split(b'\0')[:-1] if cmdline.exists() else []
+        stock = args in [[b'picom'], [b'/usr/bin/picom']] and not any(
+            (home / path).exists() for path in ('.config/picom.conf', '.config/picom/picom.conf'))
+        if not stock and os.fsencode(data / 'picom.conf') not in args:
+            raise RuntimeError('Mevcut Picom özel bir yapılandırma kullanıyor. Kurulumdan önce bu yapılandırmayı inceleyin.')
 
 
 def missing_packages():
-    return [p for p in PACKAGES if run(['pacman', '-Q', p], False).returncode != 0]
+    result = run(['pacman', '-Qq', *PACKAGES], False)
+    if result.returncode and not result.stdout and (result.returncode > 1 or 'could not open database' in result.stderr):
+        # A locked package database does not imply the installed components are missing.
+        def usable(package):
+            if package == 'python-gobject':
+                return importlib.util.find_spec('gi') is not None
+            if package in PACKAGE_FILES:
+                return Path(PACKAGE_FILES[package]).is_file()
+            return shutil.which(PACKAGE_COMMANDS.get(package, package)) is not None
+        return [package for package in PACKAGES if not usable(package)]
+    found = set(result.stdout.splitlines())
+    return [package for package in PACKAGES if package not in found]
+
+
+def own_processes(name):
+    pids = run(['pgrep', '-u', str(os.getuid()), '-x', name], False).stdout.split()
+    active = []
+    display = os.fsencode(os.environ.get('DISPLAY', '').split('.', 1)[0])
+    for pid in pids:
+        try:
+            state = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()[0]
+            environment = Path(f'/proc/{pid}/environ').read_bytes().split(b'\0')
+        except OSError:
+            continue
+        if state != 'Z' and any(value.startswith(b'DISPLAY=') and value[8:].split(b'.', 1)[0] == display
+                                for value in environment):
+            active.append(int(pid))
+    return active
+
+
+def panel_stop():
+    if not own_processes('xfce4-panel'):
+        return False
+    run(['xfce4-panel', '--quit'])
+    for _ in range(30):
+        if not own_processes('xfce4-panel'):
+            return True
+        time.sleep(.05)
+    raise RuntimeError('Panel durdurulamadı. Ayarları değiştirmeden işlem durdu.')
+
+
+def reload_compositor(helper):
+    # Preflight has already limited the matching processes to the managed or stock instance.
+    for pid in own_processes('picom'):
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+    for _ in range(20):
+        if not own_processes('picom'):
+            break
+        time.sleep(.05)
+    subprocess.Popen([str(helper), 'compositor'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def desktop_file(name, command, icon, arguments=()):
@@ -206,9 +280,11 @@ def install(home=None):
     home, data, state = paths(home)
     tx = Transaction(home)
     print('Geri dönüş yedeği: ' + str(tx.backup))
+    restart_panel = False
     try:
+        restart_panel = panel_stop()
         config = json.loads((ROOT / 'paket/04-ayarlar-ve-ozellikler.json').read_text(encoding='utf-8-sig'))
-        for name in ['terminal.py', 'helper.py', 'theme.zsh', 'assets.py', 'install.py']:
+        for name in ['terminal.py', 'helper.py', 'theme.zsh']:
             tx.write(data / name, (ROOT / 'installer' / name).read_bytes())
         tx.write(data / 'design.json', json.dumps(config, ensure_ascii=False))
         tx.write(data / 'wallpaper.png', (ROOT / 'paket/01-duvar-kagidi.png').read_bytes())
@@ -218,7 +294,9 @@ def install(home=None):
         dimensions = run(['xdotool', 'getdisplaygeometry'], False).stdout.split()
         if len(dimensions) == 2: width = int(dimensions[0])
         tx.write(data / 'panel.svg', assets.panel_svg(width))
-        tx.write(data / 'theme.css', assets.css(data / 'panel.svg'))
+        desktop.xfce_launchers(tx, home, data, desktop_file)
+        roles = desktop.configure_panel(tx, home, desktop_file)
+        tx.write(data / 'theme.css', assets.css(data / 'panel.svg', roles))
         gtk = home / '.config/gtk-3.0/gtk.css'
         existing = gtk.read_text(encoding='utf-8') if gtk.exists() else ''
         # CSS uses comment markers; preserve unrelated user CSS.
@@ -238,15 +316,16 @@ def install(home=None):
         tx.write(launcher, '#!/usr/bin/env python3\nimport os, pathlib, sys\nos.execv(sys.executable, [sys.executable, str(pathlib.Path.home()/".local/share/arch-desktop-theme/terminal.py"), *sys.argv[1:]])\n', 0o755)
         helper = home / '.local/bin/arch-theme'
         tx.write(helper, '#!/usr/bin/env python3\nimport os, pathlib, sys\nos.execv(sys.executable, [sys.executable, str(pathlib.Path.home()/".local/share/arch-desktop-theme/helper.py"), *sys.argv[1:]])\n', 0o755)
-        tx.write(home / '.local/share/applications/arch-terminal.desktop', desktop_file('Arch Terminal', launcher, 'utilities-terminal'))
+        tx.write(home / '.local/share/applications/arch-terminal.desktop', desktop_file('Arch Terminal', launcher, 'arch-terminal-mark'))
         tx.write(home / '.local/share/applications/arch-theme-sensors.desktop', desktop_file('Sistem bilgisi — Arch Theme', helper, 'utilities-system-monitor', ['sensors']))
         tx.write(home / '.config/autostart/arch-theme-compositor.desktop', desktop_file('Arch Theme ışık', helper, 'preferences-desktop-theme', ['compositor']))
         # Native clipboard manager supports text and image history; never export its private data.
         tx.write(home / '.config/autostart/arch-theme-clipboard.desktop', '[Desktop Entry]\nType=Application\nName=Pano geçmişi\nExec=copyq\nOnlyShowIn=XFCE;\n')
         for prop, kind, value in [('/general/theme','string','Arch-Blue'), ('/general/use_compositing','bool',False), ('/general/workspace_count','int',4)]: tx.xf('xfwm4',prop,kind,value)
         tx.xf('xsettings','/Net/ThemeName','string','Adwaita-dark')
-        tx.xf('xsettings','/Net/IconThemeName','string','Papirus-Dark')
+        tx.xf('xsettings','/Net/IconThemeName','string','Arch-Blue')
         tx.xf('thunar','/misc-use-csd','bool',False)
+        desktop.configure_desktop(tx, home)
         desktop_props = run(['xfconf-query','-c','xfce4-desktop','-l']).stdout.splitlines()
         wallpapers = {p for p in desktop_props if p.endswith('/last-image')}
         # Fresh Xfce can use a default backdrop without having written any properties.
@@ -261,12 +340,12 @@ def install(home=None):
         for prop in sorted(wallpapers):
             tx.xf('xfce4-desktop',prop,'string',str(data/'wallpaper.png'))
             tx.xf('xfce4-desktop',prop.rsplit('/',1)[0]+'/image-style','int',5)
-        configure_panel(tx, home)
-        shortcuts = {'<Super>t':str(launcher), '<Super>e':'thunar', '<Super>l':'xfce4-screensaver-command --lock',
+        shortcuts = {'<Super>t':str(launcher), '<Super>l':'xfce4-screensaver-command --lock',
                      '<Super>v':'copyq toggle', 'Print':'xfce4-screenshooter', '<Super>Down':str(helper)+' down'}
         # xfconf stores commands as strings; quote paths for GLib shell parsing.
         import shlex
         shortcuts['<Super>t'] = shlex.quote(str(launcher))
+        shortcuts['<Super>e'] = shlex.quote(str(home / '.local/bin/arch-thunar'))
         shortcuts['<Super>Down'] = shlex.quote(str(helper))+' down'
         for key, command in shortcuts.items(): tx.xf('xfce4-keyboard-shortcuts','/commands/custom/'+key,'string',command)
         wm = {'<Super>Up':'maximize_window_key', '<Super>Left':'tile_left_key', '<Super>Right':'tile_right_key'}
@@ -277,13 +356,16 @@ def install(home=None):
         if run(['xfconf-query','-c','xfce4-keyboard-shortcuts','-p',prop],False).returncode == 0:
             tx.xf('xfce4-keyboard-shortcuts',prop,'string','')
         report = feature_report()
-        tx.write(data / 'installed.json', json.dumps({'version':(ROOT/'VERSION').read_text().strip() if (ROOT/'VERSION').exists() else '1.1.0', 'backup':str(tx.backup),'features':report},ensure_ascii=False,indent=2))
+        tx.write(data / 'installed.json', json.dumps({'version':(ROOT/'VERSION').read_text().strip(), 'backup':str(tx.backup),'features':report},ensure_ascii=False,indent=2))
         tx.finish()
     except BaseException:
         print('Kurulum tamamlanamadı; bu işlemde değişen ayarlar geri yükleniyor.')
         restore(tx.backup, home)
         raise
-    subprocess.Popen([str(helper),'compositor'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    finally:
+        if restart_panel:
+            subprocess.Popen(['xfce4-panel'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    reload_compositor(helper)
     subprocess.Popen(['copyq'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     print('\nTema uygulandı. Panel ve uygulamaların tüm ayarları alması için oturumu kapatıp tekrar açın.')
     print('Açık işleriniz otomatik kapatılmaz. Yeni terminal: Başlat+T. Kontrol: bash kur.sh --check')
@@ -292,37 +374,19 @@ def install(home=None):
         if row['status'] != 'configured': print(' • '+row['feature']+': '+row['detail'])
 
 
-def configure_panel(tx, home):
-    # Preserve every existing panel/plugin; use the first panel rather than replace its XML.
-    panels = run(['xfconf-query','-c','xfce4-panel','-p','/panels']).stdout
-    ids = [int(x.strip()) for x in panels.splitlines() if x.strip().isdigit()]
-    if not ids: raise RuntimeError('Xfce paneli bulunamadı; panel ayarları korunarak durduruldu.')
-    pid = ids[0]
-    base = f'/panels/panel-{pid}'
-    for key, kind, val in [('position','string','p=6;x=0;y=0'), ('position-locked','bool',True), ('size','uint',38), ('length','uint',100), ('mode','uint',0), ('background-style','uint',0)]: tx.xf('xfce4-panel',base+'/'+key,kind,val)
-    props = run(['xfconf-query','-c','xfce4-panel','-l']).stdout.splitlines()
-    # Existing plugins (sound, power, tray, notifications, clipboard) are not deleted.
-    for prop in props:
-        if prop.startswith('/plugins/plugin-') and prop.count('/') == 2:
-            plugin = run(['xfconf-query','-c','xfce4-panel','-p',prop]).stdout.strip()
-            if plugin == 'tasklist':
-                tx.xf('xfce4-panel',prop+'/show-labels','bool',False)
-                tx.xf('xfce4-panel',prop+'/show-handle','bool',False)
-            if plugin == 'pager': tx.xf('xfce4-panel',prop+'/rows','uint',1)
-
-
 def feature_report():
     return [
         {'feature':'Masaüstü, Xfwm çerçevesi, üst panel, Thunar koyu tema','status':'configured','detail':'Yerel Xfce/GTK ayarları; birebir görsel kabulü hedef ekranda yapılmalı.'},
         {'feature':'Terminal, Zsh renkleri, iki satır istem, bölmeler, arama, kopyalama','status':'configured','detail':'Gerçek VTE/PTTY; zemin alfa 0.8, yazı opak. Shift seçimi yalnız düzenlenen Zsh komut satırındadır.'},
         {'feature':'Metin ve görsel pano geçmişi','status':'configured','detail':'CopyQ, Başlat+V; geçmiş dışa aktarılmaz.'},
         {'feature':'Thunar %80 yalnız zemin saydamlığı','status':'configured','detail':'Thunar 4.20+ RGBA görseli ve GTK zemin alfa; yazı ve simgelerde genel pencere opaklığı yok. Birleştirici açıkken yeni açılan pencerelerde uygulanır.'},
-        {'feature':'Açılış ve giriş ekranının birebir tasarımı','status':'pending','detail':'Önyükleyici/initramfs/giriş yöneticisi otomatik değiştirilmez. 05/06 referansları korunur.'},
-        {'feature':'Kilit ekranı','status':'partial','detail':'Başlat+L gerçek Xfce Screensaver kilidini açar; görsel 06 birebir uygulanmış değildir.'},
+        {'feature':'Açılış ve giriş ekranı','status':'optional','detail':'Sistem menüsü, desteklenen systemd-boot/mkinitcpio ve LightDM kurulumuna ayrı Arch Blue açılışı ve greeter teması ekler.'},
+        {'feature':'Kilit ekranı','status':'configured','detail':'Başlat+L gerçek Xfce Screensaver kilidini açar; yerel kimlik doğrulama penceresi Arch Blue stilini kullanır.'},
         {'feature':'Batarya Ev %55/%80 ve Seyahat %100','status':'pending','detail':'Donanım/power-manager incelenmeden şarj eşikleri değiştirilmez. Sistem kutusunda gerçek destek okunur.'},
-        {'feature':'Panelde olmayan özel kutular ve ekran kaydı','status':'partial','detail':'Var olan panel öğeleri korunur. Sistem bilgisi arch-theme sensors ile açılır; kayıt aracı otomatik kurulmaz.'},
-        {'feature':'Terminal içi CPU/MEM/NET kartları','status':'pending','detail':'Gerçek fastfetch kuruludur; referanstaki grafik kartları terminale otomatik eklenmez.'},
-        {'feature':'Tek başına Başlat ile menü','status':'pending','detail':'Super+harf kısayollarını bozmamak için tek tuş bağlaması eklenmedi. Mevcut uygulama menüsü korunur.'},
+        {'feature':'Bölge ve pencere ekran kaydı','status':'configured','detail':'Panelden açılan X11 kaydı ve durdurma göstergesi, ses varsayılan olarak kapalı.'},
+        {'feature':'Terminal içi CPU/MEM/NET kartları','status':'configured','detail':'sistem-ozeti komutu gerçek ölçümleri gösterir.'},
+        {'feature':'Tek başına Başlat ile menü','status':'configured','detail':'Xcape, tek Super basışında aramalı Whisker Menu açar.'},
+        {'feature':'Root terminalinde Shift+ok','status':'optional','detail':'Sistem menüsündeki root Zsh profili, mevcut Bash giriş kabuğu ayarını değiştirmeden normal seçim sağlar.'},
         {'feature':'Pasif çerçeve ve ışık','status':'partial','detail':'Kontur yaklaşık %10 soluk; Picom gölgesinin aktif/pasif alfa farkı bu sürümde yok. İçerik soldurulmaz.'},
     ]
 
@@ -346,7 +410,7 @@ def export_theme():
     if not (data/'installed.json').exists(): raise RuntimeError('Önce tema kurulmalı.')
     destination = home / ('arch-theme-ayarlar-'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'.tar.gz')
     # Strict allowlist, no ~/.config dump, command history, clipboard, SSH or personal files.
-    allowed = ['theme.css','terminal.css','picom.conf','panel.svg','theme.zsh','design.json','wallpaper.png']
+    allowed = ['theme.css','terminal.css','picom.conf','panel.svg','theme.zsh','design.json','wallpaper.png','system-summary.py']
     with tarfile.open(destination,'w:gz') as archive:
         for name in allowed:
             p = data/name
@@ -366,7 +430,7 @@ def main():
     preflight()
     if args.check: verify(); return
     while True:
-        print('\nArch Theme — Xfce\n1  Kur / güncelle\n2  Kontrol et\n3  Yedeğe dön\n4  Tema ayarlarını dışa aktar\n0  Çık')
+        print('\nArch Theme — Xfce\n1  Kur / güncelle\n2  Kontrol et\n3  Yedeğe dön\n4  Tema ayarlarını dışa aktar\n5  Açılış, giriş ve root terminali\n0  Çık')
         choice = input('Seçiminiz: ').strip()
         if choice == '0': return
         if choice == '1':
@@ -380,9 +444,15 @@ def main():
             for i,p in enumerate(backups): print(str(i+1)+'  '+p.parent.name)
             value = input('Yedek numarası (boş: vazgeç): ').strip()
             if value.isdigit() and 1 <= int(value) <= len(backups):
-                restore(backups[int(value)-1].parent)
+                restart_panel = panel_stop()
+                try:
+                    restore(backups[int(value)-1].parent)
+                finally:
+                    if restart_panel:
+                        subprocess.Popen(['xfce4-panel'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 print('Oturumu kapatıp tekrar açın. Kurulan Arch paketleri kaldırılmaz.')
         elif choice == '4': export_theme()
+        elif choice == '5': subprocess.run([sys.executable, str(ROOT/'installer/system.py')], check=True)
 
 
 if __name__ == '__main__':

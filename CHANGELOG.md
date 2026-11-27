@@ -1,3 +1,11 @@
+# v1.2.0
+
+- VMware'de uygulanan Xfce düzeni kurulum menüsüne taşındı. Aramalı Arch menüsü, numaralı çalışma alanları, simgeli pencere grupları, bildirimler, pano, ses ve X11 kayıt başlatıcısı kurulabiliyor.
+- Thunar için mavi klasör simgeleri, yer imleri, Türkçe yerel ayar desteği ve ince ayırıcılar. Terminalde genişlik uyarlaması, iki satırlı istem ve gerçek CPU/RAM/ağ özeti.
+- Picom XRender, özel pencere çerçeveleri, yumuşak mavi kontur ve Xfce Screensaver stili.
+- Ayrı sistem menüsü, desteklenen systemd-boot kurulumlarına Plymouth açılış girdisi ve LightDM ayarları ekler. Kurulum ve güncellemelerde standart Arch girdisi erişilebilir.
+- İsteğe bağlı root profili, Arch Terminal'de sudo -i ile açılan oturumlarda Zsh Shift+ok seçimini etkinleştirir. Root profil dosyaları sistem yedeğine dahil edilir.
+
 # v1.1.0 — Xfce kurulum aracı (deneme)
 
 - Codex gerektirmeyen Türkçe kurulum/kontrol/geri dönüş/dışa aktarma menüsü ve kısa kullanıcı rehberi.

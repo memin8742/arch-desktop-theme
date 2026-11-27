@@ -1,55 +1,20 @@
-ARCH THEME — XFCE İÇİN KOLAY KURULUM (v1.1.0 / deneme sürümü)
+ARCH BLUE — XFCE KURULUMU v1.2.0
 
-Codex gerekmez. Arch Linux kurulu olmalı ve giriş ekranından Xfce / X11
-oturumu açılmış olmalıdır. Bu paket Arch işletim sistemini kurmaz.
+1. Arch Linux'ta Xfce / X11 oturumu açın.
+2. Repo veya ZIP içindeki kur.sh dosyasının bulunduğu klasörde terminal açın.
+3. bash kur.sh çalıştırın ve 1 Kur / güncelle seçeneğini seçin.
+4. Kurulum kapsamını okuyup e girin. Paket gerekiyorsa sudo parolasını yerel
+   terminale girin. İşiniz bittiğinde oturumu kapatıp tekrar açın.
 
-1. ZIP dosyasını İndirilenler içinde bir klasöre çıkartın.
-2. Çıkarttığınız, kur.sh dosyasının bulunduğu klasörde sağ tıklayın ve
-   “Burada Terminal Aç” seçeneğini kullanın.
-3. Şunu yazıp Enter'a basın:
+Super tek başına Arch menüsünü, Super+T terminali, Super+E Thunar'ı açar.
+Terminalde Alt+T yeni sekme ve Ctrl+Shift+R/D bölmelerdir.
+sistem-ozeti komutu gerçek CPU, RAM ve ağ ölçümlerini gösterir.
 
-   bash kur.sh
+Root iken Shift+ok seçimi için 5 yapıp 1 seçin. Sonra Arch Terminal'de açık
+root kabuğunu exit ile kapatın ve sudo -i ile yeniden açın.
+Açılış ve LightDM temaları için aynı sistem menüsünde 2'yi kullanın.
+3 seçeneği Arch Blue açılışını varsayılan yapar ve parola ekranını açar.
 
-4. “1 Kur / güncelle” seçeneğini seçin. Önce uygulanacaklar ve eksikler
-   gösterilir. Devam etmek için e yazın. Eksik paketler varsa araç yeniden
-   sorar; Arch sistem güncellemesiyle birlikte kurulur. Sudo parolasını
-   yalnız kendi terminalinizde girin. Kurulumun tamamını sudo ile açmayın.
-5. Kurulum bitince açık işlerinizi kaydedin; oturumu kapatıp tekrar açın.
-   Başlat+T yeni terminal, Alt+T yeni sekme, Başlat+E Thunar,
-   Başlat+L gerçek ekran kilidi, Başlat+V pano geçmişidir.
-
-Menüde ayrıca kontrol, yedeğe dönme ve tema ayarlarını dışa aktarma vardır.
-Yedeğe dönmek için aynı bash kur.sh komutunu çalıştırıp 3'ü seçin.
-Kurulumdan sonra elle değiştirdiğiniz dosyalar sessizce silinmez; korunur
-ve bildirilir. Kurulan Arch paketleri geri dönüşte otomatik kaldırılmaz.
-Yeni bir güncellemede son ZIP'i açıp aynı işlemi tekrarlayabilirsiniz.
-
-BU SÜRÜMÜN KAPSAMI
-
-Duvar kâğıdı, mavi Xfwm çerçeveleri, üst panel, simgeli açık uygulamalar,
-%80 zeminli Thunar, Zsh / Fira Code terminal, saydam terminal zemini, gerçek
-bölmeler, sekmeler, geçmiş, çıktı araması ve özel kopyalama/yapıştırma
-bağlamaları uygulanır. Mevcut panel öğeleri silinmez; eksik özel öğeler
-kendiliğinden var sayılmaz. Sistem verileri arch-theme sensors ile açılır.
-
-Tamamlanmamış ayrıntılar:
-- Açılış ve giriş ekranları otomatik değiştirilmez. Gerçek ekran kilidi
-  vardır; görseldeki kilit ekranı tasarımı birebir uygulanmış değildir.
-- Batarya %55/%80 ve Seyahat ayarları otomatik değiştirilmez.
-- Özel terminal CPU/MEM/NET kartları, ekran kaydı ve panelde eksik özel
-  kutular otomatik eklenmez. Fastfetch gerçek sistem bilgilerini gösterir.
-- Pasif pencerenin çerçevesi %10 soluktur; ışık alfası aktif/pasif arasında
-  henüz farklı değildir. Tek Başlat tuşu menüsü bağlanmaz.
-- Shift ile klavye seçimi düzenlenen komut satırında çalışır; eski çıktıda
-  seçim fareyle yapılır. Terminal dışındaki tam ekran uygulamalar kendi
-  klavye düzenlerini kullanabilir.
-
-Onaylı bütün özellikler ve görseller paket/ içinde korunur. Bu deneme
-sürümü bunların tümünün bitmiş, birebir uygulanmış hali değildir.
-Fiziksel bilgisayar, ekran ölçeği, GPU, kilit ve donanım testleri ayrıca
-yapılmalıdır. Kurulum sonunda sonuç ve eksik özellik listesi gösterilir.
-
-Değişiklik yapmadan kapsamı görmek: bash kur.sh --plan
-Kurulum bileşenlerini denetlemek:    bash kur.sh --check
-
-Güncel kaynak: https://github.com/memin8742/arch-desktop-theme
+Kullanıcı ayarlarının tarihli yedeği ana menü 3, sistem yedeği sistem menüsü
+4 ile geri yüklenebilir. Planı görmek için bash kur.sh --plan, kurulu
+bileşenleri kontrol etmek için bash kur.sh --check çalıştırın.

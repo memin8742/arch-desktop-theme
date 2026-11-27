@@ -2,7 +2,7 @@
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 if [[ ${1:-} == --help ]]; then
-  printf '%s\n' 'Arch Theme — Xfce kurulumu' 'bash kur.sh          Türkçe kurulum menüsü' 'bash kur.sh --plan   Değişiklik yapmadan inceleme' 'bash kur.sh --check  Kurulumu kontrol et'
+  printf '%s\n' 'Arch Theme — Xfce kurulumu' 'bash kur.sh          Masaüstü, açılış ve root profili menüsü' 'bash kur.sh --plan   Değişiklik yapmadan inceleme' 'bash kur.sh --check  Kurulumu kontrol et'
   exit 0
 fi
 if [[ $(uname -s) != Linux || ! -f /etc/arch-release ]]; then

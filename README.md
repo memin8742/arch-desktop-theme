@@ -2,44 +2,30 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**v1.1.0: Xfce için kurulum aracı / deneme sürümü.** Codex olmadan kurulabilen bir araç eklendi. Hedef, mevcut **Arch Linux + Xfce + X11** oturumudur; işletim sistemi yükleyicisi değildir. Onaylı tasarım `paket/`, çalıştırılabilir kurulum kaynağı `installer/` içindedir.
+**v1.2.0** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
-## Codex kullanmadan kurulum
-
-[v1.1.0 ZIP paketini indirin](https://github.com/memin8742/arch-desktop-theme/releases/tag/v1.1.0), bir klasöre çıkartın. `kur.sh` dosyasının bulunduğu klasörde sağ tıklayıp **Burada Terminal Aç** seçin:
-
-```sh
-bash kur.sh
-```
-
-Türkçe menüden **1 Kur / güncelle** seçin. Araç önce kapsamı gösterir; değişen dosya ve Xfce ayarlarını yedekler. Gereken resmi Arch paketleri, sistem güncellemesiyle birlikte kurulur. Parola yalnız `sudo` tarafından istenir; aracın tamamını `sudo` ile açmayın. Sonunda oturumu kapatıp tekrar açın.
-
-Aynı menüden kontrol, **yedeğe dönme** ve yalnız tema ayarlarını dışa aktarma yapılır. [Kısa kullanım rehberi](KOLAY-KURULUM.txt).
-
-```sh
-bash kur.sh --plan   # Değişiklik yapmadan kapsam
-bash kur.sh --check  # Kurulan bileşenlerin kontrolü
-```
-
-**Kapsam:** Duvar kâğıdı, Xfwm mavi çerçeve, üst panel, simgeli pencere düğmeleri, %80 zeminli Thunar, gerçek VTE/Zsh terminali, Fira Code, %80 terminal zemini, sekme/bölme/çıktı arama, kopyalama ve pano uygulanır. Mevcut panel eklentileri korunur; bu sürüm eksik özel eklentileri otomatik eklemez.
-
-**Henüz otomatik uygulanmayanlar:** Birebir açılış/giriş/kilit tasarımı, batarya modları, özel CPU/MEM/NET kartları, ekran kaydı, tek Başlat ile menü ve pasif ışığın ayrıca azaltılması. Shift seçimi Zsh komut satırını kapsar; eski çıktı fareyle seçilir. Kurulum bunları bitmiş gibi göstermez. Onaylı istekler/görseller korunur; gerçek bilgisayarda görsel, ölçek, kilit ve donanım kabulü gerekir.
-
-## Codex ile kurulum / kalan ayrıntılar
-
-[Codex'e verilecek hazır isteği](CODEXE-VERILECEK-ISTEK.txt) kopyalayın. İstek repo bağlantısını da içerir; Codex'ten repoyu bilgisayara çekmesini ve kurulumu uygulamasını ister.
-
-Kendiniz indirmek isterseniz:
+## Kurulum
 
 ```sh
 git clone https://github.com/memin8742/arch-desktop-theme.git
 cd arch-desktop-theme
-python3 tools/package.py check
+bash kur.sh
 ```
 
-Xfce/X11 için önce `bash kur.sh` aracını kullanın. Codex'ten kalan ayrıntıları tamamlamasını isteyecekseniz [`KURULUM.md`](KURULUM.md) ve `paket/` içindeki tanımları verin. Araçta uygulanmış özelliklerle bekleyen tasarım isteklerini ayırın.
+- **1 Kur / güncelle** masaüstünü, numaralı çalışma alanları ve simgeli görev listesini, terminali, Thunar'ı, ekran kaydını ve kilit stilini kurar. Gereken resmi paketler `pacman -Syu` ile kurulur.
+- **5 Açılış, giriş ve root terminali** root kabuğundaki Shift+ok seçimini ve desteklenen systemd-boot makinelerde Plymouth ile LightDM temalarını yönetir. Root profili ayrıca seçilebilir.
+- **2 Kontrol et**, **3 Yedeğe dön** ve **4 Tema ayarlarını dışa aktar** aynı menüdedir. Yeni GTK ayarları için masaüstü oturumunu kapatıp açın.
+
+```sh
+bash kur.sh --plan
+bash kur.sh --check
+```
+
+[Sistem gereksinimleri ve geri dönüş](KURULUM.md) · [Kısa rehber](KOLAY-KURULUM.txt) · [Codex ile uygulama](CODEXE-VERILECEK-ISTEK.txt)
+
+Yerel Xfce eklentileri ve LightDM kontrolleri nedeniyle bazı ayrıntılar referans görsellerinden farklı çizilebilir. Pil şarj modları ve etkin/pasif Picom ışığı farkı kurulum kapsamı dışındadır. Shift+ok ile seçim düzenlenen Zsh komut satırında çalışır. Önceki terminal çıktısını fareyle seçebilirsiniz.
 
 ## Tasarım ve özellikler
 

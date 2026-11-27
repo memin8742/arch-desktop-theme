@@ -1,0 +1,24 @@
+window.arch-terminal, .arch-root, .arch-terminal notebook, .arch-terminal notebook > stack,
+.arch-terminal paned, .arch-terminal box { background-color: transparent; background-image: none; }
+.arch-terminal vte-terminal { padding: 12px 16px; }
+.arch-terminal paned > separator {
+  min-width: 2px;
+  min-height: 2px;
+  background: rgba(73,174,230,0.4);
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+.arch-terminal notebook header, .arch-terminal .search-bar {
+  background: #041321;
+  color: #fff;
+  border-bottom: 1px solid #163e5c;
+}
+.arch-terminal notebook tab {
+  background: #071b2d;
+  color: #a9c6db;
+  padding: 3px 9px;
+  margin: 2px 3px 0;
+}
+.arch-terminal notebook tab:checked { color: #49aee6; background: #0a2740; }

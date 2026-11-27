@@ -4,13 +4,18 @@ Repo: https://github.com/memin8742/arch-desktop-theme
 
 Hazır kullanıcı isteği: [`CODEXE-VERILECEK-ISTEK.txt`](CODEXE-VERILECEK-ISTEK.txt).
 
-## Codex gerektirmeyen araç
+## Kurulum menüsü
 
-Xfce / X11 kullanıcısı ZIP'i çıkartıp `bash kur.sh` çalıştırabilir. [KOLAY-KURULUM.txt](KOLAY-KURULUM.txt) kurulum, kontrol ve geri dönüş adımlarını anlatır. Araç mevcut Xfce'yi kullanır, başka masaüstüne geçirmez. Kendi kullanıcı hesabından açılır; yalnız dağıtım paketleri için sudo kullanılır.
+Arch Linux içinde Xfce/X11 oturumu açın. Repo dizininde `bash kur.sh` çalıştırıp **1 Kur / güncelle** seçin. Kurulum değişecek dosyaları ve Xfconf ayarlarını yedekler. Paket gerekiyorsa Arch paket yöneticisi sudo parolasını ister. Bir sonraki oturumda panel, Whisker Menu, Thunar, Picom ve CopyQ kullanıcı ayarlarından açılır.
 
-Bu sürüm tamamlanmış birebir sistem imajı değildir. `python3 installer/install.py --plan` ve `installer/install.py` içindeki `feature_report()` kapsamı açıkça belirtir. Özellikle açılış/giriş tasarımı ve donanım şarj kuralları beklemektedir. Bunları referansta var diye kurulmuş saymayın.
+**5 Açılış, giriş ve root terminali** sistem bileşenlerini yönetir.
 
-Codex de Xfce/X11 hedefte önce bu aracı çalıştırabilir, ardından yalnız uygulanmamış ayrıntıları gerçek ortamda tamamlayabilir. Aracın tarihli yedeğini korusun. Kurulum betiği sistem dosyalarına tema yazmaz, giriş yöneticisi/PAM/initramfs değiştirmez ve hesap kabuğunu `chsh` ile değiştirmez; Zsh yalnız yeni terminal profilinde çalışır.
+- **1** Arch Terminal'deki etkileşimli root oturumuna Zsh seçim profilini ekler. Root Bash'in hesap kabuğu olarak kaydı korunur. Aracın root profili, root mülkiyetindeki dosyalardan yüklenir. Açık root kabuğundan `exit` ile çıkıp `sudo -i` ile tekrar girin.
+- **2** EFI, `/boot`, systemd-boot ve systemd tabanlı standart `linux` initramfs üzerinde ayrı bir Plymouth girdisi üretir. LightDM GTK Greeter varsa ona Arch Blue stilini uygular. Arch Blue girdisi bir sonraki açılışta menüden denenebilir.
+- **3** Arch Blue girdisini varsayılan yapar ve LightDM'de açılışta parola ekranını gösterir. Standart **Arch Linux** girdisi erişilebilir kalır. Plymouth imajı ilgili paket güncellemelerinde yenilenir.
+- **4** `/var/backups/arch-desktop-theme` altındaki tarihli sistem yedeğiyle bu adımları geri alır. Kullanıcı temasının yedeği ana menüde **3 Yedeğe dön** seçeneğindedir.
+
+Xfce'nin yerel bileşenleri ve monitör ölçeği son görünümü etkiler. Sistem menüsü yeniden başlatmayı kullanıcıya bırakır.
 
 ## Kaynağı bilgisayara alma
 

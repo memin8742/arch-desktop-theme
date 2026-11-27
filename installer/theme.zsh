@@ -2,7 +2,7 @@
 [[ -o interactive ]] || return
 autoload -Uz add-zsh-hook
 setopt prompt_percent hist_ignore_dups hist_reduce_blanks inc_append_history
-unsetopt prompt_subst
+unsetopt prompt_subst prompt_sp
 HISTFILE=${HISTFILE:-$HOME/.zsh_history}
 HISTSIZE=${HISTSIZE:-10000}
 SAVEHIST=${SAVEHIST:-10000}
@@ -23,7 +23,8 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=#49AEE6,bold'
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#5EBDAB'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#5EBDAB'
 unset _arch_key
-export LS_COLORS='di=01;34:ln=01;36:ex=01;32:or=33:mi=33'
+export LS_COLORS='di=01;38;2;54;123;240:ln=01;38;2;73;174;230:ex=01;38;2;94;189;171:fi=0:or=01;38;2;201;123;132:mi=01;38;2;201;123;132'
+export GREP_COLORS='mt=01;38;2;201;123;132:fn=38;2;73;174;230:ln=38;2;73;174;230:se=38;2;73;174;230'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
@@ -35,7 +36,7 @@ _arch_cwd() {
 }
 _arch_started() { typeset -g _arch_start=$SECONDS; }
 _arch_finished() {
-  if [[ -n ${_arch_start-} && $((SECONDS - _arch_start)) -ge 15 ]]; then
+  if [[ -x $HOME/.local/bin/arch-theme && -n ${_arch_start-} && $((SECONDS - _arch_start)) -ge 15 ]]; then
     "$HOME/.local/bin/arch-theme" notify "${ARCH_THEME_WINDOW_PID:-}" &!
   fi
   unset _arch_start
@@ -107,3 +108,8 @@ bindkey '^[[200~' arch-paste
 bindkey '^V' quoted-insert
 bindkey '^R' history-incremental-search-backward
 unset _arch_widget
+
+typeset -g _ARCH_THEME_PROFILE_DIR=${${(%):-%x}:A:h}
+sistem-ozeti() {
+  python3 "$_ARCH_THEME_PROFILE_DIR/system-summary.py" "$@"
+}

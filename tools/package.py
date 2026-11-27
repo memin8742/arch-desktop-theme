@@ -25,7 +25,13 @@ INSTALLER_FILES = {
     'CODEXE-VERILECEK-ISTEK.txt', 'CHANGELOG.md', 'VERSION', 'tools/package.py',
     'installer/install.py', 'installer/assets.py', 'installer/terminal.py',
     'installer/helper.py', 'installer/theme.zsh', 'installer/test_installer.py',
-    'installer/linux_smoke.py',
+    'installer/linux_smoke.py', 'installer/desktop.py', 'installer/system.py',
+    'installer/root_terminal.py',
+    'installer/runtime/arch-network.py', 'installer/runtime/arch-record.py',
+    'installer/runtime/arch-terminal-mark.svg', 'installer/runtime/system-summary.py',
+    'installer/runtime/terminal.css', 'installer/runtime/theme.css',
+    'installer/boot/arch-blue.plymouth', 'installer/boot/arch-blue.script',
+    'installer/boot/arch-greeter.css', 'installer/boot/refresh.sh',
 }
 
 

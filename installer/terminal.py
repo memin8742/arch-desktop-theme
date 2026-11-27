@@ -40,8 +40,11 @@ class TerminalWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app, title='Uçbirim — Zsh')
         self.set_wmclass('arch-terminal', 'ArchTerminal')
-        self.set_icon_name('utilities-terminal')
-        self.set_default_size(920, 700)
+        self.set_icon_name('arch-terminal-mark')
+        display = self.get_display()
+        monitor = display.get_primary_monitor() or display.get_monitor(0)
+        area = monitor.get_workarea()
+        self.set_default_size(max(370, int(area.width * .37)), max(280, int(area.height * .72)))
         self.get_style_context().add_class('arch-terminal')
         screen = self.get_screen()
         visual = screen.get_rgba_visual()
@@ -77,11 +80,18 @@ class TerminalWindow(Gtk.ApplicationWindow):
 
     def make_term(self, cwd):
         term = Vte.Terminal()
+        appearance = Gtk.CssProvider()
+        appearance.load_from_data(b'vte-terminal, VteTerminal { padding: 15px 22px; }')
+        term.get_style_context().add_provider(appearance, Gtk.STYLE_PROVIDER_PRIORITY_USER + 1)
         term.set_font(Pango.FontDescription('Fira Code 10'))
+        if self.get_allocated_width() >= 600 or self.get_default_size()[0] >= 600:
+            term.set_font_scale(1.15)
         term.set_colors(colour('#FFFFFF'), colour('#041321', .8),
                         [colour(c) for c in DESIGN['terminal']['ansi_0_15']])
         term.set_color_bold(colour('#FFFFFF'))
         term.set_color_cursor(colour('#49AEE6'))
+        term.set_color_cursor_foreground(colour('#041321'))
+        term.set_cursor_blink_mode(Vte.CursorBlinkMode.OFF)
         term.set_color_highlight(colour('#125279'))
         term.set_color_highlight_foreground(colour('#FFFFFF'))
         term.set_allow_bold(True)
@@ -164,7 +174,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
     def title_changed(self, term):
         if term == self.current:
             directory = cwd_for(term).replace(str(Path.home()), '~', 1)
-            self.set_title('Zsh: '+directory)
+            self.set_title('zsh: '+directory)
 
     def page_changed(self, book, page, number):
         terms = self.descendants(page)
