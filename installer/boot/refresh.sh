@@ -32,6 +32,7 @@ PY
 mkinitcpio -c "$work/mkinitcpio.conf" -k /boot/vmlinuz-linux -g "$work/initramfs.img"
 lsinitcpio "$work/initramfs.img" >"$work/contents"
 grep -q 'plymouth/themes/arch-blue/arch-blue.script' "$work/contents"
+grep -q 'plymouth/themes/arch-blue/boot-caption.png' "$work/contents"
 install -m0644 /boot/vmlinuz-linux /boot/vmlinuz-arch-blue.new
 install -m0644 "$work/initramfs.img" /boot/initramfs-arch-blue.img.new
 mv -f -- /boot/vmlinuz-arch-blue.new /boot/vmlinuz-arch-blue

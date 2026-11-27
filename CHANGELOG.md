@@ -1,3 +1,7 @@
+# v1.2.4
+
+- Plymouth açılışındaki “Sistem başlatılıyor” yazısı Türkçe karakterleri içeren saydam bir görselden yüklenir. Açılış imajı oluşturulurken bu dosyanın imaja eklendiği doğrulanır.
+
 # v1.2.3
 
 - Başlat+Yukarı aynı çalışma alanında Başlat+Aşağı ile küçültülen son pencereyi eski boyutunda geri getirir. Geri getirilecek pencere yoksa odaktaki uygulamayı büyütür.

@@ -19,7 +19,8 @@ track_sprite = Sprite(track.Scale(bar_width, 2));
 track_sprite.SetPosition(bar_x, bar_y, 2);
 fill_sprite = Sprite(fill);
 fill_sprite.SetPosition(bar_x, bar_y, 3);
-caption_image = Image.Text("Sistem başlatılıyor", 0.70, 0.82, 0.94, 1.0);
+# Keep Turkish glyphs independent of the early boot locale and fonts.
+caption_image = Image("boot-caption.png");
 caption = Sprite(caption_image);
 caption.SetPosition((screen_width - caption_image.GetWidth()) / 2, bar_y + 13, 4);
 

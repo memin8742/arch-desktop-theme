@@ -1,11 +1,11 @@
 {
-  "release_version": "1.2.3",
+  "release_version": "1.2.4",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 14129,
-      "sha256": "4f6e083532ad1af9e3208bf91cc82f229407a6c0189ed7bdf3a01e77319a2918"
+      "sha256": "ed982b0ee4eecf62c632a2f4e40d8415f87b8942b55397ec5b69b68926cfac3a"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
@@ -21,7 +21,7 @@
     },
     "04-ayarlar-ve-ozellikler.json": {
       "bytes": 68421,
-      "sha256": "ee66eecc7f3b16d2e444850c74fdd3528b1dc5624b0b6d352001b65a52ae7f77"
+      "sha256": "a96b91aa4312490b3fd76741815c136634173f8981626d1268813c7c70122ae3"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,
@@ -58,8 +58,8 @@
       "sha256": "83af7d672cf4f0d227d55cbe4c7ee9aae7dd06417f14f0761727006c14e568e6"
     },
     "CHANGELOG.md": {
-      "bytes": 6747,
-      "sha256": "aa9fecee86d415ffc3daf1e181d826d5dc3b1702420aa28a7faf9d9fb7a62b13"
+      "bytes": 6966,
+      "sha256": "8527112febd03e229ccf2362b69ee5e3914e8dcbf0152a463fbc5b6984725ac9"
     },
     "CODEXE-VERILECEK-ISTEK.txt": {
       "bytes": 1679,
@@ -67,7 +67,7 @@
     },
     "KOLAY-KURULUM.txt": {
       "bytes": 1182,
-      "sha256": "bb16e5fe4897ba4ffe72cdbbf3991c9ff328fe2e7b1db18447560927ba887771"
+      "sha256": "09678fc455b34810c709db6206c69c5cf6d1ff1177e683c33fbd540e707daac0"
     },
     "KURULUM.md": {
       "bytes": 5732,
@@ -75,11 +75,11 @@
     },
     "README.md": {
       "bytes": 5056,
-      "sha256": "e8b7a68e0521b572da15d68434ce2b9ca01c2a41439db8bcd2a3786386d37e70"
+      "sha256": "b23f2196a045b4dbfd260520abca706906b13b3a1521e212410060eaacb412fe"
     },
     "VERSION": {
       "bytes": 6,
-      "sha256": "d82f34ae9aa41bc4a0cb529a1ac0898fed09d6b479fb1cc44cb66c34f15ee84d"
+      "sha256": "563a0b4eec3c77bbc34ac630d4fa5214f5c6726ae01468404fd704473110084e"
     },
     "installer/assets.py": {
       "bytes": 8560,
@@ -90,16 +90,20 @@
       "sha256": "c7966ee36df40898d9341257ff55a3e1648c533bd3f7a96fff27ae52a993b215"
     },
     "installer/boot/arch-blue.script": {
-      "bytes": 1251,
-      "sha256": "3c9ff1ceb0929550bc7deb65109473a74d932aa0d1491857a1cbdf77b21d8c87"
+      "bytes": 1287,
+      "sha256": "ab187fc1db6825c2be2221bb417ac025aa4cc638f5f11d09bbfd069879e39b95"
     },
     "installer/boot/arch-greeter.css": {
       "bytes": 693,
       "sha256": "dd33ebbec45f766b9a9be4fefc310f32ff01250232324ec0a141ede46b2b0f46"
     },
+    "installer/boot/boot-caption.png": {
+      "bytes": 2102,
+      "sha256": "d54bedea07b5ea4dbb95130d23269f8a526a43722fc9c875e94af91d6d793457"
+    },
     "installer/boot/refresh.sh": {
-      "bytes": 1330,
-      "sha256": "7fb9dbca958a8b683373f94e5860723ce544d01ed9282072f43f90d5c68032d2"
+      "bytes": 1400,
+      "sha256": "d487afc3f035e5d42c601269cc041b06bc0854b442da2ec04967c643dc42f6fa"
     },
     "installer/desktop.py": {
       "bytes": 11625,
@@ -154,8 +158,8 @@
       "sha256": "7399e86602abff5ce823798f3b917734532c099b6eefd3428467cea762d162a3"
     },
     "installer/system.py": {
-      "bytes": 12039,
-      "sha256": "a3fafda3586972d9faa4922c1a8506d49e29ca890322fb35760880d62d0fd5b2"
+      "bytes": 12059,
+      "sha256": "1497d598b7780401f8853fbdc755a8ad4e2df53c39bcfca0df0acbd7df0b0ddd"
     },
     "installer/terminal.py": {
       "bytes": 18428,
@@ -174,8 +178,8 @@
       "sha256": "3b1e58a8f2fde2b9d1461a5cc1a23d2c75a1440540c32c0daa2136b8235a1551"
     },
     "tools/package.py": {
-      "bytes": 8255,
-      "sha256": "be37a2031af8fbd0e9c80137991413cf508d6ef2a113f89fd09657dc542de08b"
+      "bytes": 8335,
+      "sha256": "f6d769308be8a9bb2db557053773b3a07ecb819ce788e36bfc8414dfd3821994"
     }
   }
 }

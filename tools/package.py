@@ -31,7 +31,7 @@ INSTALLER_FILES = {
     'installer/runtime/arch-terminal-mark.svg', 'installer/runtime/system-summary.py',
     'installer/runtime/terminal.css', 'installer/runtime/theme.css',
     'installer/boot/arch-blue.plymouth', 'installer/boot/arch-blue.script',
-    'installer/boot/arch-greeter.css', 'installer/boot/refresh.sh',
+    'installer/boot/arch-greeter.css', 'installer/boot/boot-caption.png', 'installer/boot/refresh.sh',
 }
 
 
@@ -73,7 +73,7 @@ def inputs():
         require(name in EXPECTED and name.endswith('.png'), 'Geçersiz görsel referansı: ' + name)
     for name in re.findall(r'\b\d{2}-[a-z0-9-]+\.(?:txt|png|json|webp)\b', text):
         require(name in EXPECTED, 'Eksik talimat referansı: ' + name)
-    for path in BUNDLE.glob('*.png'):
+    for path in [*BUNDLE.glob('*.png'), ROOT / 'installer/boot/boot-caption.png']:
         with path.open('rb') as stream:
             header = stream.read(24)
         require(header[:8] == b'\x89PNG\r\n\x1a\n' and header[12:16] == b'IHDR', 'Geçersiz PNG: ' + path.name)

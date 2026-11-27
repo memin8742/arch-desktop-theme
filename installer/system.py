@@ -168,7 +168,7 @@ def configure_boot(backup, default):
     theme = Path('/usr/share/plymouth/themes/arch-blue')
     wallpaper = (ROOT / 'paket/01-duvar-kagidi.png').read_bytes()
     backup.write(theme / 'wallpaper.png', wallpaper)
-    for name in ['arch-blue.plymouth', 'arch-blue.script']:
+    for name in ['arch-blue.plymouth', 'arch-blue.script', 'boot-caption.png']:
         backup.write(theme / name, (SOURCE / 'boot' / name).read_bytes())
     backup.write(theme / 'track.png', pixel_strip((13, 55, 90, 255)))
     backup.write(theme / 'fill.png', pixel_strip((10, 166, 240, 255)))
