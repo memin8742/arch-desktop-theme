@@ -1,5 +1,6 @@
 """Run only in disposable Arch CI/Xvfb as a normal user, never on an owner's desktop."""
 import importlib.util
+import ctypes
 import json
 import os
 from pathlib import Path
@@ -78,6 +79,20 @@ try:
     assert not interrupted.exists()
     third.feed_child(b'\x03')
     spin(interrupted.exists)
+    spin(lambda: window.at_prompt(third))
+    pasted=home/'paste-marker'
+    module.Gtk.Clipboard.get(module.Gdk.SELECTION_CLIPBOARD).set_text('printf pasted > "'+str(pasted)+'"',-1)
+    third.paste_clipboard()
+    end=time.monotonic()+.3
+    while time.monotonic()<end:
+        while Gtk.events_pending(): Gtk.main_iteration_do(False)
+        time.sleep(.01)
+    assert not pasted.exists(), 'Paste added an unsolicited Enter'
+    third.feed_child(b'\r')
+    spin(pasted.exists)
+    window.entry.set_text('printf pasted')
+    window.search_changed()
+    assert third.search_find_previous(), 'Output search did not find real scrollback'
     # Real ZLE syntax, prompt colour, buffer selection and clipboard integration.
     third.feed_child(b'printf abcde')
     time.sleep(.1)
@@ -90,6 +105,21 @@ try:
     ids=call('xdotool','search','--onlyvisible','--class','Thunar').splitlines()
     assert ids, 'Native Thunar did not map a window'
     assert 'Depth: 32' in call('xwininfo','-id',ids[-1]), 'Thunar did not select an RGBA visual'
+    geometry=dict(line.split('=',1) for line in call('xdotool','getwindowgeometry','--shell',ids[-1]).splitlines())
+    x=ctypes.CDLL('libX11.so.6')
+    x.XOpenDisplay.restype=ctypes.c_void_p
+    x.XGetImage.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.c_int,ctypes.c_int,ctypes.c_uint,ctypes.c_uint,ctypes.c_ulong,ctypes.c_int]
+    x.XGetImage.restype=ctypes.c_void_p
+    x.XGetPixel.argtypes=[ctypes.c_void_p,ctypes.c_int,ctypes.c_int]
+    x.XGetPixel.restype=ctypes.c_ulong
+    x.XDestroyImage.argtypes=[ctypes.c_void_p]
+    x.XCloseDisplay.argtypes=[ctypes.c_void_p]
+    display=x.XOpenDisplay(None)
+    image=x.XGetImage(display,int(ids[-1]),int(geometry['WIDTH'])-24,int(geometry['HEIGHT'])-40,1,1,ctypes.c_ulong(-1).value,2)
+    assert image, 'Could not read native Thunar background pixel'
+    alpha=(x.XGetPixel(image,0,0)>>24)&255
+    x.XDestroyImage(image); x.XCloseDisplay(display)
+    assert 195 <= alpha <= 213, f'Expected 80% local background alpha, got {alpha}/255'
     # Export only the disposable CI desktop, never a user screenshot.
     capture=Path('/tmp/arch-theme-ci.png')
     pixbuf=module.Gdk.pixbuf_get_from_window(module.Gdk.get_default_root_window(),0,0,1280,1024)

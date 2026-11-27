@@ -20,7 +20,7 @@ jobs:
           xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-power-manager
           copyq papirus-icon-theme fastfetch grc tree xfwm4 xfconf xfce4-panel
           xfdesktop thunar xorg-server-xvfb xorg-xauth xorg-xwininfo dbus sudo
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Source and package checks
         run: |
           bash -n kur.sh
