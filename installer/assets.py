@@ -6,12 +6,15 @@ from pathlib import Path
 import icons
 
 BLUE = '#0AA6F0'
+FRAME_BLUE = '#3D98D7'
 NAVY = '#041321'
-PROMPT = '#49AEE6'
 HALO = '#0878D1'
 CORNER_SIZE = 20
 FRAME_DEPTH = 3
 TITLE_HEIGHT = 35
+BUTTON_WIDTH = 26
+BUTTON_HEIGHT = 23
+BUTTON_OFFSET = 8
 
 
 def mix(foreground, background, amount):
@@ -72,8 +75,8 @@ rules = (
 def xpm(width, height, pixel):
     colours = {
         ' ': 'None', '.': NAVY, 'w': '#F1F8FF', 's': '#214764',
-        'b': BLUE, 'g': mix(HALO, NAVY, .42), 'j': mix(HALO, NAVY, .19),
-        'i': mix(BLUE, NAVY, .9), 'h': mix(HALO, NAVY, .378), 'k': mix(HALO, NAVY, .171),
+        'b': FRAME_BLUE, 'g': mix(HALO, NAVY, .42), 'j': mix(HALO, NAVY, .19),
+        'i': mix(FRAME_BLUE, NAVY, .9), 'h': mix(HALO, NAVY, .378), 'k': mix(HALO, NAVY, .171),
     }
     rows = [''.join(pixel(x, y) for x in range(width)) for y in range(height)]
     lines = [f'{width} {height} {len(colours)} 1'] + [f'{k} c {v}' for k, v in colours.items()] + rows
@@ -93,14 +96,16 @@ def xfwm_files():
         files[f'bottom-{state}.xpm'] = xpm(4, CORNER_SIZE, lambda x, y: edge_pixel(CORNER_SIZE-1-y, stroke))
     for name in ['hide', 'maximize', 'close', 'menu', 'stick', 'shade']:
         for state in ['active', 'inactive', 'prelight', 'pressed', 'toggled-active', 'toggled-inactive']:
-            def pix(x, y, name=name, state=state):
+            def pix(x, y, name=name):
+                x += (28 - BUTTON_WIDTH) // 2
+                y += (TITLE_HEIGHT - BUTTON_HEIGHT) // 2
                 if name == 'close' and 8 <= x <= 20 and (y == x-1 or y == 27-x): return 'w'
                 if name == 'hide' and 8 <= x <= 20 and y == 17: return 'w'
                 if name == 'maximize' and ((x in [8, 20] and 9 <= y <= 21) or (y in [9, 21] and 8 <= x <= 20)): return 'w'
                 if name == 'menu' and 10 <= x <= 18 and y == 13 + abs(x-14): return 'w'
-                return title_pixel(y, 'ihk' if 'inactive' in state else 'bgj')
-            files[f'{name}-{state}.xpm'] = xpm(28, TITLE_HEIGHT, pix)
-    files['themerc'] = '''active_text_color=#FFFFFF
+                return '.'
+            files[f'{name}-{state}.xpm'] = xpm(BUTTON_WIDTH, BUTTON_HEIGHT, pix)
+    files['themerc'] = f'''active_text_color=#FFFFFF
 inactive_text_color=#FFFFFF
 title_shadow_active=false
 title_shadow_inactive=false
@@ -109,7 +114,8 @@ title_horizontal_offset=9
 title_vertical_offset_active=0
 title_vertical_offset_inactive=0
 button_spacing=2
-button_offset=0
+button_offset={BUTTON_OFFSET}
+maximized_offset={BUTTON_OFFSET}
 button_layout=O|HMC
 show_app_icon=true
 full_width_title=true

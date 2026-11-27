@@ -110,12 +110,23 @@ class InstallerTests(unittest.TestCase):
 
     def test_frame_contour_and_inactive_halo_have_separate_colours(self):
         frames = assets.xfwm_files()
+        self.assertIn('"b c #3D98D7"', frames['title-1-active.xpm'])
         for state, stroke in [('active', 'bgj'), ('inactive', 'ihk')]:
             title = [json.loads(line.rstrip(',')) for line in frames[f'title-1-{state}.xpm'].splitlines()[2:-1]]
             width, _, palette, _ = map(int, title[0].split())
             self.assertEqual(title[1+palette:4+palette], [pixel*width for pixel in stroke])
         self.assertIn('shadow-color = "#0878D1"', assets.PICOM)
         self.assertIn('shadow-color = "#076CBC"', assets.PICOM)
+
+    def test_title_buttons_fit_inside_corners(self):
+        frames = assets.xfwm_files()
+        for state, stroke in [('active', 'bgj'), ('inactive', 'ihk')]:
+            left = assets.FRAME_DEPTH + assets.BUTTON_OFFSET
+            top = (assets.TITLE_HEIGHT - assets.BUTTON_HEIGHT + 1) // 2
+            for y in range(top, top + assets.BUTTON_HEIGHT):
+                self.assertEqual(assets.corner(left, y, 'left', False, stroke), '.')
+                self.assertEqual(assets.corner(assets.CORNER_SIZE - 1 - left, y, 'right', False, stroke), '.')
+        self.assertIn(f'button_offset={assets.BUTTON_OFFSET}\n', frames['themerc'])
 
     def test_panel_and_toolbar_icon_names_are_present(self):
         files = assets.icon_files()

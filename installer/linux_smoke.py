@@ -9,7 +9,9 @@ import subprocess
 import sys
 import tempfile
 import time
+from unittest.mock import patch
 
+import helper
 import install
 
 if os.environ.get('GITHUB_ACTIONS') != 'true':
@@ -67,9 +69,11 @@ try:
     window.new_tab(); second=window.current
     spin(lambda: bool(second.shell_pid))
     spin(lambda: module.cwd_for(second)==str(target))
+    assert window.book.get_current_page()==1, 'New tab did not become active'
     window.split(Gtk.Orientation.HORIZONTAL)
     third=window.current
     spin(lambda: bool(third.shell_pid))
+    spin(lambda: bool(window.frame_separators.windows))
     assert len(window.terms)==3
     assert first.shell_pid!=second.shell_pid!=third.shell_pid
     marker=home/'pty-command-worked'
@@ -115,6 +119,20 @@ try:
         except subprocess.TimeoutExpired: return False
     spin(copied)
     third.feed_child(b'\x03')
+    window.split(Gtk.Orientation.VERTICAL)
+    fourth=window.current
+    spin(lambda: window.at_prompt(fourth))
+    second.grab_focus()
+    spin(lambda: window.current == second)
+    call('xdotool','key','ctrl+shift+b')
+    spin(lambda: fourth not in window.terms)
+    assert window.current == second and third in window.terms and first in window.terms
+    call('xdotool','key','ctrl+shift+b')
+    spin(lambda: third not in window.terms)
+    spin(lambda: not window.frame_separators.windows)
+    call('xdotool','key','ctrl+shift+b')  # One pane in this tab: do nothing.
+    spin(lambda: window.current == second)
+    assert len(window.terms)==2 and window.book.get_n_pages()==2
     # Native Thunar process, composited RGBA visual and theme CSS loaded on new windows.
     wid=call('xdotool','getactivewindow')
     call('wmctrl','-ir',hex(int(wid)),'-b','add,maximized_vert,maximized_horz')
@@ -131,6 +149,14 @@ try:
     assert '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'), 'Holding Down minimized after restoring'
     subprocess.run([sys.executable,str(DATA_HELPER),'down'],check=True,timeout=2)
     spin(lambda: '_NET_WM_STATE_HIDDEN' in call('xprop','-id',wid,'_NET_WM_STATE'))
+    desktop=call('xdotool','search','--onlyvisible','--class','^Xfdesktop$').splitlines()[-1]
+    # A minimal Xvfb session may leave _NET_ACTIVE_WINDOW empty after all apps minimize.
+    # Supply the real desktop window ID and keep all subsequent X11 calls real.
+    output=helper.output
+    with patch.object(helper,'output',side_effect=lambda args: desktop if args==['xdotool','getactivewindow'] else output(args)):
+        for _ in range(3):
+            helper.down()
+    assert 'Map State: IsViewable' in call('xwininfo','-id',desktop)
     call('wmctrl','-ia',hex(int(wid)))
     spin(lambda: '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'))
     children.append(subprocess.Popen(['thunar',str(home)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
@@ -153,6 +179,13 @@ try:
     alpha=(x.XGetPixel(image,0,0)>>24)&255
     x.XDestroyImage(image); x.XCloseDisplay(display)
     assert 195 <= alpha <= 213, f'Expected 80% local background alpha, got {alpha}/255'
+    display=x.XOpenDisplay(None)
+    image=x.XGetImage(display,int(wid),window.get_allocated_width()-28,window.get_allocated_height()-45,
+                      1,1,ctypes.c_ulong(-1).value,2)
+    assert image, 'Could not read native terminal background pixel'
+    alpha=(x.XGetPixel(image,0,0)>>24)&255
+    x.XDestroyImage(image); x.XCloseDisplay(display)
+    assert 225 <= alpha <= 234, f'Expected 90% local terminal background alpha, got {alpha}/255'
     # Export only the disposable CI desktop, never a user screenshot.
     end=time.monotonic()+.3
     while time.monotonic()<end:
@@ -179,7 +212,7 @@ try:
     journal=json.loads((data/'installed.json').read_text())
     install.restore(journal['backup'])
     assert (home/'.zshrc').read_text()=='export ARCH_PRESERVED=yes\n'
-    print('PASS: Arch/Xfwm settings, backup/restore, GTK/VTE, real PTYs, independent split, same-CWD tab, Ctrl+C safety, SIGINT, ZLE selection, clipboard, native RGBA Thunar.')
+    print('PASS: Arch/Xfwm, backup/restore, PTYs, split and undo shortcuts, tabs, desktop-safe Super+Down, Ctrl+C, SIGINT, ZLE, clipboard, RGBA Thunar.')
 finally:
     for process in children:
         process.terminate()

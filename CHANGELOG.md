@@ -1,3 +1,10 @@
+# v1.2.2
+
+- Terminal ve Thunar başlık düğmeleri oval köşelerin içine alındı.
+- Terminalin lacivert zemini, camgöbeği istemi ve beyaz imleci son görsele göre ayarlandı. Terminal zemini %90 opak ve ortak dış kontur #3D98D7.
+- Dikey terminal ayıracı alt çerçeveye uzatıldı. Ctrl+Shift+B geçerli sekmede son açılan bölmeyi kapatır.
+- Super+Aşağı yalnız uygulama pencerelerini küçültür ve masaüstü ile üst panel görünür kalır.
+
 # v1.2.1
 
 - Üst panel için çizgisel sistem, pano, bildirim, ses ve ağ simgeleri. Kayıt göstergesi kayıt sırasında görünür ve Ekran Kaydı Arch menüsünden açılır.

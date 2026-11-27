@@ -26,8 +26,10 @@ def down():
         except BlockingIOError: return
         wid = output(['xdotool','getactivewindow'])
         if not wid.isdigit(): return
-        prop = output(['xprop','-id',wid,'_NET_WM_STATE'])
-        if '_NET_WM_STATE_MAXIMIZED_' in prop:
+        properties = output(['xprop', '-id', wid, '_NET_WM_WINDOW_TYPE', '_NET_WM_STATE'])
+        if any(f'_NET_WM_WINDOW_TYPE_{kind}' in properties for kind in ('DESKTOP', 'DOCK')):
+            return
+        if '_NET_WM_STATE_MAXIMIZED_' in properties:
             subprocess.run(['wmctrl','-ir',hex(int(wid)),'-b','remove,maximized_vert,maximized_horz'],check=True)
         else: subprocess.run(['xdotool','windowminimize',wid],check=True)
         # Query the actual X keymap, no arbitrary debounce delay used as key-release evidence.

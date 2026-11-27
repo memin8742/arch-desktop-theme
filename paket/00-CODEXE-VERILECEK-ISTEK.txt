@@ -1,4 +1,4 @@
-﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.2.1
+﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.2.2
 
 SON GÖRÜNÜM: Terminal ve Thunarda mevcut koyu lacivert renk korunur; zemin
 opaklığı %80, saydamlık %20dir. Yazı/ikon/grafik/düğmeleri soldurma. Dış çerçeve
@@ -15,11 +15,11 @@ kuralları kullanıcı tarafından onaylandı; kurulumda uygulanacak son tercihl
 CODEXE GÖNDERİLECEK METİN
 ZIPi çıkardığın bu klasörü Codexte çalışma klasörü aç, aşağıdaki metni gönder:
 
-Bu klasördeki v1.2.1 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
+Bu klasördeki v1.2.2 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
 
 Önce 00-CODEXE-VERILECEK-ISTEK.txt ve 04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Bütün görselleri açıp dosyalarda belirtilen kapsamlarında incele: 01/02 duvar kâğıdı ve masaüstü, 03 terminalin dışı ve zemin rengi, 05/06 açılış ve giriş/kilit, 07 bölme çizgileri, 08/09 terminal yazıları, 10 batarya menüsü ve 11 Thunar görünümü.
 
-Kesin font, renk, kısayol ve davranışlarda JSON dosyasını esas al. Terminal iki satırlı Zsh istemini kullansın; user@makine, parantezler, bağlantılar ve $ onaylı istem mavisi #49AEE6 olarak kalsın. Başarısız komutlarda isteme ek çarpı/sayı rozeti koyma. Thunar onaylı görseldeki gibi açılsın. Terminal ve Thunarın mevcut lacivert zemin rengini koru; zeminleri %80 opak, yazı/simgeleri tam opak olsun. Dış çerçeve tonu/ışığı 11deki gibi dar/yumuşak ve her kenar/köşede eşit, bölme çizgileri ince ve üçgensiz olsun. Ev modu %55 başlangıç/%80 duruş, Seyahat geçici %100 olsun; donanım desteğini doğrula.
+Kesin font, renk, kısayol ve davranışlarda JSON dosyasını esas al. Terminalde iki satırlı Zsh istemi kullan. Kimlik, parantezler, bağlantılar ve $ camgöbeği #00FFFF olsun. Başarısız komutlarda isteme ek rozet koyma. Terminalin lacivert zemini %90, Thunar'ın lacivert zemini %80 ve yazı/simgeler tam opak olsun. Oval çerçeve ve ışık tüm kenarlarda ince ve eşit, bölücüler ince ve üçgensiz olsun. Ev modu %55 başlangıç ve %80 duruş, Seyahat geçici %100 olsun. Donanım desteğini doğrula.
 
 Önce mevcut masaüstü, terminal, donanım ve ölçeklendirmeyi incele; değiştireceğin ayarları yedekle. Ardından gerekli bileşenleri kurup paketteki bütün özellikleri işlevsel olarak uygula. Görsellerdeki örnek komutları otomatik çalıştırma; gerçek kullanıcı, dosya ve sistem bilgilerini kullan.
 
@@ -31,12 +31,11 @@ GÖRÜNÜM
 - Terminal dışı 03teki gibi: yuvarlak dört köşe, ince mavi kontur, sade lacivert
   başlık, normal küçült/büyüt/kapat düğmeleri ve ince başlık ayırıcı. Dış çerçeve
   tonu/ışığı 11deki Thunar dış çevresi gibi olsun: doygun mavi ince kontur
-  ve dar/yumuşak mavi hale dört kenar ve köşede eşit dağılsın. Kontur #0AA6F0;
+  ve dar/yumuşak mavi hale dört kenar ve köşede eşit dağılsın. Kontur #3D98D7.
   sayısal ışık başlangıç değerlerini JSONdan alıp gerçek görünümü 11 ile eşleştir.
   Yerel parlak noktalar, beyaz sıçramalar, pahlı köşe veya süs şeritleri ekleme.
-  Terminal VE Thunarın mevcut koyu lacivert rengi korunsun: #041321 temel zemin,
-  %80 zemin opaklığı/%20 saydamlık. Duvar kâğıdı hafifçe görünsün. Bu değeri tüm
-  pencereye/ebeveyne uygulama: yazı, simge, imleç, grafik ve düğmeler tam opak.
+  Terminalin #041223 zemini %90, Thunar'ın #041321 zemini %80 opak olsun.
+  Duvar kâğıdı hafifçe görünsün. Yazı, simge, imleç, grafik ve düğmeler tam opak.
   Gerçek alpha/compositor desteğini doğrula; pencere hareketinde alttaki görüntü
   değişsin. İçeriğe sabit duvar kâğıdı/logo resmi basma. Varsayılan blur ekleme.
   Tek başlık; tek sekmede gizlenebilen, çok sekmede erişilebilir sekme çubuğu.
@@ -47,18 +46,18 @@ GÖRÜNÜM
   parlamasız, düz uçlu ve sade artı kesişimli olsun. Üçgen/ok/çentik uçlar yok.
   Uçları iç kenara bağla; farklı DPIye uyarla. Görünür çizgiyi kalınlaştırmadan
   yeterli sürükleme alanı sağla. 07 yalnız çizgi geometrisi; 08 bölünmüş kullanım.
-  Varsayılan tek bölüm; Ctrl+Shift+R yan yana, Ctrl+Shift+D üst üste bölsün.
+  Varsayılan tek bölüm. Ctrl+Shift+R yan yana, Ctrl+Shift+D üst üste böler.
+  Ctrl+Shift+B geçerli sekmede son açılan bölmeyi kapatır.
   Bağımsız PTY/güncel dizin devralma/odak/sürükleme ve yalnız bölümü kapatma
-  çalışsın. Bölücünün %40ı ile zeminin %80ini karıştırma; metin/grafikler tam opak.
+  çalışsın. Bölücünün %40 opaklığı ayrı bir katmana aittir ve içerik tam opaktır.
 - Yazılarda önceki açık tercihimiz korunur: Fira Code Regular/Bold 10 pt, Kali-Dark
   metin/ANSI renkleri ve Kali Zsh renklendirmesi; JSON kesin değerleri içerir.
-  Zemin %80 opak lacivert kalır. Görseldeki sistem bilgileri ve sayılar örnektir.
+  Terminal zemini %90 opak laciverttir. Görseldeki sistem bilgileri ve sayılar örnektir.
   Gerçek kullanıcı@makine ve güncel dizini gösteren iki satırlı istem kullan:
   ┌──(user@archlinux)-[~/Projeler/merhaba]
   └─$
   user@makine metni @ dahil kalın; parantezler, bağlantılar ve $ ile aynı
-  onaylı istem mavisi #49AEE6 olarak kalsın. Dış kontur ışığı değişikliği
-  yazılara veya #49AEE6/%40 iç bölücülere uygulanmasın. Dizin metni beyaz/kalın. Yazılar tam opak, parlamasız.
+  camgöbeği #00FFFF olsun. Dizin metni beyaz ve kalın, bölücüler #49AEE6 ve %40 opak.
   Git bilgisi yok. Bilinmeyen komut beyaz/altı çizili; tanınmadığı için kırmızı değil.
 - Etkin/pasif pencere için JSONdaki ortak_pencere_stili.odak_vurgusu uygulanır:
   etkin pencere kullanıcının seçtiği Thunar gibi ince mavi çerçeveli olsun.
@@ -66,8 +65,8 @@ GÖRÜNÜM
   Etkini kalınlaştırma; pasifi koyu griye çevirme veya ışığını söndürme.
   02de sağdaki Thunar etkin, soldaki terminal pasiftir; bunları
   sabit uygulama kuralı yapma. Tıklama/Alt+Tab/panel/çalışma alanı/modal geçişinde
-  vurgu doğru pencereye ve yalnız ilgili panel simgesine taşınsın. Zemin %80 ve
-  yazı/ikon/grafik %100 kalır; pasif pencereye genel karartma/opacity uygulama.
+  vurgu doğru pencereye ve yalnız ilgili panel simgesine taşınsın. Yazı, simge
+  ve grafikler odağa bakılmaksızın %100 opak kalsın.
   Her durumun kendi çevresinde eşit ışık; sürekli animasyon/yanıp sönme yok.
 - Görev çubuğu üstte ve 02'nin son hali gibi: tam genişlik, kesik eğimli uçlar,
   Thunarın çerçevesi gibi tek mavi #0AA6F0 alt çizgi ve hafif/yumuşak eşit ışık.

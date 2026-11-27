@@ -2,7 +2,7 @@ https://github.com/memin8742/arch-desktop-theme reposunu bu Arch Linux bilgisaya
 
 Repo zaten mevcutsa önce yerel değişiklikleri koruyarak güncelle. README.md, AGENTS.md ve KURULUM.md dosyalarını; ardından paket/00-CODEXE-VERILECEK-ISTEK.txt ile paket/04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Paket görsellerini belirtilen kapsamlarında açıp incele ve python3 tools/package.py check ile bütünlüğü doğrula. Kesin font, renk, kısayol ve davranışlarda JSON esas olsun.
 
-Önce gerçek masaüstü, terminal, donanım ve ölçeklendirmeyi incele, değişecek ayarları yedekle. Sonra gerekli bileşenleri kurup görünümü ve tüm işlevleri gerçek oturumda uygula ve test et. Terminal/Thunar zeminleri %80 opak; yazı ve simgeler net/tam opak, çerçeve ışığı eşit ve hafif, bölücüler ince ve üçgensiz olsun. Mevcut lacivert renkleri ve duvar kâğıdındaki logonun boyut/konumunu koru.
+Önce gerçek masaüstü, terminal, donanım ve ölçeklendirmeyi incele. Ayarları yedekledikten sonra bileşenleri kur ve gerçek oturumda test et. Terminalin lacivert zemini %90, Thunar'ın lacivert zemini %80 opak olsun. Yazı ve simgeler tam opak, çerçeve ışığı eşit ve hafif, bölücüler ince ve üçgensiz olsun. Duvar kâğıdındaki logonun boyutunu ve konumunu koru.
 
 Hedef Xfce/X11 ise repodaki kur.sh / installer aracını ve KOLAY-KURULUM.txt dosyasını da incele. Araç temel kurulumu yedekleyerek uygular; feature_report() içindeki bekleyen ayrıntıları kurulmuş sayma. Önce aracı kullan, sonra yalnız eksik ayrıntıları gerçek sistemde tamamlayıp test et. Başka masaüstüne geçirme.
 

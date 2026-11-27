@@ -284,7 +284,7 @@ def install(home=None):
     try:
         restart_panel = panel_stop()
         config = json.loads((ROOT / 'paket/04-ayarlar-ve-ozellikler.json').read_text(encoding='utf-8-sig'))
-        for name in ['terminal.py', 'helper.py', 'theme.zsh']:
+        for name in ['terminal.py', 'frame_separators.py', 'helper.py', 'theme.zsh']:
             tx.write(data / name, (ROOT / 'installer' / name).read_bytes())
         tx.write(data / 'design.json', json.dumps(config, ensure_ascii=False))
         tx.write(data / 'wallpaper.png', (ROOT / 'paket/01-duvar-kagidi.png').read_bytes())
@@ -377,7 +377,7 @@ def install(home=None):
 def feature_report():
     return [
         {'feature':'Masaüstü, Xfwm çerçevesi, üst panel, Thunar koyu tema','status':'configured','detail':'Yerel Xfce/GTK ayarları; birebir görsel kabulü hedef ekranda yapılmalı.'},
-        {'feature':'Terminal, Zsh renkleri, iki satır istem, bölmeler, arama, kopyalama','status':'configured','detail':'Gerçek VTE/PTTY; zemin alfa 0.8, yazı opak. Shift seçimi yalnız düzenlenen Zsh komut satırındadır.'},
+        {'feature':'Terminal, Zsh renkleri, iki satır istem, bölmeler, arama, kopyalama','status':'configured','detail':'VTE ve bağımsız PTY. Zemin alfa 0.9 ve yazı tam opak. Shift seçimi düzenlenen Zsh komut satırında çalışır.'},
         {'feature':'Metin ve görsel pano geçmişi','status':'configured','detail':'CopyQ, Başlat+V; geçmiş dışa aktarılmaz.'},
         {'feature':'Thunar %80 yalnız zemin saydamlığı','status':'configured','detail':'Thunar 4.20+ RGBA görseli ve GTK zemin alfa; yazı ve simgelerde genel pencere opaklığı yok. Birleştirici açıkken yeni açılan pencerelerde uygulanır.'},
         {'feature':'Açılış ve giriş ekranı','status':'optional','detail':'Sistem menüsü, desteklenen systemd-boot/mkinitcpio ve LightDM kurulumuna ayrı Arch Blue açılışı ve greeter teması ekler.'},

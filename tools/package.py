@@ -24,7 +24,7 @@ INSTALLER_FILES = {
     'kur.sh', 'KOLAY-KURULUM.txt', 'README.md', 'KURULUM.md', 'AGENTS.md',
     'CODEXE-VERILECEK-ISTEK.txt', 'CHANGELOG.md', 'VERSION', 'tools/package.py',
     'installer/install.py', 'installer/assets.py', 'installer/terminal.py',
-    'installer/helper.py', 'installer/theme.zsh', 'installer/test_installer.py',
+    'installer/frame_separators.py', 'installer/helper.py', 'installer/theme.zsh', 'installer/test_installer.py',
     'installer/linux_smoke.py', 'installer/desktop.py', 'installer/system.py',
     'installer/root_terminal.py', 'installer/icons.py',
     'installer/runtime/arch-network.py', 'installer/runtime/arch-record.py',
@@ -66,8 +66,9 @@ def inputs():
     config = read_json(BUNDLE / CONFIG)
     text = (BUNDLE / INSTRUCTIONS).read_text(encoding='utf-8-sig')
     require('\ufffd' not in text + json.dumps(config, ensure_ascii=False), 'Bozuk UTF-8 karakteri var.')
-    require(len(config['kisayollar']) == 27, '27 kısayol korunmalı.')
-    require(len({row['tus'] for row in config['kisayollar']}) == 27, 'Yinelenen kısayol var.')
+    shortcuts = {row['tus'] for row in config['kisayollar']}
+    require(len(config['kisayollar']) == 28 and 'Ctrl+Shift+B' in shortcuts, '28 kısayol bulunmalı.')
+    require(len(shortcuts) == len(config['kisayollar']), 'Yinelenen kısayol var.')
     for name in config['guncel_gorseller'].values():
         require(name in EXPECTED and name.endswith('.png'), 'Geçersiz görsel referansı: ' + name)
     for name in re.findall(r'\b\d{2}-[a-z0-9-]+\.(?:txt|png|json|webp)\b', text):
@@ -112,13 +113,14 @@ def check():
     actual_images = {path.name: sha256(path) for path in sorted(BUNDLE.glob('*.png'))}
     require(config['gorsel_sha256'] == actual_images, 'Görsel özetleri uyuşmuyor; değişikliği inceleyin ve sync çalıştırın.')
     require(read_json(ROOT / 'manifest.json') == manifest(config), 'Manifest uyuşmuyor; değişikliği inceleyin ve sync çalıştırın.')
-    for appearance in [config['terminal']['zemin_saydamligi'], config['thunar']['dis_gorunum']['zemin_saydamligi']]:
-        require(appearance['opaklik'] == 0.8 and appearance['metin_opakligi'] == 1.0,
-                'Onaylı %80 zemin/tam opak metin kuralı değişti.')
+    for appearance, opacity in [(config['terminal']['zemin_saydamligi'], 0.9),
+                                (config['thunar']['dis_gorunum']['zemin_saydamligi'], 0.8)]:
+        require(appearance['opaklik'] == opacity and appearance['metin_opakligi'] == 1.0,
+                'Terminal ve Thunar için zemin opaklığı ya da tam opak metin ayarı değişti.')
     require(config['terminal']['bolmeler']['renk_ve_malzeme']['uc_ucgenleri'] is False, 'Üçgensiz bölücü kuralı değişti.')
     require(config['terminal']['istem']['git_bilgisi'] is False, 'Git istem modülü eklenmemeli.')
     require(config['terminal']['basarisiz_komut']['etkin'] is False, 'Hata rozeti eklenmemeli.')
-    print('Paket doğrulandı: v' + version() + ', 12 tasarım dosyası + Xfce kurulum aracı, 27 kısayol.')
+    print('Paket doğrulandı: v' + version() + ', 12 tasarım dosyası + Xfce kurulum aracı, 28 kısayol.')
     return config
 
 

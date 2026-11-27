@@ -2,7 +2,7 @@
 
 Koyu lacivert Arch masaüstü; üst görev çubuğu, Zsh terminali, Thunar, açılış ve kilit ekranı için onaylı tasarım ve kurulum tanımları.
 
-**v1.2.1** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
+**v1.2.2** mevcut **Arch Linux + Xfce + X11** oturumuna Arch Blue temasını kurar. Görsel kaynaklar `paket/`, kurulum kaynağı `installer/` dizinindedir.
 
 ![Terminal ve Thunar masaüstü önizlemesi](paket/02-onayli-masaustu.png)
 
@@ -29,14 +29,14 @@ bash kur.sh --check
 
 ## Tasarım ve özellikler
 
-- Terminal ve Thunar: mevcut koyu lacivert zemin, **%80 zemin opaklığı**, tam opak yazı/simgeler ve son seçilen Thunar görselindeki doygun mavi ince dış kontur ve dar/yumuşak, eşit ışık.
+- Terminalde lacivert zemin **%90 opak**, Thunar'da **%80 opak**. İkisinde de açık mavi oval kontur, yumuşak kenar ışığı ve tam opak yazı ve simgeler bulunur.
 - Etkin pencere Thunar gibi ince mavi çerçeve, diğer pencereler aynı çerçeveyi yalnız yaklaşık %10 daha soluk kullanır; vurgu gerçek klavye odağıyla yer değiştirir ve panelde ilgili uygulama simgesiyle eşleşir.
 - Terminal: Fira Code 10 pt, Zsh, iki satırlı dinamik dizin istemi, Kali temelli yazı/çıktı renkleri, geçmiş önerileri ve arama. İnce, yarı saydam, **üçgensiz** bölücüler ve bağımsız bölümler.
-- Üst panel: Thunar çerçevesi gibi ince, kesintisiz tek mavi `#0AA6F0` alt çizgi ve aynı mavi eğimli uçlar; hafif/eşit ışık, beyaz kenar parlaması yok. Açık uygulamalar yalnız kendi simgeleriyle gösterilir, isim/başlık/yol yazılmaz. Dört çalışma alanı, pano geçmişi, bildirimler ve açılır sistem/batarya kutuları korunur. Donanım verileri gerçek ölçülür.
+- Üst panelin alt çizgisi ve eğimli uçları ince `#0AA6F0` konturla birleşir. Açık uygulamalar yalnız kendi simgeleriyle gösterilir. Dört çalışma alanı, pano geçmişi, bildirimler ve açılır sistem/batarya kutuları bulunur. Donanım verileri gerçek ölçülür.
 - Onaylı kısayollar, seçim/kopyalama/yapıştırma davranışları, ekran görüntüsü/kaydı, tema dışa aktarma ve uzun işlem bildirimi.
 - Donanım destekliyorsa Ev şarj sınırları %55/%80, Seyahat geçici %100. Açılış, giriş ve gerçek oturum kilidi korunur.
 
-Kesin fontlar, renkler, bütün **27 kısayol**, işlevler ve kabul kontrolleri [`04-ayarlar-ve-ozellikler.json`](paket/04-ayarlar-ve-ozellikler.json) içindedir. Görseller tasarım önizlemesidir; içlerindeki örnek komutlar kurulum talimatı sayılmaz.
+Kesin fontlar, renkler, bütün **28 kısayol**, işlevler ve kabul kontrolleri [`04-ayarlar-ve-ozellikler.json`](paket/04-ayarlar-ve-ozellikler.json) içindedir. Görseller tasarım önizlemeleridir. `Ctrl+Shift+B` geçerli sekmede son açılan bölmeyi kapatır. Kısayolu güncellemeden sonra yeni açılan terminal pencerelerinde kullanabilirsiniz.
 
 ## Güncelleme ve sürümler
 

@@ -17,7 +17,7 @@
   },
   "terminal": {
     "dis_gorunum": "03teki yuvarlak dört köşe, sade lacivert başlık ve normal düğmeler; yaklaşık 1 px ince mavi çerçeve ve 11deki Thunar gibi yumuşak/eşit ışık. Gerçek odakta referans etkin görünüm, pasifken aynı kontur/ışık yalnız yaklaşık %10 azalır. Kalın/cyan neon etkin kontur veya çok koyu pasif kontur yok. ortak_pencere_stili.odak_vurgusu uygulanır.",
-    "varsayilan_konum": "02/03 gibi solda üst panelin altında; logo boyut/konumu korunur. 02de Thunar da açıktır; bu örnek yerleşim her açılışta zorunlu çift pencere veya bölünmüş terminal değildir. Gerçek DPI/ekrana uyarla.",
+    "varsayilan_konum": "02/03 gibi solda üst panelin altında; logo boyut/konumu korunur. 02de Thunar da açıktır; bu örnek yerleşim her açılışta zorunlu çift pencere veya bölünmüş terminal değildir. Gerçek DPI/ekrana uyarla. Yeni terminal, çalışma alanı genişliğinin yaklaşık %58ini kullanır.",
     "menu_ve_sekmeler": "Tek başlık; sabit menü satırı yok. Gerekirse açılır menü. Tek sekmede gizlenebilen, çok sekmede erişilebilir aynı temalı sekme çubuğu.",
     "font": {
       "family_source_value": "FiraCode",
@@ -48,7 +48,7 @@
       "#05A1F7",
       "#FFFFFF"
     ],
-    "zemin": "Mevcut koyu lacivert renk korunur; ortak_pencere_stili.zemin: #041321 temel kaplama ve 0.80 zemin opaklığı (0.20 saydamlık). Arka plandaki gerçek duvar kâğıdı hafif görünür. Fira Code/ANSI/istem/çıktı ve imleç tam opak/parlamasız; tüm pencereye opacity uygulanmaz. Sabit iç diyagonal desen veya kopya logo ekleme.",
+    "zemin": "Son terminal referansından örneklenen #041223 lacivert. Gerçek masaüstü %10 saydamlıkla görünür ve metinler tam opaktır.",
     "metin_efekti": "Neon/parlama yok.",
     "kabuk": "Zsh",
     "eklentiler": [
@@ -108,11 +108,11 @@
     "istem": {
       "ornek": "┌──(user@archlinux)-[~/Projeler/merhaba]\n└─$ ",
       "kurallar": "Gerçek kullanıcı@makine; boşluksuz -[güncel dizin]. Ana dizin ~, dışı tam yol. İki satır ve @ korunur; dinamik dizin. Git dalı/depo durumu yok.",
-      "renk_ve_kalinlik": "user@makine metninin tamamı @ dahil, ┌──/└─ bağlantıları, (, ), -, [, ] ve $ önceden onaylı istem mavisi #49AEE6 tonunda. Kimlik kalın; köşeli parantezin içindeki güncel dizin #FFFFFF/kalın. Bu metinler tam opak ve parlamasızdır; bölme çizgisinin %40 opaklığı metinlere uygulanmaz. Root # ayırt ediciliği korunur. Son dış çerçeve ışığı düzeltmesi bu yazı renklerini değiştirmez.",
+      "renk_ve_kalinlik": "Kimlik, parantezler, bağlı çizgiler ve $ son terminal referansından örneklenen #00FFFF tonunda. Kimlik ve beyaz dizin kalın, metin tam opak. Root için # kullanılır.",
       "git_bilgisi": false,
       "kesin_renkler": {
-        "kullanici_makine_ve_at": "#49AEE6",
-        "parantez_baglanti_cizgileri_ve_dolar": "#49AEE6",
+        "kullanici_makine_ve_at": "#00FFFF",
+        "parantez_baglanti_cizgileri_ve_dolar": "#00FFFF",
         "guncel_dizin_metni": "#FFFFFF",
         "kullanici_makine_kalin": true,
         "tum_kimlik_tek_renk": true,
@@ -141,7 +141,8 @@
       ],
       "kisayollar": {
         "Ctrl+Shift+R": "Yan yana iki bölüm",
-        "Ctrl+Shift+D": "Üst üste iki bölüm"
+        "Ctrl+Shift+D": "Üst üste iki bölüm",
+        "Ctrl+Shift+B": "Geçerli sekmede son açılan bölmeyi kapat"
       },
       "kaynak": "Bu iki terminal içi kısayol resmi Kali qterminal.ini içindeki split atamalarıyla uyumludur; mevcut kullanıcı tuşlarıyla çakışma kontrolü yapılır.",
       "kesin_gorsel": "07-bolme-cizgileri-referansi.png",
@@ -167,7 +168,7 @@
           2
         ],
         "not": "07 son onaylı ince ve üçgensiz çizgi geometrisidir. Referans çözünürlükte yaklaşık 2 px; DPIye göre orantıla. Çizgi sade artı kesişimi ve parlamasız yarı saydam mavi. Dar görünür çizgiye ek olarak görünmez geniş sürükleme hedefi kullanılabilir; ayırıcıyı kullanmak zorlaşmasın.",
-        "dis_kabuktan_ayrim": "07 yalnız bölme çizgilerinin kalınlık/renk/opaklık/düz uçları içindir. Terminalin %80 saydam lacivert zemini ve genel görünümü 03/08/09 ile ortak_pencere_stili tanımlar; yazı RGB/fontları JSONdan uygulanır."
+        "dis_kabuktan_ayrim": "İç bölücü rengi ve opaklığı pencere zemini ve dış çerçeveden bağımsızdır."
       },
       "oturumlar": "Her bölüm bağımsız PTY/kabuk, işlem, kaydırma geçmişi ve odak taşır. Yeni bölüm etkin bölümün güncel dizininde aynı Zsh/profille açılır; diğer oturumları yeniden başlatmaz.",
       "islev": "Bölüm kapatma yalnız o bölümü etkiler. Son bölüm için uygulamanın pencere/sekme davranışı doğru korunur. Arama/kopyala/yapıştır/kesme/seçim odaktaki bölümde çalışır.",
@@ -179,7 +180,7 @@
         "opaklik": 0.4,
         "parlama": false,
         "uc_ucgenleri": false,
-        "uygulama": "Bölücü çizginin %40 opaklığı yalnız çizgi katmanına aittir; zemininki ayrı %80dir. Metin/grafikler tam opak, dış ışık 11deki gibidir. İç ayırıcı parlamasız kalır; hover/odakla kalın veya beyaz neon yapma. Üçgen/ok uçları çizme.",
+        "uygulama": "İç ayırıcı parlamasız ve düz. Dikey çizgi alt çerçevenin iç kenarına kadar uzanır.",
         "referans": "07-bolme-cizgileri-referansi.png"
       }
     },
@@ -219,8 +220,8 @@
       "onaylandi": true,
       "tarih": "2026-11-26",
       "kapsam": [
-        "Onaylı mavi #49AEE6 kullanıcı@makine",
-        "Aynı istem mavisi #49AEE6 parantez/bağlantı/$",
+        "Camgöbeği #00FFFF kullanıcı@makine",
+        "Camgöbeği #00FFFF parantez/bağlantı/$",
         "Beyaz dizin metni",
         "Dosya türleri ve Tab listesi",
         "INFO/OK/WARN/ERROR",
@@ -232,7 +233,7 @@
         "onaylandi": true,
         "tarih": "2026-11-26",
         "gorsel": "09-dosya-log-renk-ornekleri.png",
-        "kural": "user@makine, parantezler, bağlı çizgiler ve $ aynı onaylı istem mavisi #49AEE6; dizin beyaz. 27 Kasım dış kontur/ışık değişikliği metinlere uygulanmaz.",
+        "kural": "Kimlik, bağlı çizgiler, parantezler ve istem işareti #00FFFF, dizin beyaz. ANSI ve iç bölücü renkleri ayrı ayarlanır.",
         "ek_duzeltme": "Kullanıcının sonraki isteğiyle istemde başarısız komut rozeti kaldırıldı."
       }
     },
@@ -256,28 +257,28 @@
       ],
       "uyarlama": "03teki sade/yuvarlak dış kabuk; 11deki son onaylı dış çerçeve tonu/ışığı ve ortak_pencere_stili.dis_kontur_ve_hale. 01deki logo ve 02deki yerleşim korunur. DPIye göre uyarla; başlık/içerik kesilmesin, yerel parlak noktalar oluşmasın.",
       "islev": "Gerçek sürükleme, kenar/köşeden boyutlandırma, küçültme, büyütme/geri yükleme, kapatma, sekmeler ve bölmeler çalışır; sabit resim bindirerek taklit edilmez.",
-      "ortak_mavi_ana_ton": "#0AA6F0"
+      "ortak_mavi_ana_ton": "#3D98D7"
     },
     "zemin_saydamligi": {
-      "renk": "#041321",
-      "renk_kurali": "Mevcut koyu lacivert/cam görünümü korunur. Bu temel renk, son önizlemelerde kullanılan navy kaplamadır; sonradan denenmiş farklı lacivert ton benimsenmedi.",
-      "opaklik": 0.8,
-      "saydamlik": 0.2,
+      "renk": "#041223",
+      "renk_kurali": "Lacivert, son terminal referansından örneklendi. Opaklık görsel karşılaştırmayla %90 seçildi.",
+      "opaklik": 0.9,
+      "saydamlik": 0.1,
       "rgba": [
         4,
-        19,
-        33,
-        0.8
+        18,
+        35,
+        0.9
       ],
-      "kapsam": "Terminalin içerik zemini; Thunarın dosya alanı, yan çubuk, menü/araç/durum çubuğunun zemin katmanları. Başlık ve normal pencere düğmelerinin onaylı görünümü korunur.",
+      "kapsam": "Terminalin içerik zemini.",
       "metin_opakligi": 1.0,
       "simge_opakligi": 1.0,
       "tum_pencere_opakligi": 1.0,
-      "ayri_katmanlar": "Metin, imleç, simge, grafik ve odak/seçim göstergeleri soluklaştırılmaz. Çerçeve ışığı ve bölücü çizgi kendi katmanında kalır. Genel pencere/ebeveyn opacitysini %80e düşürerek taklit etme.",
+      "ayri_katmanlar": "Metin, imleç, simgeler ve seçim göstergeleri tam opak.",
       "bulaniklastirma_varsayilan": false,
-      "aktif_pasif": "Odak değişiminde zemin opaklığı %80, metin/simge/grafikler ve tüm pencere opaklığı %100 kalır. Yalnız dış çerçeve/ışık etkin-pasif durumuna göre ortak_pencere_stili.odak_vurgusu ile değişir; genel pencere soldurma/karartma yok.",
+      "aktif_pasif": "Odak değişiminde terminal zemini %90, metin ve simgeler %100 opak kalır.",
       "gercek_saydamlik": "Gerçek alpha/compositor kullanılır; terminalin veya Thunarın içine sabit duvar kâğıdı/logo resmi basılmaz. Pencere sürüklenince altta kalan görüntü doğru değişir; her bölmenin arkasında aynı masaüstü devam eder.",
-      "uygulama": "Gerçek terminal/GTK/WM ve X11/Wayland yeteneklerini keşfet. Yalnız zemin için alpha desteğini kullan; zemin ve metin katmanlarını ayıramayan bir uygulamada körlemesine tüm pencereyi soldurma. Destek yoksa elde edilen görünümü ve sınırlamayı bildir; uygulanmadığı halde %80 yapıldı deme."
+      "uygulama": "VTE zemin alfayı gerçek masaüstü üzerinde birleştirir."
     }
   },
   "ust_gorev_cubugu": {
@@ -404,7 +405,7 @@
     {
       "tus": "Super+Down",
       "kapsam": "genel",
-      "islev": "Büyükse eski normal boyut/konuma dön; normaldeyse üst görev çubuğuna küçült"
+      "islev": "Uygulama büyükse eski boyutuna döndür, normal boyuttaysa üst görev çubuğuna küçült. Masaüstü ve paneli açık tut."
     },
     {
       "tus": "Super+Left / Super+Right",
@@ -505,6 +506,11 @@
       "tus": "Ctrl+Shift+D",
       "kapsam": "terminal",
       "islev": "Etkin bölümü üst üste iki bağımsız bölüme ayır"
+    },
+    {
+      "tus": "Ctrl+Shift+B",
+      "kapsam": "terminal",
+      "islev": "Geçerli sekmede son açılan bölmeyi kapat. Ön planda çalışan iş varsa onay iste."
     }
   ],
   "tus_uygulama_kurallari": [
@@ -585,18 +591,18 @@
   "dogrulama_ekleri": [
     "Tek/yan yana/üst üste/2x2 düzeni, odak, sürükleyerek boyutlandırma, kapatma, farklı dizinler/PTY, sekme ve kısayollar.",
     "07deki ince düz/üçgensiz bölme çizgileri ve DPI; görünmez yeterli sürükleme hedefi, bağımsız PTY ve gerçek boyutlandırma.",
-    "Tüm user@makine kimliği, parantez/bağlantı çizgileri ve $ aynı onaylı istem mavisi #49AEE6; dizin beyaz, kimlik kalın, @ sonrası renk reseti yok.",
+    "Tüm user@makine kimliği, parantez/bağlantı çizgileri ve $ aynı onaylı istem rengi #00FFFF; dizin beyaz, kimlik kalın, @ sonrası renk reseti yok.",
     "Geçici dizin, çalıştırma izni olan/olmayan dosya, sembolik ve kırık bağ, Tab listesi; izin/uzantı ayrımı.",
     "Native color=auto TTY/pipeline kontrolü, log seviyeleri, grep eşleşmesi, gerçek exit status/TTY/stderr ve mevcut kopyala/seçim/arama işlevleri.",
     "Batarya popupı, gerçek eşik desteği ve geri okuma, Ev %55/%80, geçici %100 ve tüm iptal/otomatik geri dönüş yolları; donanımda denenmeyenleri açık raporla.",
-    "03/11deki yuvarlak dış kabuk/sade başlık; 11de seçilen doygun mavi dış kontur ve dar/yumuşak eşit ışık, 02de iki pencereye birlikte uygulanır. Terminal/Thunar zemini ayrı katmanda %80; yazı/simge/grafikler tam opak. Pencere hareketinde gerçek arka plan değişir.",
-    "07/08 bölücüler yaklaşık 2 px, #49AEE6/%40 yerel opaklık/parlamasız; düz uç ve sade artı. Hiçbir uçta üçgen/ok/dekorasyon yok; yazı/font/renkler ve zemin %80 ayrı korunur.",
+    "03/11deki yuvarlak dış kabuk/sade başlık; 11de seçilen doygun mavi dış kontur ve dar/yumuşak eşit ışık, 02de iki pencereye birlikte uygulanır. Terminal zemini %90 ve Thunar zemini %80; yazı/simge/grafikler tam opak. Pencere hareketinde gerçek arka plan değişir.",
+    "07/08 bölücüler yaklaşık 2 px, #49AEE6/%40 yerel opaklık/parlamasız; düz uç ve sade artı. Hiçbir uçta üçgen/ok/dekorasyon yok; yazı/font/renkler ve zemin ayrı korunur.",
     "Yanlış/başarısız komut sonrası istemde ek çarpı veya sayısal durum rozeti yok; programın hata çıktısı, gerçek çıkış kodu ve bilinmeyen komut beyaz/altı çizili stili korunur.",
     "Onaylı 11 Thunar görünümü, yerel dosya işlemleri/tuşlar, gerçek dizinler/yer imleri, DPI ve diğer uygulamalara etki kontrolü.",
-    "Farklı koyu/açık arka planla terminal ve Thunarda %80 zemin opaklığını, net metin/simgeleri, kenar/köşe ışığının eşitliğini ve odak/yeniden boyutlandırmayı gerçek oturumda doğrula.",
+    "Farklı koyu/açık arka planla terminalde %90 ve Thunarda %80 zemin opaklığını, net metin/simgeleri, kenar/köşe ışığının eşitliğini ve odak/yeniden boyutlandırmayı gerçek oturumda doğrula.",
     "Üst panel alt çizgisi ve iki eğimli uç tek #0AA6F0 kontur, hafif/eşit mavi ışık; beyaz/gümüş uç veya farklı tonlu parça yok. Açık uygulamalar yalnız simge; hover ipucu, odak/alta alma/geri getirme, çoklu pencere grubu ve dar alanda taşma gerçek oturumda doğrulanır.",
-    "Etkin pencerenin ince Thunar çerçevesi, pasifken aynı yapı/tonun yalnız yaklaşık %10 azalması; %80 zemin ve net içerik korunur. İstem #49AEE6, iç bölücüler #49AEE6/%40 ve yalnız uygulama simgeleri korunur; panel alt çizgisi Thunar çerçevesi gibi #0AA6F0/hafif eşit ışıklıdır.",
-    "Üç veya daha fazla pencerede odak/Alt+Tab/panel/çalışma alanı/modal geçişleri: etkin pencere Thunar referansı gibi ince mavi çerçeveli, pasifler aynı yapıda ve aynı tonda yalnız yaklaşık %10 daha soluk. Etkin kontur kalınlaşmaz; pasif ışık büyük ölçüde sönmez. İçerik/yazı/ikonlar ve %80 zemin değişmez. Doğru simge/grup vurgusu, kapatma/küçültme sonrası eski odak kalmaması ve panelin uçtan uca aynı #0AA6F0/hafif eşit mavi ışığı gerçek oturumda doğrulanır.",
+    "Etkin pencerenin ince Thunar çerçevesi, pasifken aynı yapı/tonun yalnız yaklaşık %10 azalması; pencereye özel zemin ve net içerik korunur. İstem #00FFFF, iç bölücüler #49AEE6/%40 ve yalnız uygulama simgeleri korunur; panel alt çizgisi #0AA6F0/hafif eşit ışıklıdır.",
+    "Üç veya daha fazla pencerede odak/Alt+Tab/panel/çalışma alanı/modal geçişleri: etkin pencere Thunar referansı gibi ince mavi çerçeveli, pasifler aynı yapıda ve aynı tonda yalnız yaklaşık %10 daha soluk. Etkin kontur kalınlaşmaz; pasif ışık büyük ölçüde sönmez. İçerik/yazı/ikonlar ve pencerenin zemin opaklığı odakla değişmez. Doğru simge/grup vurgusu, kapatma/küçültme sonrası eski odak kalmaması ve panelin uçtan uca aynı #0AA6F0/hafif eşit mavi ışığı gerçek oturumda doğrulanır.",
     "Panelin sağ üst eğimli ucu özellikle %100/%125/%150 ölçek ve farklı panel genişliklerinde yakından kontrol edilir. Sağ ucun üstteki son noktasından yatay alt çizgiye birleşimine kadar kesinti, renk/kalınlık değişimi, çentik veya beyaz uç yok; tek_parca_kontur uygulanır. PNG örneğinin üretken kenar yumuşatma farklarını gerçek panelde hata olarak kopyalama."
   ],
   "batarya_sarj_korumasi": {
@@ -790,13 +796,13 @@
     }
   },
   "ortak_pencere_stili": {
-    "onay": "27 Kasım 2026 son kullanıcı tercihi: etkin pencerenin dış çerçevesi seçilen Thunar gibi ince mavi ve yumuşak/eşit ışıklıdır. Pasif pencere aynı yapıda ve aynı tonda kalır; yalnız çerçeve/ışık yaklaşık %10 daha soluk. Kalın veya aşırı parlak etkin kontur ve çok koyu pasif kontur kullanılmaz. 02de Thunar etkin, terminal pasiftir; roller gerçek odakla değişir. %80 lacivert zemin, tam opak içerik ve önceki yazı/bölücü renkleri korunur.",
+    "onay": "Etkin ve pasif pencereler aynı ince oval konturu kullanır. Pasif vurgu yaklaşık %10 azalır. Terminal zemini %90, Thunar zemini %80 ve içerik %100 opak.",
     "gorsel_referanslar": [
       "02-onayli-masaustu.png",
       "03-terminal-detayi.png",
       "11-thunar-dosya-yoneticisi.png"
     ],
-    "cerceve_ana_tonu": "#0AA6F0",
+    "cerceve_ana_tonu": "#3D98D7",
     "cerceve_isigi": "11deki Thunar gibi ince mavi kontur ve dar/yumuşak, dört kenar/köşede eşit ışık etkin pencerenin temelidir. Etkin pencere bu referansa göre ayrıca kalınlaştırılmaz/parlatılmaz. Pasif pencerenin çerçevesi aynı genişlik/tonda, yalnız yaklaşık %10 daha soluk olur; kesin iki durum odak_vurgusu içinde. Beyaz çekirdek/sıçrama, yerel parlak nokta ve aşırı neon yok.",
     "statik_isik": true,
     "zemin": {
@@ -810,7 +816,7 @@
         33,
         0.8
       ],
-      "kapsam": "Terminalin içerik zemini; Thunarın dosya alanı, yan çubuk, menü/araç/durum çubuğunun zemin katmanları. Başlık ve normal pencere düğmelerinin onaylı görünümü korunur.",
+      "kapsam": "Thunar dosya alanı, yan çubuk, menü, araç ve durum çubukları. Terminal kendi zemin_saydamligi değerini kullanır.",
       "metin_opakligi": 1.0,
       "simge_opakligi": 1.0,
       "tum_pencere_opakligi": 1.0,
@@ -822,12 +828,12 @@
     },
     "dis_kontur_ve_hale": {
       "kesin_gorsel_referans": "11-thunar-dosya-yoneticisi.png",
-      "referans_kapsami": "Yalnız Thunar penceresinin dış kenarı ve çevresindeki ışık; kullanıcı bu görseldeki tonu/ışığı seçti. Başlık, iç ayırıcı veya üst panel ışığı değildir.",
-      "kontur_renk": "#0AA6F0",
+      "referans_kapsami": "Oval çerçeve ve yumuşak ışık için önceki Thunar örneği, dış konturun mavi tonu için son terminal görseli.",
+      "kontur_renk": "#3D98D7",
       "kontur_rgb": [
-        10,
-        166,
-        240
+        61,
+        152,
+        215
       ],
       "kontur_opaklik": 1.0,
       "kontur_yaklasik_px": 1,
@@ -844,7 +850,7 @@
       "esit_dagilim": true,
       "beyaz_parlak_nokta": false,
       "animasyon": false,
-      "kapsam": "Terminal ve Thunar dış kontur/hale katmanı. Tam opak istem #49AEE6, bölücü #49AEE6/%40, ANSI ve dosya/log renkleri aynen korunur. Panel alt çizgisi #0AA6F0 ve tanımlı hafif/eşit mavi ışıklı ve açık uygulama simge düzeni değişmez.",
+      "kapsam": "Terminal ve Thunar dış kontur/hale katmanı. Üst panelin alt konturu #0AA6F0.",
       "durum_kapsami": "Etkin pencerenin onaylı renk ve yumuşak ışık temeli. Etkin/pasif genişlik ve ışık şiddeti odak_vurgusu içindedir. 03/11 tek pencere etkin görünüm referansları; 02 iki durumun birlikte örneğidir."
     },
     "odak_vurgusu": {
@@ -854,7 +860,7 @@
       "kapsam": "Terminal, Thunar ve temaya dahil diğer normal uygulama pencereleri; editör/tarayıcı gibi uygulamalarda gerçek WM/uygulama dekorasyonu yeteneklerine uyarla. Arayüzü veya uygulamanın işlevini değiştirme; desteklenmeyen dekorasyon ayrımını bildir.",
       "odak_kaynagi": "Pencere yöneticisinin gerçek klavye odağı/etkin pencere durumu. Sabit uygulama adı, son açılan pencere, hover veya son fare konumu ile tahmin etme. Var olan odak/öne getirme politikasını değiştirme.",
       "etkin_pencere": {
-        "kontur_renk": "#0AA6F0",
+        "kontur_renk": "#3D98D7",
         "kontur_opaklik": 1.0,
         "kontur_yaklasik_px": 1,
         "hale_renk": "#0878D1",
@@ -864,7 +870,7 @@
         "kural": "Kullanıcının seçtiği Thunar gibi yaklaşık 1 px ince mavi kontur ve yumuşak/eşit ışık. Etkin pencereyi kalınlaştırarak veya fazladan parlatıp cyan/neon şeride dönüştürerek vurgulama; referans görünüm zaten etkin durumdur."
       },
       "pasif_pencere": {
-        "kontur_renk": "#0AA6F0",
+        "kontur_renk": "#3D98D7",
         "kontur_opaklik": 0.9,
         "kontur_yaklasik_px": 1,
         "hale_renk": "#0878D1",
@@ -874,13 +880,14 @@
         "kural": "Etkin pencereyle aynı ince kontur, aynı mavi ve aynı ışık genişliği. Yalnız çerçeve/ışık katmanında yaklaşık %10 azalma: kontur alpha 0.90, hale 0.65×0.90=0.585. Pasif pencereyi koyu gri/lacivert kontura çevirme veya ışığını büyük ölçüde söndürme. İçerik/yazı/ikonlar ve genel pencere opaklığı değişmez."
       },
       "icerik_sabit": {
-        "terminal_ve_thunar_zemin_opakligi": 0.8,
         "metin_simge_grafik_opakligi": 1.0,
         "tum_pencere_opakligi": 1.0,
         "pasif_pencereyi_genel_karart": false,
         "yazi_renklerini_degistir": false,
         "bolucu_cizgilerini_degistir": false,
-        "diger_uygulamalar": "Mevcut içerik opaklıklarını koru; terminal/Thunar %80 kuralını diğer uygulamalara kendiliğinden yayma."
+        "diger_uygulamalar": "Mevcut içerik opaklıklarını koru; terminal/Thunar %80 kuralını diğer uygulamalara kendiliğinden yayma.",
+        "terminal_zemin_opakligi": 0.9,
+        "thunar_zemin_opakligi": 0.8
       },
       "gecis": "Tıklama, Alt+Tab, panel simgesi, çalışma alanı ve modal pencere odak değişikliklerinde doğru pencereyi güncelle. Odak durumu değişince vurgu yer değiştirir; sürekli animasyon, yanıp sönme veya nabız efekti yok.",
       "modal_ve_menuler": "Klavye odağı olan dekore modal pencere belirginleşir; arkasındaki normal pencere pasif olur. Menü/tooltip gibi geçici yüzeyler için WMnin sahip pencere/odak semantiğini koru; iki bağımsız normal pencereyi aynı anda etkin gösterme.",
@@ -889,7 +896,7 @@
       "pasif_cerceve_isik_orani": 0.9
     }
   },
-  "yayin_surumu": "1.2.1",
+  "yayin_surumu": "1.2.2",
   "xfce_kurulum_araci": {
     "giris": "kur.sh",
     "rehber": "KOLAY-KURULUM.txt",

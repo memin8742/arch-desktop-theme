@@ -12,8 +12,11 @@ from urllib.parse import unquote, urlparse
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
+gi.require_version('GdkX11', '3.0')
 gi.require_version('Vte', '2.91')
-from gi.repository import Gdk, Gio, GLib, Gtk, Pango, Vte
+from gi.repository import Gdk, GdkX11, Gio, GLib, Gtk, Pango, Vte
+
+from frame_separators import FrameSeparators
 
 DATA = Path(__file__).resolve().parent
 DESIGN = json.loads((DATA / 'design.json').read_text(encoding='utf-8'))
@@ -44,7 +47,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
         display = self.get_display()
         monitor = display.get_primary_monitor() or display.get_monitor(0)
         area = monitor.get_workarea()
-        self.set_default_size(max(370, int(area.width * .37)), max(280, int(area.height * .72)))
+        self.set_default_size(max(370, int(area.width * .58)), max(280, int(area.height * .77)))
         self.get_style_context().add_class('arch-terminal')
         screen = self.get_screen()
         visual = screen.get_rgba_visual()
@@ -52,6 +55,8 @@ class TerminalWindow(Gtk.ApplicationWindow):
         self.set_app_paintable(True)
         self.current = None
         self.terms = []
+        self.frame_separators = FrameSeparators() if isinstance(display, GdkX11.X11Display) else None
+        self.separator_update = None
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         root.get_style_context().add_class('arch-root')
         self.add(root)
@@ -70,9 +75,12 @@ class TerminalWindow(Gtk.ApplicationWindow):
         self.book.set_show_border(False)
         self.book.connect('switch-page', self.page_changed)
         root.pack_start(self.book, True, True, 0)
+        self.connect('map-event', self.schedule_separators)
+        self.connect('window-state-event', self.schedule_separators)
+        self.connect('size-allocate', self.schedule_separators)
         self.connect('key-press-event', self.key)
         self.connect('delete-event', self.close_requested)
-        self.connect('destroy', lambda _: [self.stop_term(t) for t in list(self.terms)])
+        self.connect('destroy', self.stop)
         self.new_tab(str(Path.cwd()))
         self.show_all()
         self.search.hide()
@@ -86,11 +94,12 @@ class TerminalWindow(Gtk.ApplicationWindow):
         term.set_font(Pango.FontDescription('Fira Code 10'))
         if self.get_allocated_width() >= 600 or self.get_default_size()[0] >= 600:
             term.set_font_scale(1.15)
-        term.set_colors(colour('#FFFFFF'), colour('#041321', .8),
+        background = DESIGN['terminal']['zemin_saydamligi']
+        term.set_colors(colour('#FFFFFF'), colour(background['renk'], background['opaklik']),
                         [colour(c) for c in DESIGN['terminal']['ansi_0_15']])
         term.set_color_bold(colour('#FFFFFF'))
-        term.set_color_cursor(colour('#49AEE6'))
-        term.set_color_cursor_foreground(colour('#041321'))
+        term.set_color_cursor(colour('#FFFFFF'))
+        term.set_color_cursor_foreground(colour(background['renk']))
         term.set_cursor_blink_mode(Vte.CursorBlinkMode.OFF)
         term.set_color_highlight(colour('#125279'))
         term.set_color_highlight_foreground(colour('#FFFFFF'))
@@ -103,6 +112,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
         term.set_search_wrap_around(True) if hasattr(term, 'set_search_wrap_around') else term.search_set_wrap_around(True)
         term.set_mouse_autohide(True)
         term.shell_pid = None
+        term.spawn_cancellable = Gio.Cancellable()
         term.arch_search_text = None
         term.connect('focus-in-event', self.focus_term)
         term.connect('window-title-changed', self.title_changed)
@@ -111,13 +121,19 @@ class TerminalWindow(Gtk.ApplicationWindow):
         env = dict(os.environ, ARCH_THEME_TERMINAL='1', ARCH_THEME_WINDOW_PID=str(os.getpid()), TERM='xterm-256color', COLORTERM='truecolor')
         env['PATH'] = str(Path.home()/'.local/bin') + os.pathsep + env.get('PATH','/usr/bin:/bin')
         # Inherit environment (including DBus) but no commands from preview screenshots.
+        self.terms.append(term)
         term.spawn_async(Vte.PtyFlags.DEFAULT, cwd, ['/bin/zsh', '-i'],
             [k+'='+v for k,v in env.items()], GLib.SpawnFlags.DEFAULT,
-            None, None, -1, None, self.spawned, None)
-        self.terms.append(term)
+            None, None, -1, term.spawn_cancellable, self.spawned, None)
         return term
 
     def spawned(self, term, pid, error, *unused):
+        if term is None: return
+        if term not in self.terms:
+            if pid > 0:
+                try: os.kill(pid, signal.SIGHUP)
+                except ProcessLookupError: pass
+            return
         if error:
             term.feed(('Zsh başlatılamadı: '+str(error)+'\r\n').encode())
         else: term.shell_pid = pid
@@ -140,9 +156,9 @@ class TerminalWindow(Gtk.ApplicationWindow):
         label.pack_end(close, False, False, 0)
         self.book.append_page(page, label)
         self.book.set_tab_reorderable(page, True)
-        self.book.set_current_page(self.book.page_num(page))
-        self.book.set_show_tabs(self.book.get_n_pages() > 1)
         page.show_all(); label.show_all()
+        self.book.set_show_tabs(self.book.get_n_pages() > 1)
+        self.book.set_current_page(self.book.page_num(page))
         self.current = term
         term.grab_focus()
 
@@ -154,6 +170,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
         is_first = isinstance(parent, Gtk.Paned) and parent.get_child1() == old
         parent.remove(old)
         pane = Gtk.Paned(orientation=orientation)
+        pane.connect('size-allocate', self.schedule_separators)
         if isinstance(parent, Gtk.Paned):
             (parent.pack1 if is_first else parent.pack2)(pane, True, False)
         else: parent.pack_start(pane, True, True, 0)
@@ -161,10 +178,47 @@ class TerminalWindow(Gtk.ApplicationWindow):
         pane.pack1(old, True, False); pane.pack2(new, True, False)
         pane.show_all()
         def balance():
+            if pane.get_parent() is None: return False
             size = pane.get_allocated_width() if orientation == Gtk.Orientation.HORIZONTAL else pane.get_allocated_height()
             pane.set_position(max(1, size//2)); return False
         GLib.idle_add(balance)
         self.current = new; new.grab_focus()
+
+    def schedule_separators(self, *unused):
+        if self.frame_separators and self.separator_update is None:
+            self.separator_update = GLib.idle_add(self.sync_separators)
+        return False
+
+    def sync_separators(self):
+        self.separator_update = None
+        if not self.get_mapped(): return False
+        page = self.book.get_nth_page(self.book.get_current_page())
+        end = page.translate_coordinates(self, 0, page.get_allocated_height()) if page else None
+        separators = list(self.bottom_separators(page, end[1])) if end else []
+        self.frame_separators.sync(self.get_window().get_xid(), separators)
+        return False
+
+    def bottom_separators(self, widget, bottom):
+        if isinstance(widget, Gtk.Paned) and widget.get_orientation() == Gtk.Orientation.HORIZONTAL:
+            first, second = widget.get_child1(), widget.get_child2()
+            if first and second:
+                end = first.translate_coordinates(self, first.get_allocated_width(), first.get_allocated_height())
+                start = second.translate_coordinates(self, 0, 0)
+                if end and start and end[1] == bottom and start[0] > end[0]:
+                    yield end[0], end[1], start[0] - end[0]
+        if isinstance(widget, Gtk.Container):
+            for child in widget.get_children():
+                yield from self.bottom_separators(child, bottom)
+
+    def close_last_split(self):
+        page = self.book.get_nth_page(self.book.get_current_page())
+        terms = self.descendants(page)
+        if len(terms) < 2: return
+        last = next(term for term in reversed(self.terms) if term in terms)
+        if last.shell_pid and not self.at_prompt(last):
+            if not self.confirm('Son bölmede çalışan bir iş var. Bölme kapatılsın mı?'): return
+        if last in self.terms:
+            self.remove_term(last)
 
     def focus_term(self, term, event):
         self.current = term
@@ -174,13 +228,19 @@ class TerminalWindow(Gtk.ApplicationWindow):
     def title_changed(self, term):
         if term == self.current:
             directory = cwd_for(term).replace(str(Path.home()), '~', 1)
-            self.set_title('zsh: '+directory)
+            self.set_title('zsh '+directory)
 
     def page_changed(self, book, page, number):
+        self.schedule_separators()
         terms = self.descendants(page)
         if terms:
-            self.current = terms[0]
-            GLib.idle_add(self.current.grab_focus)
+            term = terms[0]
+            self.current = term
+            def focus_current():
+                if self.current == term and book.get_nth_page(book.get_current_page()) == page:
+                    term.grab_focus()
+                return False
+            GLib.idle_add(focus_current)
 
     def descendants(self, widget):
         if isinstance(widget, Vte.Terminal): return [widget]
@@ -207,28 +267,49 @@ class TerminalWindow(Gtk.ApplicationWindow):
 
     def stop_term(self, term):
         if term in self.terms: self.terms.remove(term)
+        term.spawn_cancellable.cancel()
         try:
             if term.shell_pid: os.kill(term.shell_pid, signal.SIGHUP)
         except ProcessLookupError: pass
 
+    def stop(self, *unused):
+        if self.separator_update is not None:
+            GLib.source_remove(self.separator_update)
+            self.separator_update = None
+        if self.frame_separators:
+            self.frame_separators.close()
+            self.frame_separators = None
+        for term in list(self.terms):
+            self.stop_term(term)
+
     def exited(self, term, status):
         term.shell_pid = None
-        if term not in self.terms: return
-        self.terms.remove(term)
+        if term in self.terms:
+            self.remove_term(term)
+
+    def remove_term(self, term):
+        had_focus = term == self.current
+        if had_focus: self.current = None
+        self.stop_term(term)
         parent = term.get_parent()
         if isinstance(parent, Gtk.Paned):
             sibling = parent.get_child2() if parent.get_child1() == term else parent.get_child1()
             outer = parent.get_parent()
             is_first = isinstance(outer, Gtk.Paned) and outer.get_child1() == parent
             parent.remove(sibling); outer.remove(parent)
+            parent.destroy()
             if isinstance(outer, Gtk.Paned): (outer.pack1 if is_first else outer.pack2)(sibling, True, False)
             else: outer.pack_start(sibling, True, True, 0)
             sibling.show_all()
             candidates = self.descendants(sibling)
-            if candidates: self.current = candidates[0]; self.current.grab_focus()
+            if had_focus:
+                self.current = candidates[0]
+            if self.current in candidates:
+                self.current.grab_focus()
         else:
             self.book.remove_page(self.book.page_num(parent))
             self.book.set_show_tabs(self.book.get_n_pages() > 1)
+        self.schedule_separators()
         if not self.terms: self.destroy()
 
     def search_changed(self, *unused):
@@ -283,7 +364,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
         # Do not steal entry editing shortcuts from the search box.
         if self.entry.has_focus(): return False
         if not term: return False
-        if alt and not ctrl and key == 't': self.new_tab(); return True
+        if alt and not ctrl and key == 't': GLib.idle_add(self.new_tab); return True
         if ctrl and key == 'c':
             if shift: term.feed_child(b'\x03')
             else: self.copy(term)
@@ -294,7 +375,11 @@ class TerminalWindow(Gtk.ApplicationWindow):
             return True
         if ctrl and shift and key == 'f': self.search.show_all(); self.entry.grab_focus(); return True
         if ctrl and shift and key in ['r','d']:
-            self.split(Gtk.Orientation.HORIZONTAL if key == 'r' else Gtk.Orientation.VERTICAL); return True
+            GLib.idle_add(self.split, Gtk.Orientation.HORIZONTAL if key == 'r' else Gtk.Orientation.VERTICAL)
+            return True
+        if ctrl and shift and not alt and key == 'b':
+            GLib.idle_add(self.close_last_split)
+            return True
         if shift and key in ['left','right','up','down'] and self.at_prompt(term):
             code = {'up':'A','down':'B','right':'C','left':'D'}[key]
             term.feed_child(('\x1b[1;'+('6' if ctrl else '2')+code).encode()); return True

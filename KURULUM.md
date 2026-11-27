@@ -37,10 +37,10 @@ Gerekli bileşenleri gerçek Arch paket kaynakları ve kurulu sürümlerle doğr
 - Üst panelin alt çizgisi ve eğimli uçları Thunarın ince mavi çerçevesi gibi aynı tek renk `#0AA6F0` ve hafif/eşit ışıklı olsun; aqua/yeşil kayma, kesinti, beyaz/gümüş uç veya aşırı parlama ekleme. Orta bölümde açık uygulamalar yalnız kendi logolarını gösterir; uygulama adı, pencere başlığı veya dizin yolu yazılmaz. Adlar fareyle üzerine gelince ipucunda gösterilir; odak/alta alma/geri getirme ve çoklu pencere erişimi korunur.
 - Panel alt çizgisi/uçları `tek_parca_kontur` gibi aynı yoldan çizilir. Özellikle sağ üst eğimli ucun üst noktasında ve yatay çizgiyle birleşiminde kesinti, çentik, farklı ton veya clip hatası olmadığını farklı ölçeklerde kontrol et.
 - Terminal dışı `03`, ince ve üçgensiz bölücüler `07/08`, dosya/log ve istem renkleri `08/09`. Fira Code 10 pt ve JSON'daki kesin RGB değerleri uygulanır.
-- Terminal ve Thunar zeminleri %80 opak; metin/simge/grafikler tam opak. Genel pencere soldurması veya içerikte sabit logo resmiyle taklit yok. Dış kontur tonu/ışığı `11`deki son seçilmiş doygun mavi ve dar/yumuşak hale gibi; tüm kenar/köşelerde eşit. `ortak_pencere_stili.dis_kontur_ve_hale` uygulanır. Önceden onaylı istem/çıktı ve iç bölücü renklerini bu düzeltmeyle değiştirme.
+- Terminal zemini %90, Thunar zemini %80 opaktır. Metin, simge ve grafikler tam opaktır. `ortak_pencere_stili.dis_kontur_ve_hale` içindeki mavi ton ve yumuşak hale tüm kenarlara ve oval köşelere uygulanır.
 - `ortak_pencere_stili.odak_vurgusu`: etkin pencere Thunar referansı gibi ince mavi çerçeveli, pasifler aynı yapı ve tonda yalnız yaklaşık %10 daha soluktur; kalın etkin veya çok koyu pasif kontur oluşturma. Tıklama/Alt+Tab/panel/çalışma alanı/modal değişiminde vurgu doğru pencereye ve yalnız ilgili uygulama simgesine geçer. Metin/ikon/içerik opaklığını bununla değiştirme; eşit ışığı her pencerenin kendi çevresinde koru.
 - Thunar `11` gibi gerçek dosyalarla çalışır. Açılış ve giriş/kilit `05/06`; batarya kutusu `10`.
-- Bütün 27 kısayol, bölmeler/sekmeler, geçmiş/arama, Windows benzeri seçim, pano, bildirim/kayıt/dışa aktarma işlevleri uygulanır.
+- Bütün 28 kısayol, bölmeler/sekmeler, geçmiş/arama, Windows benzeri seçim, pano, bildirim/kayıt/dışa aktarma işlevleri uygulanır.
 - Sistem sensörleri/VRAM ve şarj eşikleri gerçek donanım yetenekleriyle doğrulanır; desteklenmeyen özellik için sahte başarı gösterilmez.
 
 ## Kontrol ve teslim
