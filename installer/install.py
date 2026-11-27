@@ -5,6 +5,7 @@ import datetime
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -19,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = 'arch-desktop-theme'
 PACKAGES = ['python-gobject', 'vte3', 'zsh', 'zsh-syntax-highlighting',
             'zsh-autosuggestions', 'ttf-fira-code', 'picom', 'xclip', 'wmctrl',
-            'xorg-xprop', 'xdotool', 'libnotify', 'xfce4-screensaver',
+            'xorg-xprop', 'xorg-xrandr', 'xdotool', 'libnotify', 'xfce4-screensaver',
             'xfce4-screenshooter', 'xfce4-whiskermenu-plugin', 'xfce4-pulseaudio-plugin',
             'xfce4-power-manager', 'copyq', 'papirus-icon-theme', 'fastfetch', 'grc', 'tree']
 BEGIN, END = '# BEGIN ARCH-DESKTOP-THEME', '# END ARCH-DESKTOP-THEME'
@@ -247,9 +248,17 @@ def install(home=None):
         tx.xf('xsettings','/Net/IconThemeName','string','Papirus-Dark')
         tx.xf('thunar','/misc-use-csd','bool',False)
         desktop_props = run(['xfconf-query','-c','xfce4-desktop','-l']).stdout.splitlines()
-        wallpapers = [p for p in desktop_props if p.endswith('/last-image')]
+        wallpapers = {p for p in desktop_props if p.endswith('/last-image')}
+        # Fresh Xfce can use a default backdrop without having written any properties.
+        # Actual XRandR connector names are also the Xfdesktop monitor identifiers.
+        for line in run(['xrandr','--query']).stdout.splitlines():
+            found = re.match(r'^([A-Za-z0-9_.:-]+) connected\b',line)
+            if found:
+                screen = os.environ.get('DISPLAY',':0').partition('.')[2] or '0'
+                if not screen.isdigit(): screen = '0'
+                wallpapers.update(f'/backdrop/screen{screen}/monitor{found.group(1)}/workspace{n}/last-image' for n in range(4))
         if not wallpapers: raise RuntimeError('Xfdesktop duvar kâğıdı alanı bulunamadı. Masaüstü ayarlarını bir kez açıp yeniden deneyin.')
-        for prop in wallpapers:
+        for prop in sorted(wallpapers):
             tx.xf('xfce4-desktop',prop,'string',str(data/'wallpaper.png'))
             tx.xf('xfce4-desktop',prop.rsplit('/',1)[0]+'/image-style','int',5)
         configure_panel(tx, home)

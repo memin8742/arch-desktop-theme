@@ -23,6 +23,7 @@ logs=[]
 home=Path.home()
 try:
     call('dbus-update-activation-environment','DISPLAY','XAUTHORITY','XDG_CURRENT_DESKTOP','XDG_SESSION_TYPE')
+    xf('xfce4-panel','/configver','int',2)
     # A known, minimal panel fixture, not a user's existing live panel.
     call('xfconf-query','-c','xfce4-panel','-p','/panels','-n','-a','-t','int','-s','1')
     call('xfconf-query','-c','xfce4-panel','-p','/panels/panel-1/plugin-ids','-n','-a','-t','int','-s','1')

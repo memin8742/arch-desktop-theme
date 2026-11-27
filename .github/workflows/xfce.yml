@@ -16,7 +16,7 @@ jobs:
         run: >-
           pacman -Syu --noconfirm --needed git python python-gobject vte3 zsh
           zsh-syntax-highlighting zsh-autosuggestions ttf-fira-code picom xclip wmctrl
-          xorg-xprop xdotool libnotify xfce4-screensaver xfce4-screenshooter
+          xorg-xprop xorg-xrandr xdotool libnotify xfce4-screensaver xfce4-screenshooter
           xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-power-manager
           copyq papirus-icon-theme fastfetch grc tree xfwm4 xfconf xfce4-panel
           xfdesktop thunar xfce4-settings xorg-server-xvfb xorg-xauth xorg-xwininfo dbus sudo
