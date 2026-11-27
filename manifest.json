@@ -1,27 +1,27 @@
 {
-  "release_version": "1.0.1",
+  "release_version": "1.0.2",
   "source_definition_version": 29,
   "bundle_directory": "paket",
   "files": {
     "00-CODEXE-VERILECEK-ISTEK.txt": {
-      "bytes": 12612,
-      "sha256": "5db7dd893d6713ba154100246ac6793b57a3e96df4f6569da1fab04e9fdf2548"
+      "bytes": 13071,
+      "sha256": "a52d756e345ff161728992a56c5d0e6c34c2bbbba5f196ec5bd0a2466974a12d"
     },
     "01-duvar-kagidi.png": {
       "bytes": 1665410,
       "sha256": "299b94d4cb4c4a535b3627f847033cfe055d879cf803ec6549d460485f8853ff"
     },
     "02-onayli-masaustu.png": {
-      "bytes": 1642459,
-      "sha256": "2aa9c6345b1f4974983252f2b67f516362595f6186a4e3007438e8bbc1d2432f"
+      "bytes": 1648308,
+      "sha256": "e09aec397a5d58ffe1def83954a96ba27c8d137d8d925c4bfd820ebd07d1c63e"
     },
     "03-terminal-detayi.png": {
-      "bytes": 1537473,
-      "sha256": "49b81c6c6f0ccbd1ee0c07c50d968787b95cd41364ad892def03de2d96470045"
+      "bytes": 1570998,
+      "sha256": "419f7d35ad3b1c0ae16c6a27a40156fa5ad3e9cc886a2176e6c5ecaf464d0b84"
     },
     "04-ayarlar-ve-ozellikler.json": {
-      "bytes": 58700,
-      "sha256": "b8c2943c3831c7b3805b8edac8817ca344e1386ab1a1842335c7ce43ac656439"
+      "bytes": 61581,
+      "sha256": "4ed31334d3351e77ee03d9e40260ba5e3076eb4b4dd22f0cc450eea3d389aaf7"
     },
     "05-acilis-ekrani.png": {
       "bytes": 1440716,

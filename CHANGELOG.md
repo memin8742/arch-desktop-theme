@@ -1,5 +1,12 @@
 # Değişiklikler
 
+## v1.0.2 — 2026-11-27
+
+- Terminal ve Thunar dış çerçeve rengi/ışığı, kullanıcının seçtiği Thunar referansına bağlandı: doygun mavi ince kontur, dar/yumuşak ve eşit mavi hale. Sayısal uygulama başlangıç değerleri ve karşılaştırma kapsamı eklendi.
+- Birlikte masaüstü ve tek terminal önizlemeleri eşleştirildi; Thunarın seçilen çerçevesi korundu. 08/09 yalnız terminal içi renk/kullanım referansıdır.
+- Tek terminal önizlemesinin üst panel kenarlarında kalan beyaz/gümüş çizgi parçaları da giderildi; güncel masaüstü/terminal/Thunar önizlemelerinde alt kontur denetlendi.
+- %80 lacivert zemin, bütün yazı/istem renkleri, iç bölücüler, simgeli/parlamasız üst panel, 27 kısayol ve diğer işlevler korundu.
+
 ## v1.0.1 — 2026-11-27
 
 - Üst görev çubuğunun alt çizgisi masaüstüne uyumlu tek renk mavi `#237DB5` olarak tanımlandı; aqua renk kaymaları ve uçlardaki beyaz parlamalar kaldırıldı.

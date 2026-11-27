@@ -1,8 +1,9 @@
-﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0.1
+﻿ARCH MASAÜSTÜ — SADE KURULUM TARİFİ v1.0.2
 
 SON GÖRÜNÜM: Terminal ve Thunarda mevcut koyu lacivert renk korunur; zemin
 opaklığı %80, saydamlık %20dir. Yazı/ikon/grafik/düğmeleri soldurma. Dış çerçeve
-ışığı hafif kısılmış ve tüm kenar/köşelerde eşit olsun. Bölücüler ince ve üçgensiz.
+rengi/ışığı 11deki son seçilmiş mavi dış kontur ve dar/yumuşak hale gibi,
+tüm kenar/köşelerde eşit olsun. Bölücüler ince ve üçgensiz.
 02 birlikte masaüstünü, 03 terminali, 11 Thunarı gösterir. Kesin kurallar JSONda.
 
 ONAYLI RENKLER: 08/09 görsellerindeki renk düzeni ve JSON içindeki kesin renk
@@ -11,11 +12,11 @@ kuralları kullanıcı tarafından onaylandı; kurulumda uygulanacak son tercihl
 CODEXE GÖNDERİLECEK METİN
 ZIPi çıkardığın bu klasörü Codexte çalışma klasörü aç, aşağıdaki metni gönder:
 
-Bu klasördeki v1.0.1 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
+Bu klasördeki v1.0.2 referans paketini kullanarak mevcut Arch Linux bilgisayarımın masaüstünü kişiselleştir.
 
 Önce 00-CODEXE-VERILECEK-ISTEK.txt ve 04-ayarlar-ve-ozellikler.json dosyalarını tamamen oku. Bütün görselleri açıp dosyalarda belirtilen kapsamlarında incele: 01/02 duvar kâğıdı ve masaüstü, 03 terminalin dışı ve zemin rengi, 05/06 açılış ve giriş/kilit, 07 bölme çizgileri, 08/09 terminal yazıları, 10 batarya menüsü ve 11 Thunar görünümü.
 
-Kesin font, renk, kısayol ve davranışlarda JSON dosyasını esas al. Terminal iki satırlı Zsh istemini kullansın; user@makine, parantezler, bağlantılar ve $ çerçeve mavisi olsun. Başarısız komutlarda isteme ek çarpı/sayı rozeti koyma. Thunar onaylı görseldeki gibi açılsın. Terminal ve Thunarın mevcut lacivert zemin rengini koru; zeminleri %80 opak, yazı/simgeleri tam opak olsun. Çerçeve ışığı her kenar/köşede hafif ve eşit, bölme çizgileri ince ve üçgensiz olsun. Ev modu %55 başlangıç/%80 duruş, Seyahat geçici %100 olsun; donanım desteğini doğrula.
+Kesin font, renk, kısayol ve davranışlarda JSON dosyasını esas al. Terminal iki satırlı Zsh istemini kullansın; user@makine, parantezler, bağlantılar ve $ onaylı istem mavisi #49AEE6 olarak kalsın. Başarısız komutlarda isteme ek çarpı/sayı rozeti koyma. Thunar onaylı görseldeki gibi açılsın. Terminal ve Thunarın mevcut lacivert zemin rengini koru; zeminleri %80 opak, yazı/simgeleri tam opak olsun. Dış çerçeve tonu/ışığı 11deki gibi dar/yumuşak ve her kenar/köşede eşit, bölme çizgileri ince ve üçgensiz olsun. Ev modu %55 başlangıç/%80 duruş, Seyahat geçici %100 olsun; donanım desteğini doğrula.
 
 Önce mevcut masaüstü, terminal, donanım ve ölçeklendirmeyi incele; değiştireceğin ayarları yedekle. Ardından gerekli bileşenleri kurup paketteki bütün özellikleri işlevsel olarak uygula. Görsellerdeki örnek komutları otomatik çalıştırma; gerçek kullanıcı, dosya ve sistem bilgilerini kullan.
 
@@ -26,7 +27,9 @@ GÖRÜNÜM
   ve ayak yansımalarını koru. Açık terminalin yeri/boyutu 02'deki gibi, ölçeğe uyarlı.
 - Terminal dışı 03teki gibi: yuvarlak dört köşe, ince mavi kontur, sade lacivert
   başlık, normal küçült/büyüt/kapat düğmeleri ve ince başlık ayırıcı. Dış çerçeve
-  ışığı son onaylanan hafif kısılmış düzeyde; dört kenar ve köşede eşit dağılsın.
+  tonu/ışığı 11deki Thunar dış çevresi gibi olsun: doygun mavi ince kontur
+  ve dar/yumuşak mavi hale dört kenar ve köşede eşit dağılsın. Kontur #0AA6F0;
+  sayısal ışık başlangıç değerlerini JSONdan alıp gerçek görünümü 11 ile eşleştir.
   Yerel parlak noktalar, beyaz sıçramalar, pahlı köşe veya süs şeritleri ekleme.
   Terminal VE Thunarın mevcut koyu lacivert rengi korunsun: #041321 temel zemin,
   %80 zemin opaklığı/%20 saydamlık. Duvar kâğıdı hafifçe görünsün. Bu değeri tüm
@@ -51,7 +54,8 @@ GÖRÜNÜM
   ┌──(user@archlinux)-[~/Projeler/merhaba]
   └─$
   user@makine metni @ dahil kalın; parantezler, bağlantılar ve $ ile aynı
-  çerçeve mavisi #49AEE6 olsun. Dizin metni beyaz/kalın. Yazılar tam opak, parlamasız.
+  onaylı istem mavisi #49AEE6 olarak kalsın. Dış kontur ışığı değişikliği
+  yazılara veya #49AEE6/%40 iç bölücülere uygulanmasın. Dizin metni beyaz/kalın. Yazılar tam opak, parlamasız.
   Git bilgisi yok. Bilinmeyen komut beyaz/altı çizili; tanınmadığı için kırmızı değil.
 - Görev çubuğu üstte ve 02'nin son hali gibi: tam genişlik, kesik eğimli uçlar,
   tek renk mavi #237DB5 alt çizgi. Alt kontur ve iki uç aynı renkte, ince/kesintisiz
@@ -64,7 +68,8 @@ GÖRÜNÜM
   başlatıcılar, sistem/pano/bildirim simgeleri ve tepsi işlevleri korunur.
   Çok uygulamada taşma/gruplama çalışsın; açılır kutular aşağıya açılsın.
 - Thunar 11-thunar-dosya-yoneticisi.png gibi açılsın: terminalle aynı yuvarlak
-  köşe/ince mavi çerçeve/sade başlık, hafif EŞİT ışık ve %80 opak lacivert zemin. Mavi
+  köşe/ince mavi çerçeve/sade başlık; 11deki dış kontur tonu ve dar/yumuşak EŞİT
+  ışık ile %80 opak lacivert zemin. Mavi
   klasörler, beyaz adlar, yumuşak mavi seçim, menü/gezinti/konum/arama denetimleri,
   Yerler/Aygıtlar yan çubuğu ve gerçek durum çubuğu bulunsun. Son onaylı düzen korunsun.
   Super+E ve Dosyalar Thunarı açsın. İçerik/yollar/sayaçlar gerçek olsun; örnek
@@ -137,7 +142,8 @@ ezme; görünümü ve özel tuşları uyumlu birleştir. Fotoğraftaki komutlar�
 Pencere dekorasyonu, düğmeler, sürükleme, boyutlandırma, sekmeler ve görev çubuğu
 işlevsel olsun. Sabit resim bindirerek yapılmış gibi sunma. Her özelliği gerçek
 oturumda test et; teknik sınır varsa elde edilen sonucu ve sınırı açıkça bildir.
-Son kontrolde dış kabuk/zemini 03/11, birlikte yerleşimi 02 ile karşılaştır;
+Son kontrolde dış çerçeve tonu/ışığını 11, kabuk/zemini 03/11 ve birlikte
+yerleşimi 02 ile karşılaştır;
 %80 zemin/opaque metin ayrımını, eşit ışığı ve üçgensiz ince bölücüleri doğrula; Fira Code/10 pt, ANSI/stil,
 tüm kısayollar/seçim/pano, sistem verileri/kapalı yük, kayıt ve dışa aktarmayı doğrula.
 
