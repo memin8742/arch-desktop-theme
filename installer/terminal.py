@@ -93,6 +93,7 @@ class TerminalWindow(Gtk.ApplicationWindow):
         term.set_search_wrap_around(True) if hasattr(term, 'set_search_wrap_around') else term.search_set_wrap_around(True)
         term.set_mouse_autohide(True)
         term.shell_pid = None
+        term.arch_search_text = None
         term.connect('focus-in-event', self.focus_term)
         term.connect('window-title-changed', self.title_changed)
         term.connect('child-exited', self.exited)
@@ -223,8 +224,10 @@ class TerminalWindow(Gtk.ApplicationWindow):
     def search_changed(self, *unused):
         if not self.current: return
         text = self.entry.get_text()
+        if self.current.arch_search_text == text: return
         regex = Vte.Regex.new_for_search(re.escape(text), -1, 0x00000400) if text else None  # PCRE2_MULTILINE
         self.current.search_set_regex(regex, 0)
+        self.current.arch_search_text = text
 
     def next(self):
         if self.current: self.search_changed(); self.current.search_find_next()
@@ -234,7 +237,11 @@ class TerminalWindow(Gtk.ApplicationWindow):
 
     def hide_search(self):
         self.search.hide()
-        if self.current: self.current.grab_focus()
+        if self.current:
+            self.current.search_set_regex(None, 0)
+            self.current.arch_search_text = None
+            self.current.unselect_all()
+            self.current.grab_focus()
 
     def context_menu(self, term, event):
         if event.button != 3: return False

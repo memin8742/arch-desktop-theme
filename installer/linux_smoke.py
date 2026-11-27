@@ -102,6 +102,7 @@ try:
     window.entry.set_text('printf pasted')
     window.search_changed()
     assert third.search_find_previous(), 'Output search did not find real scrollback'
+    window.hide_search()
     # Real ZLE syntax, prompt colour, buffer selection and clipboard integration.
     third.feed_child(b'printf abcde')
     time.sleep(.1)
