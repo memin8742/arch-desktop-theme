@@ -19,7 +19,7 @@ jobs:
           xorg-xprop xdotool libnotify xfce4-screensaver xfce4-screenshooter
           xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-power-manager
           copyq papirus-icon-theme fastfetch grc tree xfwm4 xfconf xfce4-panel
-          xfdesktop thunar xorg-server-xvfb xorg-xauth xorg-xwininfo dbus sudo
+          xfdesktop thunar xfce4-settings xorg-server-xvfb xorg-xauth xorg-xwininfo dbus sudo
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Source and package checks
         run: |

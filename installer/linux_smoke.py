@@ -19,6 +19,7 @@ def call(*args): return subprocess.check_output(args,text=True).strip()
 def xf(channel,prop,kind,value): call('xfconf-query','-c',channel,'-p',prop,'-n','-t',kind,'-s',str(value))
 
 children=[]
+logs=[]
 home=Path.home()
 try:
     call('dbus-update-activation-environment','DISPLAY','XAUTHORITY','XDG_CURRENT_DESKTOP','XDG_SESSION_TYPE')
@@ -28,11 +29,17 @@ try:
     xf('xfce4-panel','/plugins/plugin-1','string','tasklist')
     xf('xfce4-panel','/panels/panel-1/position','string','p=6;x=0;y=0')
     xf('xfce4-desktop','/backdrop/screen0/monitor0/workspace0/last-image','string','/tmp/original.png')
-    for command in [['xfwm4','--compositor=off'],['xfce4-panel'],['xfdesktop']]:
-        children.append(subprocess.Popen(command,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
+    for command in [['xfsettingsd','--no-daemon'],['xfwm4','--compositor=off'],['xfce4-panel'],['xfdesktop']]:
+        log=tempfile.TemporaryFile(); logs.append((command,log))
+        children.append(subprocess.Popen(command,stdout=log,stderr=log))
     time.sleep(2)
+    assert children[1].poll() is None, 'Xfwm exited before testing'
+    assert 'xfwm4' in call('wmctrl','-m').lower(), 'Real Xfwm is required'
     (home/'.zshrc').write_text('export ARCH_PRESERVED=yes\n')
     install.install()
+    # Model the documented logout/login: existing GTK processes read CSS at startup.
+    subprocess.run(['thunar','--quit'],check=False)
+    subprocess.run(['xfce4-panel','--restart'],check=False)
     _,data,state=install.paths()
     assert 'ARCH_PRESERVED=yes' in (home/'.zshrc').read_text()
     assert call('xfconf-query','-c','xfwm4','-p','/general/theme') == 'Arch-Blue'
@@ -42,7 +49,8 @@ try:
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     Gtk,GLib=module.Gtk,module.GLib
     app=module.Application(); app.register(None)
-    window=module.TerminalWindow(app)
+    app.activate()
+    window=app.get_windows()[0]
     def spin(predicate,timeout=8):
         end=time.monotonic()+timeout
         while time.monotonic()<end:
@@ -133,3 +141,5 @@ try:
 finally:
     for process in children:
         process.terminate()
+    for command,log in logs:
+        log.seek(0); print('PROCESS:',command,'\n',log.read().decode(errors='replace')[-4000:]); log.close()

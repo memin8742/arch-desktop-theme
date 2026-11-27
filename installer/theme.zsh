@@ -8,7 +8,7 @@ HISTSIZE=${HISTSIZE:-10000}
 SAVEHIST=${SAVEHIST:-10000}
 bindkey -e
 
-PROMPT=$'%F{#49AEE6}┌──(%B%n@%m%b)-[%F{#FFFFFF}%B%~%b%F{#49AEE6}]\n└─%# %f'
+PROMPT=$'%F{#49AEE6}┌──(%B%n@%m%b)-[%F{#FFFFFF}%B%~%b%F{#49AEE6}]\n└─%(!.#.$) %f'
 RPROMPT=''
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#57758A'
 [[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
