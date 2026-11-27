@@ -108,6 +108,22 @@ try:
     spin(lambda: subprocess.run(['xclip','-selection','clipboard','-o'],capture_output=True).stdout==b'de')
     third.feed_child(b'\x03')
     # Native Thunar process, composited RGBA visual and theme CSS loaded on new windows.
+    wid=call('xdotool','getactivewindow')
+    call('wmctrl','-ir',hex(int(wid)),'-b','add,maximized_vert,maximized_horz')
+    spin(lambda: '_NET_WM_STATE_MAXIMIZED_VERT' in call('xprop','-id',wid,'_NET_WM_STATE'))
+    call('xdotool','keydown','Down')
+    down_process=subprocess.Popen([sys.executable,str(DATA_HELPER := data/'helper.py'),'down'])
+    try:
+        spin(lambda: '_NET_WM_STATE_MAXIMIZED_VERT' not in call('xprop','-id',wid,'_NET_WM_STATE'))
+        assert down_process.poll() is None, 'Down repeat latch released before physical key release'
+        subprocess.run([sys.executable,str(DATA_HELPER),'down'],check=True,timeout=2)
+    finally:
+        call('xdotool','keyup','Down')
+    down_process.wait(timeout=2)
+    assert '_NET_WM_STATE_HIDDEN' not in call('xprop','-id',wid,'_NET_WM_STATE'), 'Holding Down minimized after restoring'
+    subprocess.run([sys.executable,str(DATA_HELPER),'down'],check=True,timeout=2)
+    spin(lambda: '_NET_WM_STATE_HIDDEN' in call('xprop','-id',wid,'_NET_WM_STATE'))
+    call('wmctrl','-ia',hex(int(wid)))
     children.append(subprocess.Popen(['thunar',str(home)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE))
     time.sleep(.8)
     ids=call('xdotool','search','--onlyvisible','--class','Thunar').splitlines()
